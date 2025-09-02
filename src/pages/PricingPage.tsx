@@ -39,7 +39,7 @@ const plans = [
     price: 'R$0',
     period: '/ 7 dias',
     description: 'Experimente a potência dos nossos bots premium com um período de teste de 7 dias, sem compromisso.',
-    features: ['Acesso a 1 módulo à sua escolha', 'Suporte Limitado', 'Funcionalidades completas para teste'],
+    features: ['✅ Acesso a 1 módulo à sua escolha', '✅ Suporte Limitado', '✅ Funcionalidades completas para teste'],
     buttonText: 'Iniciar Teste Gratuito',
     link: '#',
     variant: 'default',
@@ -62,17 +62,6 @@ const plans = [
     highlight: true,
   },
   {
-    title: 'Plano FactionFlow Completo',
-    price: 'R$44,99',
-    period: '/ mês',
-    description: 'A solução definitiva para servidores de facções. Tenha acesso irrestrito a todos os módulos.',
-    features: factionFlowModules.map(module => `✅ ${module}`),
-    buttonText: 'Assinar FactionFlow Completo',
-    link: '#',
-    variant: 'gradient',
-    gradient: { from: 'lime', to: 'green' },
-  },
-  {
     title: 'Plano TicketUltra Completo',
     price: 'R$34,99', // Valor de exemplo, ajuste se necessário
     period: '/ mês',
@@ -82,6 +71,17 @@ const plans = [
     link: '#',
     variant: 'gradient',
     gradient: { from: 'indigo', to: 'violet' },
+  },
+  {
+    title: 'Plano FactionFlow Completo',
+    price: 'R$44,99',
+    period: '/ mês',
+    description: 'A solução definitiva para servidores de facções. Tenha acesso irrestrito a todos os módulos.',
+    features: factionFlowModules.map(module => `✅ ${module}`),
+    buttonText: 'Assinar FactionFlow Completo',
+    link: '#',
+    variant: 'gradient',
+    gradient: { from: 'lime', to: 'green' },
   },
 ];
 
@@ -157,13 +157,13 @@ export function PricingPage() {
       <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" mt="xl">
           {planItems[0]}
-          {planItems[2]}
+          {planItems[1]}
         </SimpleGrid>
       </motion.div>
 
       <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" mt="xl">
-          {planItems[1]}
+          {planItems[2]}
           {planItems[3]}
         </SimpleGrid>
       </motion.div>
