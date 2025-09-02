@@ -1,31 +1,38 @@
 import { Container, Title, Text, SimpleGrid, Card, Badge, Group, Button, Divider } from "@mantine/core";
 import { motion } from 'framer-motion';
 
-// Lista detalhada de funcionalidades para o TicketUltra, com descrições mais ricas
 const ticketUltraFeatures = [
   {
-    title: '🎫 Painéis de Ticket Dinâmicos',
-    description: 'Crie painéis de suporte profissionais com botões e menus interativos. Seus membros podem abrir tickets por departamento (Suporte, Denúncia, etc.) com apenas um clique, garantindo que a equipe correta seja notificada imediatamente.',
+    title: '🎫 Painéis de Suporte Dinâmicos',
+    description: 'Crie painéis de tickets profissionais e personalizáveis. Com botões e menus interativos, seus membros podem abrir tickets por departamento (Suporte, Denúncia, etc.) com apenas um clique. Otimize a experiência e direcione cada pedido para a equipe certa.',
   },
   {
-    title: '✅ Atendimento Eficiente e Organizado',
-    description: 'Sua equipe pode assumir tickets, adicionar outros membros à conversa e fechar atendimentos de forma organizada, centralizando o fluxo de trabalho e evitando a desorganização de DMs ou canais de texto.',
+    title: '🤖 Atribuição e Rastreamento de Atendimento',
+    description: 'O sistema permite que membros da sua equipe assumam um ticket para iniciar o atendimento. Com um painel claro e intuitivo, todos sabem quem está responsável por cada conversa, evitando duplicidade e garantindo agilidade no suporte.',
   },
   {
-    title: '📜 Transcrição Automática (Logs)',
-    description: 'Ao fechar um ticket, o bot gera automaticamente uma transcrição completa da conversa em formato de texto. Isso garante um registro detalhado de todas as interações, essencial para segurança e auditoria.',
+    title: '📜 Transcrição Automática e Segura',
+    description: 'Ao fechar um ticket, o bot gera automaticamente uma transcrição completa de toda a conversa. Esta função de auditoria garante que cada atendimento seja registrado e acessível, proporcionando segurança e transparência para a equipe e para o usuário.',
   },
   {
-    title: '➕ Múltiplos Departamentos Customizáveis',
-    description: 'Configure diferentes categorias de suporte para o seu servidor. Notifique apenas a equipe certa para cada tipo de ticket, otimizando o tempo de resposta e garantindo que cada caso seja tratado pela pessoa mais qualificada.',
+    title: '💬 Canais Privados e Colaboração',
+    description: 'Cada ticket é criado em um canal privado, visível apenas para o usuário e a equipe de suporte. Membros da equipe podem convidar outros administradores para a conversa, facilitando a colaboração em casos complexos.',
   },
   {
-    title: '🔒 Permissões e Acesso Totalmente Controlados',
-    description: 'Defina exatamente quais cargos podem interagir com o sistema de tickets, gerenciar atendimentos ou configurar o bot. Garanta que apenas a sua equipe de confiança tenha acesso às ferramentas de suporte mais sensíveis.',
+    title: '➕ Múltiplos Departamentos Personalizáveis',
+    description: 'Configure diferentes categorias de suporte para o seu servidor. Seja para denúncias, dúvidas ou parcerias, o bot notifica apenas a equipe designada para cada tipo de ticket, garantindo que o tempo de resposta seja sempre o mais rápido possível.',
+  },
+  {
+    title: '🔒 Controle de Permissões Robusto',
+    description: 'Defina exatamente quais cargos podem interagir com o sistema de tickets, assumir atendimentos ou configurar o bot. Com um controle de permissões granular, você tem total controle sobre quem pode gerenciar o suporte da sua comunidade.',
   },
   {
     title: '⚡ Notificações e Agilidade no Suporte',
     description: 'Mantenha sua equipe de suporte sempre a par das novidades. O sistema notifica instantaneamente quando um novo ticket é aberto ou quando um membro envia uma nova mensagem, garantindo um atendimento ágil e profissional.',
+  },
+  {
+    title: '🔗 Geração de Link para Compartilhamento',
+    description: 'Compartilhe facilmente o link do painel de tickets em qualquer canal, post de anúncio ou DM. Promova seu sistema de suporte em toda a sua comunidade para que seus membros saibam exatamente onde procurar ajuda.',
   },
 ];
 
