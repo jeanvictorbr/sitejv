@@ -39,7 +39,7 @@ const plans = [
     price: 'R$0',
     period: '/ 7 dias',
     description: 'Experimente a potência dos nossos bots premium com um período de teste de 7 dias, sem compromisso.',
-    features: ['✅ Acesso a 1 módulo à sua escolha', '✅ Suporte Limitado', '✅ Funcionalidades completas para teste'],
+    features: ['✅ Acesso a todo o sistema.', '✅ Suporte Limitado', '✅ Funcionalidades completas para teste'],
     buttonText: 'Iniciar Teste Gratuito',
     link: '#',
     variant: 'default',
@@ -52,6 +52,7 @@ const plans = [
     features: [
       '✅ Acesso a 4 módulos FactionFlow à sua escolha',
       '✅ Suporte prioritário',
+      '✅ Bot entregue funcionando rapidamente no seu servidor.',
       '❌ Acesso a todos os módulos',
       '❌ Módulos adicionais podem ser comprados separadamente',
     ],
@@ -187,3 +188,4 @@ export function PricingPage() {
     </Container>
   );
 }
+
