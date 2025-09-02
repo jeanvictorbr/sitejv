@@ -1,0 +1,21 @@
+/* src/components/MouseGlow.module.css */
+.mouseGlow {
+    position: fixed;
+    width: 150px; /* Tamanho do brilho */
+    height: 150px;
+    background: radial-gradient(circle, rgba(0,255,255,0.4) 0%, rgba(0,255,255,0) 70%); /* Gradiente ciano com transparência */
+    border-radius: 50%; /* Faz um círculo */
+    pointer-events: none; /* ESSENCIAL: Permite clicar nos elementos por baixo da luz */
+    transition: transform 0.1s ease-out; /* Suaviza o movimento */
+    z-index: 9999; /* Garante que fique acima de tudo */
+    filter: blur(20px); /* Suaviza as bordas para um efeito de brilho */
+    transform: translate3d(0, 0, 0); /* Otimização de performance para o movimento */
+    will-change: transform; /* Dica para o navegador otimizar animação */
+    animation: pulseGlow 4s infinite alternate; /* Animação de pulsação */
+    opacity: 0.8; /* Opacidade inicial */
+}
+
+@keyframes pulseGlow {
+    0% { transform: scale(0.9); opacity: 0.7; }
+    100% { transform: scale(1.1); opacity: 0.9; }
+}

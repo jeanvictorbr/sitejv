@@ -1,0 +1,61 @@
+/* src/components/Header.module.css */
+
+.header {
+    height: rem(80px); /* Aumentei a altura do header para acomodar o logo maior */
+    border-bottom: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+    position: sticky; /* Faz o header ficar fixo no topo ao rolar */
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(26, 27, 30, 0.85); /* Fundo semi-transparente com desfoque */
+    backdrop-filter: blur(10px);
+}
+
+.inner {
+    height: rem(80px); /* Altura interna correspondente */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* src/components/Header.module.css */
+
+.logoTitle {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: rem(52px); /* <<< AUMENTADO PARA O TAMANHO FINAL */
+    font-weight: 700;
+    color: var(--mantine-color-cyan-4);
+    text-shadow: 0 0 8px var(--mantine-color-cyan-4);
+    line-height: 1;
+}
+
+.scramble-char {
+    color: var(--mantine-color-gray-5);
+}
+/* ============================ */
+
+
+/* ===== MUDANÇAS NOS LINKS ===== */
+.link {
+    display: block;
+    line-height: 1;
+    padding: rem(12px) rem(20px); /* Aumentei a área de clique */
+    border-radius: var(--mantine-radius-sm);
+    text-decoration: none; /* Remove o sublinhado padrão */
+    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+    font-size: var(--mantine-font-size-md); /* Aumentei um pouco a fonte dos links */
+    font-weight: 500;
+    transition: background-color 0.3s ease; /* Efeito de transição suave */
+
+    /* Efeito de hover profissional: fundo suave */
+    &:hover {
+        background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+    }
+}
+/* ============================ */
+
+
+.drawerContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}

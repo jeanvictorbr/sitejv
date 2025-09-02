@@ -1,0 +1,22 @@
+/* src/pages/Dashboard.module.css */
+.link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: var(--mantine-font-size-sm);
+    color: var(--mantine-color-gray-4);
+    padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
+    border-radius: var(--mantine-radius-sm);
+    font-weight: 500;
+    margin-bottom: rem(5px);
+
+    &:hover {
+        background-color: var(--mantine-color-dark-6);
+        color: var(--mantine-white);
+    }
+}
+/* Adicione este código ao final do seu Dashboard.module.css */
+.active {
+  background-color: var(--mantine-color-blue-8);
+  color: var(--mantine-white);
+}

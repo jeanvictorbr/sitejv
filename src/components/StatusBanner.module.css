@@ -1,0 +1,22 @@
+/* src/components/StatusBanner.module.css */
+.wrapper {
+  padding: var(--mantine-spacing-xs) 0;
+  transition: background-color 0.3s ease;
+}
+
+/* Cores de fundo para cada status */
+.wrapper[data-status="operational"] {
+  background-color: light-dark(rgba(237, 249, 239, 0.5), rgba(30, 50, 36, 0.5));
+}
+.wrapper[data-status="degraded"] {
+  background-color: light-dark(rgba(255, 244, 229, 0.5), rgba(71, 51, 23, 0.5));
+}
+.wrapper[data-status="maintenance"] {
+  background-color: light-dark(rgba(231, 245, 255, 0.5), rgba(22, 48, 79, 0.5));
+}
+
+.inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
