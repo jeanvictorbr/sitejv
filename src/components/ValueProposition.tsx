@@ -40,7 +40,7 @@ export function ValueProposition() {
               ✅ <b>Economia e Finanças Avançadas:</b> Registre vendas e investimentos com logs detalhados, controle o fluxo de caixa da facção e visualize o desempenho financeiro em um dashboard completo com gráficos e relatórios.
             </List.Item>
             <List.Item>
-              ✅ <b>Segurança e Punições:</b> Mantenha a ordem com um sistema de código penal customizável, aplique punições com prazos definidos e utilize uma blacklist automática para proteger seu servidor de membros indesejados.
+              ✅ <b>Tudo isso e muito mais, clique em saiba mais.
             </List.Item>
           </List>
         </Grid.Col>
@@ -78,4 +78,5 @@ export function ValueProposition() {
     </Container>
   );
 }
+
 
