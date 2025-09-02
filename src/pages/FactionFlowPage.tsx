@@ -23,6 +23,10 @@ const factionFlowFeatures = [
     description: 'Exiba a estrutura de poder da sua facção em um painel público e interativo. O bot atualiza automaticamente os cargos e a lista de membros a cada 3 minutos, garantindo que a hierarquia do Discord reflita o poder do seu clã em tempo real.',
   },
   {
+    title: '🏷️ Sistema de Tags Dinâmicas',
+    description: 'Mantenha a padronização e organização visual do seu servidor. Este sistema aplica tags automaticamente aos apelidos dos membros com base no seu cargo mais alto, garantindo uniformidade e identificação clara.',
+  },
+  {
     title: '⚖️ Módulo de Conduta e Segurança',
     description: 'Um sistema completo para registrar punições com base em um Código Penal customizável. Aplique advertências com cargos temporários, timeout, kick ou ban. O sistema mantém um dossiê detalhado por membro e permite revogar punições.',
   },
@@ -47,8 +51,12 @@ const factionFlowFeatures = [
     description: 'Crie e gerencie sorteios de forma profissional e automatizada. Defina a duração, número de vencedores e requisitos de cargo. Acompanhe os participantes em tempo real e sortei os vencedores de forma justa.',
   },
   {
-    title: '📣 Comunicação em Massa',
-    description: 'Envie comunicados em massa para todos os membros via DM de forma controlada, pausando ou cancelando a operação a qualquer momento. Publique changelogs detalhados e use o criador de embeds para anúncios visualmente atraentes.',
+    title: '🎨 Criador de Embeds Customizadas',
+    description: 'Um estúdio completo dentro do Discord para criar, editar e publicar embeds personalizadas. Adicione títulos, descrições, imagens, cores e mais. Perfeito para anúncios, regras ou comunicados.',
+  },
+  {
+    title: '📣 Módulo de Comunicação em Massa',
+    description: 'Envie comunicados em massa para todos os membros via DM de forma controlada, pausando ou cancelando a operação a qualquer momento. Publique changelogs detalhados e defina relatórios automáticos de performance da facção.',
   },
 ];
 
