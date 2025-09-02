@@ -39,7 +39,7 @@ const plans = [
     price: 'R$0',
     period: '/ 7 dias',
     description: 'Experimente a potência dos nossos bots premium com um período de teste de 7 dias, sem compromisso.',
-    features: ['✅ Acesso a todo o sistema.', '✅ Suporte Limitado', '✅ Funcionalidades completas para teste'],
+    features: ['✅ Acesso a todo o sistema.', '✅ Suporte Limitado', '✅ Bot entregue funcionando rapidamente no seu servidor.', '✅ Funcionalidades completas para teste'],
     buttonText: 'Iniciar Teste Gratuito',
     link: '#',
     variant: 'default',
@@ -188,5 +188,6 @@ export function PricingPage() {
     </Container>
   );
 }
+
 
 
