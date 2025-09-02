@@ -75,7 +75,7 @@ const plans = [
   },
   {
     title: 'Plano FactionFlow Completo',
-    price: 'R$44,99',
+    price: 'R$39,99',
     period: '/ mês',
     description: 'A solução definitiva para servidores de facções. Tenha acesso irrestrito a todos os módulos.',
     features: factionFlowModules.map(module => `✅ ${module}`),
@@ -188,4 +188,5 @@ export function PricingPage() {
     </Container>
   );
 }
+
 
