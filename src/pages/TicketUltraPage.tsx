@@ -4,16 +4,24 @@ import { motion } from 'framer-motion';
 // Lista detalhada de funcionalidades para o TicketUltra, com descrições mais ricas
 const ticketUltraFeatures = [
   {
-    title: '🎫 Painéis de Suporte Dinâmicos',
-    description: 'Crie painéis de tickets profissionais e personalizáveis. Com botões e menus interativos, seus membros podem abrir tickets por departamento (Suporte, Denúncia, etc.) com apenas um clique. Otimize a experiência e direcione cada pedido para a equipe certa.',
+    title: '🎫 Painéis de Suporte Dinâmicos e Intuitivos',
+    description: 'Crie painéis de tickets profissionais e totalmente personalizáveis. Com botões e menus interativos, seus membros podem abrir tickets por departamento (Suporte, Denúncia, etc.) com apenas um clique, garantindo que a equipe correta seja notificada imediatamente.',
   },
   {
     title: '🤖 Atribuição e Rastreamento de Atendimento',
     description: 'O sistema permite que membros da sua equipe assumam um ticket para iniciar o atendimento. Com um painel claro e intuitivo, todos sabem quem está responsável por cada conversa, evitando duplicidade e garantindo agilidade no suporte.',
   },
   {
+    title: '📈 Ranking de Eficiência da Equipe',
+    description: 'Motive sua equipe com um sistema de ranking que mede o desempenho em tempo real. O bot rastreia métricas como tempo de resposta, velocidade de resolução e a quantidade de tickets atendidos para gerar um placar justo e transparente.',
+  },
+  {
+    title: '⭐ Sistema de Avaliação de Atendimento',
+    description: 'Obtenha feedback valioso para melhorar a qualidade do seu suporte. Após o fechamento do ticket, o usuário pode avaliar a experiência, fornecendo insights para você e sua equipe. O bot armazena os dados para que você possa analisar a performance ao longo do tempo.',
+  },
+  {
     title: '📜 Transcrição Automática e Segura',
-    description: 'Ao fechar um ticket, o bot gera automaticamente uma transcrição completa de toda a conversa em formato de texto. Esta função de auditoria garante que cada atendimento seja registrado e acessível, proporcionando segurança e transparência para a equipe e para o usuário.',
+    description: 'Ao fechar um ticket, o bot gera automaticamente uma transcrição completa de toda a conversa. Esta função de auditoria garante que cada atendimento seja registrado e acessível, proporcionando segurança e transparência para a equipe e para o usuário.',
   },
   {
     title: '💬 Canais Privados e Colaboração',
