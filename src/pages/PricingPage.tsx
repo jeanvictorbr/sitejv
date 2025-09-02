@@ -1,4 +1,4 @@
-import { Card, Text, Title, Button, List, Center, SimpleGrid, Badge, Container, Group } from '@mantine/core';
+import { Card, Text, Title, Button, List, Center, SimpleGrid, Badge, Container, Group, Divider } from '@mantine/core';
 import { motion } from 'framer-motion';
 
 // Lista de todos os módulos do FactionFlow para referenciar no Plano Completo
@@ -39,7 +39,7 @@ const plans = [
     price: 'R$0',
     period: '/ 7 dias',
     description: 'Experimente a potência dos nossos bots premium com um período de teste de 7 dias, sem compromisso.',
-    features: ['✅ Acesso a 1 módulo à sua escolha', '✅ Suporte Limitado', '✅ Funcionalidades completas para teste'],
+    features: ['Acesso a 1 módulo à sua escolha', 'Suporte Limitado', 'Funcionalidades completas para teste'],
     buttonText: 'Iniciar Teste Gratuito',
     link: '#',
     variant: 'default',
@@ -50,10 +50,10 @@ const plans = [
     period: '/ mês',
     description: 'Um pacote essencial para profissionalizar a gestão da sua comunidade. Escolha 4 módulos à sua vontade!',
     features: [
-      'Acesso a 4 módulos FactionFlow à sua escolha',
-      'Suporte prioritário',
-      'Módulos adicionais podem ser comprados separadamente',
-      'Acesso ao painel completo de administração'
+      '✅ Acesso a 4 módulos FactionFlow à sua escolha',
+      '✅ Suporte prioritário',
+      '❌ Acesso a todos os módulos',
+      '❌ Módulos adicionais podem ser comprados separadamente',
     ],
     buttonText: 'Assinar FactionFlow Básico',
     link: '#',
