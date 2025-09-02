@@ -33,6 +33,58 @@ const ticketUltraModules = [
   'Geração de Link para Compartilhamento',
 ];
 
+const plans = [
+  {
+    title: 'Teste Gratuito',
+    price: 'R$0',
+    period: '/ 7 dias',
+    description: 'Experimente a potência dos nossos bots premium com um período de teste de 7 dias, sem compromisso.',
+    features: ['✅ Acesso a 1 módulo à sua escolha', '✅ Suporte Limitado', '✅ Funcionalidades completas para teste'],
+    buttonText: 'Iniciar Teste Gratuito',
+    link: '#',
+    variant: 'default',
+  },
+  {
+    title: 'Plano FactionFlow Básico',
+    price: 'R$29,99',
+    period: '/ mês',
+    description: 'Um pacote essencial para profissionalizar a gestão da sua comunidade. Escolha 4 módulos à sua vontade!',
+    features: [
+      'Acesso a 4 módulos FactionFlow à sua escolha',
+      'Suporte prioritário',
+      'Módulos adicionais podem ser comprados separadamente',
+      'Acesso ao painel completo de administração'
+    ],
+    buttonText: 'Assinar FactionFlow Básico',
+    link: '#',
+    variant: 'gradient',
+    gradient: { from: 'blue', to: 'cyan' },
+    highlight: true,
+  },
+  {
+    title: 'Plano FactionFlow Completo',
+    price: 'R$44,99',
+    period: '/ mês',
+    description: 'A solução definitiva para servidores de facções. Tenha acesso irrestrito a todos os módulos.',
+    features: factionFlowModules.map(module => `✅ ${module}`),
+    buttonText: 'Assinar FactionFlow Completo',
+    link: '#',
+    variant: 'gradient',
+    gradient: { from: 'lime', to: 'green' },
+  },
+  {
+    title: 'Plano TicketUltra Completo',
+    price: 'R$34,99', // Valor de exemplo, ajuste se necessário
+    period: '/ mês',
+    description: 'Profissionalize o suporte do seu servidor com um sistema de tickets completo e intuitivo.',
+    features: ticketUltraModules.map(module => `✅ ${module}`),
+    buttonText: 'Assinar TicketUltra Completo',
+    link: '#',
+    variant: 'gradient',
+    gradient: { from: 'indigo', to: 'violet' },
+  },
+];
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -49,109 +101,7 @@ const itemVariants = {
 };
 
 export function PricingPage() {
-  const plans = [
-    {
-      title: 'Teste Gratuito',
-      price: 'R$0',
-      period: '/ 7 dias',
-      description: 'Experimente a potência dos nossos bots premium com um período de teste de 7 dias, sem compromisso.',
-      features: ['Acesso a 1 módulo à sua escolha', 'Suporte Limitado', 'Funcionalidades completas para teste'],
-      buttonText: 'Iniciar Teste Gratuito',
-      link: '#',
-      variant: 'default',
-    },
-    {
-      title: 'Plano FactionFlow Básico',
-      price: 'R$29,99',
-      period: '/ mês',
-      description: 'Um pacote essencial para profissionalizar a gestão da sua comunidade. Escolha 4 módulos à sua vontade!',
-      features: [
-        { text: '✅ Acesso a 4 módulos FactionFlow à sua escolha', included: true },
-        { text: '✅ Suporte prioritário', included: true },
-        { text: '❌ Acesso a todos os módulos', included: false },
-        { text: '❌ Módulos adicionais podem ser comprados separadamente', included: false },
-      ],
-      buttonText: 'Assinar FactionFlow Básico',
-      link: '#',
-      variant: 'gradient',
-      gradient: { from: 'blue', to: 'cyan' },
-      highlight: true,
-    },
-    {
-      title: 'Plano TicketUltra Completo',
-      price: 'R$34,99', // Valor de exemplo, ajuste se necessário
-      period: '/ mês',
-      description: 'Profissionalize o suporte do seu servidor com um sistema de tickets completo e intuitivo.',
-      features: ticketUltraModules.map(module => ({
-        text: `✅ ${module}`,
-        included: true
-      })),
-      buttonText: 'Assinar TicketUltra Completo',
-      link: '#',
-      variant: 'gradient',
-      gradient: { from: 'indigo', to: 'violet' },
-    },
-    {
-      title: 'Plano FactionFlow Completo',
-      price: 'R$44,99',
-      period: '/ mês',
-      description: 'A solução definitiva para servidores de facções. Tenha acesso irrestrito a todos os módulos.',
-      features: factionFlowModules.map(module => ({
-        text: `✅ ${module}`,
-        included: true
-      })),
-      buttonText: 'Assinar FactionFlow Completo',
-      link: '#',
-      variant: 'gradient',
-      gradient: { from: 'lime', to: 'green' },
-    },
-  ];
-
-  const planItemsRow1 = plans.slice(0, 2).map((plan, index) => (
-    <motion.div key={index} variants={itemVariants}>
-      <Card withBorder radius="md" shadow="md" p="xl" h="100%"
-            style={plan.highlight ? { border: '2px solid #228be6' } : {}}>
-        <Group justify="center" mb="md">
-          <Badge variant={plan.variant as any} gradient={plan.gradient} size="xl"
-                 style={{ whiteSpace: 'normal', height: 'auto', textAlign: 'center' }}>
-            {plan.title}
-          </Badge>
-        </Group>
-        <Center mt="md">
-          <Text fz={42} fw={700}>{plan.price}</Text>
-          <Text c="dimmed" fz="md" mt="sm" ml={4}>{plan.period}</Text>
-        </Center>
-        <Text c="dimmed" ta="center" fz="sm" mt="md">{plan.description}</Text>
-        
-        <Button
-          component="a"
-          href={plan.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          size="md"
-          mt="xl"
-          fullWidth
-          variant={plan.variant as any}
-          gradient={plan.gradient}
-        >
-          {plan.buttonText}
-        </Button>
-
-        <List spacing="sm" size="sm" mt="xl" icon={<span style={{ color: 'teal' }}>✅</span>}>
-            {plan.features.map((feature, idx) => (
-                <List.Item
-                    key={idx}
-                    icon={<span style={{ color: feature.included ? 'teal' : 'gray' }}>{feature.included ? '✅' : '❌'}</span>}
-                >
-                    {feature.text}
-                </List.Item>
-            ))}
-        </List>
-      </Card>
-    </motion.div>
-  ));
-
-  const planItemsRow2 = plans.slice(2, 4).map((plan, index) => (
+  const planItems = plans.map((plan, index) => (
     <motion.div key={index} variants={itemVariants}>
       <Card withBorder radius="md" shadow="md" p="xl" h="100%"
             style={plan.highlight ? { border: '2px solid #228be6' } : {}}>
@@ -181,13 +131,12 @@ export function PricingPage() {
           {plan.buttonText}
         </Button>
 
-        <List spacing="sm" size="sm" mt="xl" icon={<span style={{ color: 'teal' }}>✅</span>}>
+        <List spacing="sm" size="sm" mt="xl">
             {plan.features.map((feature, idx) => (
                 <List.Item
                     key={idx}
-                    icon={<span style={{ color: feature.included ? 'teal' : 'gray' }}>{feature.included ? '✅' : '❌'}</span>}
                 >
-                    {feature.text}
+                    {feature}
                 </List.Item>
             ))}
         </List>
@@ -207,13 +156,15 @@ export function PricingPage() {
       
       <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" mt="xl">
-          {planItemsRow1}
+          {planItems[0]}
+          {planItems[2]}
         </SimpleGrid>
       </motion.div>
 
       <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" mt="xl">
-          {planItemsRow2}
+          {planItems[1]}
+          {planItems[3]}
         </SimpleGrid>
       </motion.div>
 
