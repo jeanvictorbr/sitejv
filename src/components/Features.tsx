@@ -6,20 +6,32 @@ const featuresData = [
   {
     emoji: '🛡️',
     title: 'FactionFlow',
-    description: 'A solução definitiva para servidores de facções. Gerencie membros, economias, territórios e guerras de forma totalmente automatizada e intuitiva.',
-    link: '/bots/factionflow',
+    description: 'A solução definitiva para servidores de facções. Gerencie membros, economia, hierarquia e organize operações táticas de forma totalmente automatizada e intuitiva.',
+    link: '/factionflow',
   },
   {
     emoji: '🎫',
     title: 'TicketUltra',
-    description: 'Ofereça um suporte ágil e organizado para sua comunidade. Crie painéis, gerencie atendimentos e registre tudo com um sistema de tickets completo.',
-    link: '/bots/ticketultra',
+    description: 'Ofereça um suporte ágil e organizado para sua comunidade. Crie painéis de atendimento personalizados, gerencie tickets por departamento e garanta logs completos de todas as interações.',
+    link: '/ticket-ultra',
+  },
+  {
+    emoji: '📈',
+    title: 'Dashboard de Gestão',
+    description: 'Uma visão geral e profissional do seu servidor. Acesse estatísticas de performance, ranking de recrutadores e finanças em um painel centralizado e de fácil acesso.',
+    link: '/dashboard',
+  },
+  {
+    emoji: '🚀',
+    title: 'Personalização Extrema',
+    description: 'Nossos bots são modulares e altamente customizáveis. Crie embeds, defina tags de cargos dinâmicas e adapte cada funcionalidade para se encaixar perfeitamente na sua comunidade.',
+    link: '/pricing',
   },
 ];
 
 export function Features() {
   return (
-    <Container id="bots" size="lg"> {/* <<< A MARGEM vertical (py="xl") FOI REMOVIDA AQUI */}
+    <Container id="bots" size="lg">
       <Card shadow="md" radius="md" withBorder ta="center" style={{backgroundColor: 'rgba(26, 27, 30, 0.5)', backdropFilter: 'blur(5px)'}}>
         <Title order={2}>
           Nossas Ferramentas
@@ -41,8 +53,8 @@ export function Features() {
                 {feature.description}
               </Text>
               
-              <div style={{ flexGrow: 1 }} /> 
-         
+              <div style={{ flexGrow: 1 }} />
+            
               <Button component={Link} to={feature.link} variant="light" mt="xl" fullWidth>
                 Saiba Mais
               </Button>
