@@ -3,28 +3,40 @@ import { motion } from 'framer-motion';
 
 const factionFlowFeatures = [
   {
-    title: 'Gestão de Facções Simplificada',
-    description: 'Crie, edite, defina líderes e remova facções com comandos intuitivos. Toda a estrutura da sua comunidade na palma da sua mão.',
+    title: '🛡️ Sistema de Registro e Recrutamento',
+    description: 'Automatize a entrada de novos membros com um formulário de registro completo e um sistema de aprovação por tickets. Acompanhe a performance de seus recrutadores e mantenha a base de membros organizada.',
   },
   {
-    title: 'Sistema de Banco Integrado',
-    description: 'Cada facção tem seu próprio cofre virtual. Gerencie depósitos, saques e transferências com segurança e com logs completos para evitar fraudes.',
+    title: '💰 Módulo Financeiro & Arsenal',
+    description: 'Gerencie o catálogo de itens, controle o fluxo de caixa, registre vendas e investimentos. Visualize o desempenho financeiro da facção e o ranking dos top vendedores com gráficos detalhados. Chega de planilhas!',
   },
   {
-    title: 'Controle de Membros Automatizado',
-    description: 'Convide, promova, rebaixe ou expulse membros. O bot atualiza cargos e permissões automaticamente, economizando seu tempo.',
+    title: '👑 Sincronização de Hierarquia Automática',
+    description: 'Exiba a estrutura de poder da sua facção em um painel público e interativo. O bot atualiza automaticamente os cargos e a lista de membros, garantindo que a hierarquia do Discord reflita o poder do seu clã em tempo real.',
   },
   {
-    title: 'Domínio de Território (Dominions)',
-    description: 'Sistema completo para que facções declarem guerra e conquistem territórios, com regras claras e um placar de líderes para incentivar a competição.',
+    title: '⚖️ Código Penal e Punições (Conduta)',
+    description: 'Crie um código penal customizado com regras e punições padrão. Registre infrações, aplique cargos temporários (ADV), timeout ou banimentos, e mantenha um histórico de conduta detalhado de cada membro.',
   },
   {
-    title: 'Logs Detalhados',
-    description: 'Toda ação importante, desde uma transação no banco até a expulsão de um membro, é registrada. Tenha total controle e segurança sobre o que acontece.',
+    title: '🤝 Gerenciamento de Alianças Estratégicas',
+    description: 'Organize e exiba suas parcerias em um painel interativo. Adicione, edite e remova aliados, incluindo informações como categorias, descrições e até imagens de uniformes exclusivos.',
   },
   {
-    title: 'Altamente Customizável',
-    description: 'Configure o prefixo do bot, mensagens, cargos de liderança e muito mais para que o FactionFlow se adapte perfeitamente ao seu servidor.',
+    title: '🎯 Organização de Operações Táticas',
+    description: 'Agende missões e eventos de facção com um sistema de painel de status e lista de participantes. Os membros podem se inscrever com um clique, e você pode gerenciar tudo de forma centralizada.',
+  },
+  {
+    title: '🧹 Depuração Inteligente de Inativos',
+    description: 'Identifique e remova membros que não interagem há um período, mantendo seu servidor ativo e saudável. O bot envia DMs de aviso personalizadas antes da remoção, com um link para retorno.',
+  },
+  {
+    title: '🎁 Módulo de Sorteios Profissionais',
+    description: 'Crie e gerencie sorteios de forma profissional e automatizada. Defina a duração, número de vencedores e requisitos de cargo. Acompanhe os participantes em tempo real e sortei os vencedores de forma justa.',
+  },
+  {
+    title: '📣 Comunicação em Massa e Customização',
+    description: 'Envie comunicados em massa para todos os membros via DM, publique changelogs detalhados, use o criador de embeds para anúncios visualmente atraentes e defina relatórios automáticos de performance da facção.',
   },
 ];
 
@@ -57,7 +69,6 @@ export function FactionFlowPage() {
 
   return (
     <Container size="lg" py="xl">
-      {/* 1. Hero Section da Página */}
       <Group justify="center" ta="center">
         <Badge variant="gradient" gradient={{ from: 'cyan', to: 'blue' }} size="xl">
           FactionFlow
@@ -65,24 +76,23 @@ export function FactionFlowPage() {
       </Group>
 
       <Title order={1} ta="center" mt="lg">
-        A ferramenta definitiva para administrar servidores de facções.
+        Gerencie a sua facção com a inteligência e eficiência de um sistema profissional.
       </Title>
 
       <Text c="dimmed" ta="center" mt="md" maw={700} mx="auto">
-        Cansado de gerenciar tudo em planilhas? De resolver disputas manualmente? O FactionFlow automatiza as tarefas chatas para que você possa focar em criar a melhor experiência para seus jogadores.
+        Cansado de gerenciar tudo em planilhas? De resolver disputas manualmente? O FactionFlow é a solução completa que automatiza tarefas complexas para que você possa focar em criar a melhor experiência para seus membros.
       </Text>
 
       <Divider my="xl" />
 
-      {/* 2. Seção de Funcionalidades Detalhadas */}
       <Title order={2} ta="center" mt="xl">
-        Funcionalidades Pensadas para o Sucesso da sua Comunidade
+        Funcionalidades que Elevam o Nível da sua Comunidade
       </Title>
 
       <motion.div
         variants={containerVariants}
         initial="hidden"
-        whileInView="visible" // Anima quando entra na tela
+        whileInView="visible"
         viewport={{ once: true }}
       >
         <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="lg" mt="lg">
@@ -90,7 +100,6 @@ export function FactionFlowPage() {
         </SimpleGrid>
       </motion.div>
       
-      {/* 3. Seção de Chamada para Ação (CTA) */}
       <Divider my="xl" />
 
       <Container size="sm" ta="center">
