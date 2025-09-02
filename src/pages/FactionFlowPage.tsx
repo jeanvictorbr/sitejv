@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const factionFlowFeatures = [
   {
     title: '🛡️ Sistema de Registro e Recrutamento',
-    description: 'Automatize a entrada de novos membros com um formulário de registro completo e um sistema de aprovação por tickets. Acompanhe a performance de seus recrutadores e mantenha a base de membros organizada.',
+    description: 'Automatize a entrada de novos membros com um formulário de registro completo e um sistema de aprovação por tickets. Acompanhe a performance de seus recrutadores em um ranking detalhado e automatize a mudança de apelido do membro para um padrão profissional.',
   },
   {
     title: '💰 Módulo Financeiro & Arsenal',
@@ -12,11 +12,11 @@ const factionFlowFeatures = [
   },
   {
     title: '👑 Sincronização de Hierarquia Automática',
-    description: 'Exiba a estrutura de poder da sua facção em um painel público e interativo. O bot atualiza automaticamente os cargos e a lista de membros, garantindo que a hierarquia do Discord reflita o poder do seu clã em tempo real.',
+    description: 'Exiba a estrutura de poder da sua facção em um painel público e interativo. O bot atualiza automaticamente os cargos e a lista de membros a cada 3 minutos, garantindo que a hierarquia do Discord reflita o poder do seu clã em tempo real.',
   },
   {
     title: '⚖️ Código Penal e Punições (Conduta)',
-    description: 'Crie um código penal customizado com regras e punições padrão. Registre infrações, aplique cargos temporários (ADV), timeout ou banimentos, e mantenha um histórico de conduta detalhado de cada membro.',
+    description: 'Crie um código penal customizado com regras e punições padrão. Registre infrações, aplique cargos temporários (ADV), timeout ou banimentos, e mantenha um histórico de conduta detalhado de cada membro. Inclui uma blacklist para expulsar automaticamente membros indesejados.',
   },
   {
     title: '🤝 Gerenciamento de Alianças Estratégicas',
@@ -35,7 +35,7 @@ const factionFlowFeatures = [
     description: 'Crie e gerencie sorteios de forma profissional e automatizada. Defina a duração, número de vencedores e requisitos de cargo. Acompanhe os participantes em tempo real e sortei os vencedores de forma justa.',
   },
   {
-    title: '📣 Comunicação em Massa e Customização',
+    title: '📣 Comunicação em Massa e Relatórios',
     description: 'Envie comunicados em massa para todos os membros via DM, publique changelogs detalhados, use o criador de embeds para anúncios visualmente atraentes e defina relatórios automáticos de performance da facção.',
   },
 ];
