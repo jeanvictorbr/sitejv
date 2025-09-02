@@ -1,6 +1,7 @@
 import { Container, Title, Text, SimpleGrid, Card, Badge, Group, Button, Divider } from "@mantine/core";
 import { motion } from 'framer-motion';
 
+// Lista detalhada de funcionalidades para o TicketUltra, com descrições mais ricas
 const ticketUltraFeatures = [
   {
     title: '🎫 Painéis de Suporte Dinâmicos',
@@ -12,7 +13,7 @@ const ticketUltraFeatures = [
   },
   {
     title: '📜 Transcrição Automática e Segura',
-    description: 'Ao fechar um ticket, o bot gera automaticamente uma transcrição completa de toda a conversa. Esta função de auditoria garante que cada atendimento seja registrado e acessível, proporcionando segurança e transparência para a equipe e para o usuário.',
+    description: 'Ao fechar um ticket, o bot gera automaticamente uma transcrição completa de toda a conversa em formato de texto. Esta função de auditoria garante que cada atendimento seja registrado e acessível, proporcionando segurança e transparência para a equipe e para o usuário.',
   },
   {
     title: '💬 Canais Privados e Colaboração',
