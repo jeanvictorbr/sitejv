@@ -28,19 +28,19 @@ export function ValueProposition() {
           </motion.div>
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 6 }}>
-          <Title order={2} mb="lg">Chega de passar horas batendo cabeça.</Title>
+          <Title order={2} mb="lg">Eleve a gestão da sua facção ao nível profissional.</Title>
           <Text c="dimmed" mt="md" mb="lg">
-            Administrar um servidor de facções e organizações é complexo. Membros entram e saem, recrutamentos acontecem, a economia precisa de atenção, e manter a ordem é um desafio constante. O FactionFlow é a solução definitiva que automatiza o trabalho manual para que você possa focar no que realmente importa: a experiência da sua comunidade.
+            Administrar uma comunidade de facções é um desafio de alta complexidade. O FactionFlow foi criado para ser a central de comando que automatiza tarefas repetitivas, otimiza a comunicação e garante segurança, liberando seu tempo para focar no crescimento da comunidade.
           </Text>
           <List mt="lg" spacing="sm" size="sm">
             <List.Item>
-              ✅ <b>Gestão de Membros Automatizada:</b> Gerencie a entrada de novos membros, a hierarquia de cargos e a padronização de apelidos com menus simples e eficientes.
+              ✅ <b>Gestão de Membros e Hierarquia:</b> Automatize o registro de novos membros e a padronização de tags com base na hierarquia, mantendo a organização e o profissionalismo do seu servidor.
             </List.Item>
             <List.Item>
-              ✅ <b>Economia Precisa e Segura:</b> Controle o banco da facção, registre transações de vendas e investimentos e tenha acesso a um dashboard de finanças completo, com gráficos de performance e relatórios detalhados.
+              ✅ <b>Economia e Finanças Avançadas:</b> Registre vendas e investimentos com logs detalhados, controle o fluxo de caixa da facção e visualize o desempenho financeiro em um dashboard completo com gráficos e relatórios.
             </List.Item>
             <List.Item>
-              ✅ <b>Módulos de Segurança e Punição:</b> Aplique punições, gerencie regras com um código penal customizável e proteja o servidor com um sistema de blacklist automática contra usuários mal-intencionados.
+              ✅ <b>Segurança e Punições:</b> Mantenha a ordem com um sistema de código penal customizável, aplique punições com prazos definidos e utilize uma blacklist automática para proteger seu servidor de membros indesejados.
             </List.Item>
           </List>
         </Grid.Col>
@@ -51,17 +51,17 @@ export function ValueProposition() {
         <Grid.Col span={{ base: 12, md: 6 }} order={{ base: 2, md: 1 }}>
           <Title order={2} mb="lg">Transforme o caos do suporte em organização.</Title>
           <Text c="dimmed" mt="md" mb="lg">
-            Mensagens diretas perdidas, dúvidas repetidas no chat geral, falta de organização... Um suporte ruim frustra seus membros. O TicketUltra centraliza tudo, criando um canal de comunicação profissional e eficiente.
+            Mensagens diretas perdidas, dúvidas repetidas no chat geral, falta de organização... Um suporte ruim frustra seus membros. O TicketUltra centraliza e profissionaliza o seu canal de comunicação, garantindo a agilidade e a transparência que a sua comunidade merece.
           </Text>
           <List mt="lg" spacing="sm" size="sm">
             <List.Item>
-              ✅ <b>Centralize Todo o Suporte:</b> Diga adeus às DMs. Todos os pedidos de ajuda, denúncias e dúvidas ficam organizados em um só lugar.
+              ✅ <b>Suporte Centralizado e Departamentos:</b> Crie painéis de tickets com múltiplos departamentos, direcionando cada solicitação para a equipe responsável de forma automática.
             </List.Item>
             <List.Item>
-              ✅ <b>Atendimento Ágil e Colaborativo:</b> Sua equipe pode ver quais tickets estão abertos, assumir responsabilidades e resolver problemas em conjunto, com a possibilidade de transcrever o histórico completo da conversa.
+              ✅ <b>Transcrições e Histórico Completo:</b> Mantenha um registro de todas as conversas para auditoria e referência futura. Cada ticket é transcrito, oferecendo total transparência.
             </List.Item>
             <List.Item>
-              ✅ <b>Gestão de Performance da Equipe:</b> Um painel completo permite que a liderança gerencie e avalie a performance do suporte. O sistema inclui um ranking de atendimentos e a qualidade das resoluções.
+              ✅ <b>Gestão e Ranking de Performance:</b> Dê à sua equipe as ferramentas para o sucesso. Gerencie o fluxo de atendimentos e acesse um ranking de desempenho com base na quantidade e velocidade de resolução dos tickets.
             </List.Item>
           </List>
         </Grid.Col>
