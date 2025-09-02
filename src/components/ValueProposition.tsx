@@ -22,7 +22,7 @@ export function ValueProposition() {
           <motion.div {...floatingAnimation}>
             <Image
               radius="md"
-              src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?q=80&w=2070"
+              src="https://i.imgur.com/GBUfZgy.png"
               alt="Demonstração do FactionFlow"
             />
           </motion.div>
@@ -78,3 +78,4 @@ export function ValueProposition() {
     </Container>
   );
 }
+
