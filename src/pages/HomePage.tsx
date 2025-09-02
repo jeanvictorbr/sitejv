@@ -1,4 +1,4 @@
-import { Container, Title, Text, SimpleGrid, Card, Badge, Group, Button, Divider } from "@mantine/core";
+import { Container, Title, Text, SimpleGrid, Card, Badge, Group, Button, Divider, Accordion } from "@mantine/core";
 import { motion } from 'framer-motion';
 
 const sectionAnimation: any = {
@@ -9,7 +9,7 @@ const sectionAnimation: any = {
 };
 
 // Conteúdo populado para o componente Hero
-const HeroSection = () => (
+const Hero = () => (
     <Container size="lg" py="xl" ta="center">
         <Group justify="center" ta="center">
             <Badge variant="gradient" gradient={{ from: 'indigo', to: 'violet' }} size="xl">
@@ -35,8 +35,17 @@ const HeroSection = () => (
     </Container>
 );
 
+// Conteúdo populado para o componente Marquee
+const Marquee = () => (
+    // Este é um espaço reservado. Você pode adicionar seu HTML de letreiro aqui.
+    <div style={{ padding: '1rem', backgroundColor: '#1e1e1e', color: 'white' }}>
+      <Text ta="center" size="lg">🚀 FactionFlow: Gestão completa de facções | 🛡️ TicketUltra: Suporte profissional e eficiente | 📈 Melhore seu servidor hoje!</Text>
+    </div>
+);
+
+
 // Conteúdo populado para o componente Features
-const FeaturesSection = () => {
+const Features = () => {
     const featureCards = [
         {
             title: '🤖 Bots Modulares e Profissionais',
@@ -60,88 +69,106 @@ const FeaturesSection = () => {
             <Title order={2} ta="center" mt="xl">
                 Conheça Nossas Soluções
             </Title>
-            <motion.div {...sectionAnimation}>
-                <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="lg" mt="lg">
-                    {featureCards.map((feature, index) => (
-                        <Card key={index} shadow="sm" padding="lg" radius="md" withBorder h="100%">
-                            <Text fw={500} size="lg">{feature.title}</Text>
-                            <Text size="sm" c="dimmed" mt="xs">
-                                {feature.description}
-                            </Text>
-                            <Button
-                                variant="light"
-                                color="blue"
-                                mt="md"
-                                component="a"
-                                href={feature.link}
-                            >
-                                Saiba Mais
-                            </Button>
-                        </Card>
-                    ))}
-                </SimpleGrid>
-            </motion.div>
+            <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="lg" mt="lg">
+                {featureCards.map((feature, index) => (
+                    <Card key={index} shadow="sm" padding="lg" radius="md" withBorder h="100%">
+                        <Text fw={500} size="lg">{feature.title}</Text>
+                        <Text size="sm" c="dimmed" mt="xs">
+                            {feature.description}
+                        </Text>
+                        <Button
+                            variant="light"
+                            color="blue"
+                            mt="md"
+                            component="a"
+                            href={feature.link}
+                        >
+                            Saiba Mais
+                        </Button>
+                    </Card>
+                ))}
+            </SimpleGrid>
         </Container>
     );
 };
 
 // Conteúdo populado para o componente ValueProposition
-const ValuePropositionSection = () => (
+const ValueProposition = () => (
     <Container size="lg" py="xl">
         <Title order={2} ta="center" mt="xl">
             Por Que Escolher a JV Store?
         </Title>
         <Text c="dimmed" ta="center" mt="md" maw={700} mx="auto">
-            Nossas ferramentas são construídas com foco em desempenho, segurança e usabilidade. Entregamos soluções robustas que se adaptam perfeitamente à sua comunidade.
+            Nossas ferramentas são construídas com foco em desempenho, segurança e usabilidade. Entregamos soluções robustas que se adaptam perfeitamente à sua comunidade, garantindo uma gestão sem dores de cabeça.
         </Text>
-        {/* Você pode adicionar mais cards ou texto aqui */}
+        <Center mt="xl">
+            <Text fw={700} c="blue" fz="lg">Confiabilidade • Inovação • Suporte Dedicado</Text>
+        </Center>
     </Container>
 );
 
 // Conteúdo populado para o componente Faq
-const FaqSection = () => (
-    <Container size="lg" py="xl">
-        <Title order={2} ta="center" mt="xl">
-            Perguntas Frequentes
-        </Title>
-        <Text c="dimmed" ta="center" mt="md" maw={700} mx="auto">
-            Aqui você encontra respostas para as dúvidas mais comuns sobre nossos bots e serviços.
-        </Text>
-        {/* Adicionar Accordion com perguntas e respostas aqui */}
-    </Container>
-);
+const Faq = () => {
+    const faqData = [
+        {
+            question: 'O que é o FactionFlow?',
+            answer: 'O FactionFlow é um bot modular para Discord, focado em gerenciar comunidades de facções. Ele oferece módulos de registro, finanças, hierarquia, punições e muito mais para automatizar e profissionalizar a gestão do seu servidor.'
+        },
+        {
+            question: 'O que é o TicketUltra?',
+            answer: 'O TicketUltra é um sistema de tickets avançado que profissionaliza o suporte do seu servidor. Ele cria painéis por departamento, transcreve logs de atendimento, e oferece um ranking de eficiência para a sua equipe, acabando com a desorganização nas DMs.'
+        },
+        {
+            question: 'Como posso adquirir os bots?',
+            answer: 'Você pode começar com nosso teste gratuito para qualquer bot e depois escolher um plano que se adapte às suas necessidades. Entre em contato conosco através do botão "Fale Conosco" para mais detalhes!'
+        }
+    ];
 
-// O componente Marquee já foi populado com a sua lógica
-const MarqueeSection = () => (
-    // Seu código original do Marquee.tsx seria inserido aqui
-    <div style={{ marginTop: '2rem' }}>
-        {/* Conteúdo do Marquee.tsx iria aqui */}
-    </div>
-);
+    const items = faqData.map((item) => (
+        <Accordion.Item key={item.question} value={item.question}>
+            <Accordion.Control>{item.question}</Accordion.Control>
+            <Accordion.Panel>{item.answer}</Accordion.Panel>
+        </Accordion.Item>
+    ));
+
+    return (
+        <Container size="lg" py="xl">
+            <Title order={2} ta="center" mt="xl">
+                Perguntas Frequentes
+            </Title>
+            <Text c="dimmed" ta="center" mt="md" maw={700} mx="auto">
+                Aqui você encontra respostas para as dúvidas mais comuns sobre nossos bots e serviços.
+            </Text>
+            <Accordion variant="separated" radius="md" defaultValue="O que é o FactionFlow?" mt="xl">
+                {items}
+            </Accordion>
+        </Container>
+    );
+};
 
 
 export function HomePage() {
   return (
     <>
-      <HeroSection />
+      <Hero />
       <div style={{ marginTop: '2rem' }}>
-        <MarqueeSection />
+        <Marquee />
       </div>
 
       <div style={{ marginTop: '2rem' }}>
         <motion.div {...sectionAnimation}>
-          <FeaturesSection />
+          <Features />
         </motion.div>
       </div>
       <div style={{ marginTop: '2rem' }}>
         <motion.div {...sectionAnimation}>
-          <ValuePropositionSection />
+          <ValueProposition />
         </motion.div>
       </div>
 
       <div style={{ marginTop: '2rem' }}>
         <motion.div {...sectionAnimation}>
-          <FaqSection />
+          <Faq />
         </motion.div>
       </div>
     </>
