@@ -1,9 +1,8 @@
-import { Container, Title, Text, Badge, Group, Button, Divider, Card, List, ThemeIcon } from "@mantine/core";
-import { IconCircleCheck, IconCircleDashed } from '@tabler/icons-react';
+import { Card, Text, Title, Button, List, Center, SimpleGrid, Badge, Container, Group } from '@mantine/core';
 import { motion } from 'framer-motion';
 
-// Lista de todos os módulos do FactionFlow
-const allModules = [
+// Lista de todos os módulos do FactionFlow para referenciar no Plano Completo
+const factionFlowModules = [
   'Sistema de Registro e Recrutamento',
   'Ranking de Recrutadores',
   'Gestão Financeira Completa',
@@ -20,11 +19,86 @@ const allModules = [
   'Comunicação em Massa'
 ];
 
-const starterModules = [
-  'Sistema de Registro e Recrutamento',
-  'Gestão Financeira Completa',
-  'Módulo de Conduta e Segurança',
-  'Gerenciamento de Alianças Estratégicas',
+// Lista de funcionalidades do TicketUltra, baseadas na página de venda
+const ticketUltraModules = [
+  'Painéis de Suporte Dinâmicos e Intuitivos',
+  'Atribuição e Rastreamento de Atendimento',
+  'Ranking de Eficiência da Equipe',
+  'Sistema de Avaliação de Atendimento',
+  'Transcrição Automática e Segura',
+  'Canais Privados e Colaboração',
+  'Múltiplos Departamentos Personalizáveis',
+  'Controle de Permissões Robusto',
+  'Notificações e Agilidade no Suporte',
+  'Geração de Link para Compartilhamento',
+];
+
+const plans = [
+  {
+    title: 'Teste Gratuito',
+    price: 'R$0',
+    period: '/ 7 dias',
+    description: 'Experimente a potência dos nossos bots premium com um período de teste de 7 dias, sem compromisso.',
+    features: ['✅ Acesso a 1 módulo à sua escolha', '✅ Suporte Limitado', '✅ Funcionalidades completas para teste'],
+    buttonText: 'Iniciar Teste Gratuito',
+    link: '#',
+    variant: 'default',
+  },
+  {
+    title: 'Plano FactionFlow Básico',
+    price: 'R$29,99',
+    period: '/ mês',
+    description: 'Um pacote essencial para profissionalizar a gestão da sua comunidade de facção.',
+    features: [
+      { text: '✅ Sistema de Registro e Recrutamento', included: true },
+      { text: '✅ Gestão Financeira Completa', included: true },
+      { text: '✅ Sincronização de Hierarquia Automática', included: true },
+      { text: '✅ Módulo de Conduta e Segurança', included: true },
+      { text: '❌ Ranking de Recrutadores', included: false },
+      { text: '❌ Ranking de Recrutadores', included: false },
+      { text: '❌ Sistema de Tags Dinâmicas', included: false },
+      { text: '❌ Blacklist Automática', included: false },
+      { text: '❌ Gerenciamento de Alianças Estratégicas', included: false },
+      { text: '❌ Organização de Operações Táticas', included: false },
+      { text: '❌ Depuração Inteligente de Inativos', included: false },
+      { text: '❌ Módulo de Sorteios Profissionais', included: false },
+      { text: '❌ Criador de Embeds Customizadas', included: false },
+      { text: '❌ Comunicação em Massa', included: false },
+    ],
+    buttonText: 'Assinar FactionFlow Básico',
+    link: '#',
+    variant: 'gradient',
+    gradient: { from: 'blue', to: 'cyan' },
+    highlight: true,
+  },
+  {
+    title: 'Plano TicketUltra Completo',
+    price: 'R$34,99', // Valor de exemplo, ajuste se necessário
+    period: '/ mês',
+    description: 'Profissionalize o suporte do seu servidor com um sistema de tickets completo e intuitivo.',
+    features: ticketUltraModules.map(module => ({
+        text: `✅ ${module}`,
+        included: true
+    })),
+    buttonText: 'Assinar TicketUltra Completo',
+    link: '#',
+    variant: 'gradient',
+    gradient: { from: 'indigo', to: 'violet' },
+  },
+  {
+    title: 'Plano FactionFlow Completo',
+    price: 'R$44,99',
+    period: '/ mês',
+    description: 'A solução definitiva para servidores de facções. Tenha acesso irrestrito a todos os módulos.',
+    features: factionFlowModules.map(module => ({
+        text: `✅ ${module}`,
+        included: true
+    })),
+    buttonText: 'Assinar FactionFlow Completo',
+    link: '#',
+    variant: 'gradient',
+    gradient: { from: 'lime', to: 'green' },
+  },
 ];
 
 const containerVariants = {
@@ -43,122 +117,65 @@ const itemVariants = {
 };
 
 export function PricingPage() {
-  const plans = [
-    {
-      name: 'Teste Gratuito',
-      price: 'R$ 0/mês',
-      description: 'Experimente a potência do FactionFlow com um período de teste de 7 dias.',
-      features: ['Acesso a 1 módulo a sua escolha', 'Suporte Básico', 'Dashboard de Análise'],
-      buttonText: 'Experimentar Grátis',
-      buttonLink: '#',
-      variant: 'default',
-    },
-    {
-      name: 'Plano Básico',
-      price: 'R$ 29,99/mês',
-      description: 'Perfeito para servidores que precisam de ferramentas essenciais de gestão.',
-      features: allModules.map(module => ({
-        text: module,
-        included: starterModules.includes(module)
-      })),
-      buttonText: 'Assinar Plano Básico',
-      buttonLink: '#',
-      variant: 'gradient',
-      gradient: { from: 'blue', to: 'cyan' },
-      highlight: true,
-    },
-    {
-      name: 'Plano Completo',
-      price: 'R$ 44,99/mês',
-      description: 'Tenha acesso irrestrito a todos os módulos e funcionalidades avançadas do bot.',
-      features: allModules.map(module => ({
-        text: module,
-        included: true
-      })),
-      buttonText: 'Assinar Plano Completo',
-      buttonLink: '#',
-      variant: 'gradient',
-      gradient: { from: 'violet', to: 'indigo' },
-    },
-  ];
+  const items = plans.map((plan, index) => (
+    <motion.div key={index} variants={itemVariants}>
+      <Card withBorder radius="md" shadow="md" p="xl" h="100%"
+            style={plan.highlight ? { border: '2px solid #228be6' } : {}}>
+        <Group justify="center" mb="md">
+          <Badge variant={plan.variant as any} gradient={plan.gradient} size="xl">
+            {plan.title}
+          </Badge>
+        </Group>
+        <Center mt="md">
+          <Text fz={42} fw={700}>{plan.price}</Text>
+          <Text c="dimmed" fz="md" mt="sm" ml={4}>{plan.period}</Text>
+        </Center>
+        <Text c="dimmed" ta="center" fz="sm" mt="md">{plan.description}</Text>
+
+        <Button
+          component="a"
+          href={plan.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          size="md"
+          mt="xl"
+          fullWidth
+          variant={plan.variant as any}
+          gradient={plan.gradient}
+        >
+          {plan.buttonText}
+        </Button>
+
+        <List spacing="sm" size="sm" mt="xl"
+              icon={<span style={{ color: 'teal' }}>✅</span>}>
+            {plan.features.map((feature, idx) => (
+                <List.Item
+                    key={idx}
+                    icon={<span style={{ color: feature.included ? 'teal' : 'gray' }}>{feature.included ? '✅' : '❌'}</span>}
+                >
+                    {feature.text}
+                </List.Item>
+            ))}
+        </List>
+      </Card>
+    </motion.div>
+  ));
 
   return (
-    <Container size="lg" py="xl">
-      <Group justify="center" ta="center">
-        <Badge variant="gradient" gradient={{ from: 'lime', to: 'green' }} size="xl">
-          Nossos Planos
-        </Badge>
-      </Group>
-
-      <Title order={1} ta="center" mt="lg">
-        Encontre o plano ideal para a sua comunidade.
-      </Title>
-
-      <Text c="dimmed" ta="center" mt="md" maw={700} mx="auto">
-        Oferecemos soluções flexíveis, feitas para se adaptarem às necessidades de qualquer tipo de servidor. Comece com o teste gratuito ou escolha um de nossos planos para desbloquear todo o potencial de gestão.
+    <Container py="xl">
+      <Badge variant="light" size="lg">Planos e Preços</Badge>
+      <Title order={1} ta="center" mt="md">Encontre o plano perfeito para sua comunidade</Title>
+      <Text c="dimmed" ta="center" mt="md" maw={580} mx="auto">
+        Comece com um teste gratuito ou escolha uma de nossas soluções premium para levar seu servidor a um novo patamar.
       </Text>
-
-      <Divider my="xl" />
-
       <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
       >
-        <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg" mt="lg">
-          {plans.map((plan, index) => (
-            <motion.div key={index} variants={itemVariants}>
-              <Card shadow="sm" padding="xl" radius="md" withBorder h="100%"
-                    style={plan.highlight ? { border: '2px solid #228be6' } : {}}>
-                <Group justify="center" mb="md">
-                  <Badge variant={plan.variant} gradient={plan.gradient} size="xl">
-                    {plan.name}
-                  </Badge>
-                </Group>
-                <Title order={2} ta="center" mb="xs">
-                  {plan.price}
-                </Title>
-                <Text c="dimmed" ta="center" mb="lg">{plan.description}</Text>
-                
-                <List
-                  spacing="xs"
-                  size="sm"
-                  center
-                  icon={
-                    <ThemeIcon color="teal" size={24} radius="xl">
-                      <IconCircleCheck size={16} />
-                    </ThemeIcon>
-                  }
-                >
-                  {plan.features.map((feature, idx) => (
-                    <List.Item
-                      key={idx}
-                      icon={feature.included ? 
-                        <ThemeIcon color="teal" size={20} radius="xl"><IconCircleCheck style={{ width: '1rem', height: '1rem' }} /></ThemeIcon>
-                      :
-                        <ThemeIcon color="gray" size={20} radius="xl"><IconCircleDashed style={{ width: '1rem', height: '1rem' }} /></ThemeIcon>
-                      }
-                      style={{ color: feature.included ? 'inherit' : 'var(--mantine-color-dimmed)' }}
-                    >
-                      {feature.text}
-                    </List.Item>
-                  ))}
-                </List>
-                <Button 
-                  fullWidth 
-                  mt="xl" 
-                  size="lg" 
-                  variant={plan.variant} 
-                  gradient={plan.gradient}
-                  component="a" 
-                  href={plan.buttonLink}
-                >
-                  {plan.buttonText}
-                </Button>
-              </Card>
-            </motion.div>
-          ))}
+        <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing="xl" mt="xl">
+          {items}
         </SimpleGrid>
       </motion.div>
     </Container>
