@@ -4,23 +4,35 @@ import { motion } from 'framer-motion';
 const factionFlowFeatures = [
   {
     title: '🛡️ Sistema de Registro e Recrutamento',
-    description: 'Automatize a entrada de novos membros com um formulário de registro completo e um sistema de aprovação por tickets. Acompanhe a performance de seus recrutadores em um ranking detalhado e automatize a mudança de apelido do membro para um padrão profissional.',
+    description: 'Automatize a entrada de novos membros com um painel de registro customizável. Defina cargos e canais de interação, envie formulários para novos membros e gerencie aprovações de forma profissional, mantendo o processo de recrutamento ágil e organizado.',
   },
   {
-    title: '💰 Módulo Financeiro & Arsenal',
-    description: 'Gerencie o catálogo de itens, controle o fluxo de caixa, registre vendas e investimentos. Visualize o desempenho financeiro da facção e o ranking dos top vendedores com gráficos detalhados. Chega de planilhas!',
+    title: '📈 Ranking de Recrutadores',
+    description: 'Fomente a competição saudável na sua facção. Este módulo rastreia e exibe um ranking com os membros que mais recrutaram, premiando a dedicação e o esforço. Os dados são baseados em aprovações reais e podem ser ajustados ou resetados a qualquer momento.',
+  },
+  {
+    title: '💰 Gestão Financeira Completa',
+    description: 'O coração da sua economia. Adicione e edite itens no seu arsenal, registre vendas e investimentos, gere relatórios por data e visualize um dashboard completo com receita, lucros e as últimas transações. Tudo para uma gestão fiscal impecável.',
+  },
+  {
+    title: '📊 Gráficos e Relatórios de Performance',
+    description: 'Tome decisões estratégicas com base em dados concretos. O bot gera gráficos dos top vendedores e relatórios semanais que resumem o desempenho da facção, incluindo lucros e perdas.',
   },
   {
     title: '👑 Sincronização de Hierarquia Automática',
     description: 'Exiba a estrutura de poder da sua facção em um painel público e interativo. O bot atualiza automaticamente os cargos e a lista de membros a cada 3 minutos, garantindo que a hierarquia do Discord reflita o poder do seu clã em tempo real.',
   },
   {
-    title: '⚖️ Código Penal e Punições (Conduta)',
-    description: 'Crie um código penal customizado com regras e punições padrão. Registre infrações, aplique cargos temporários (ADV), timeout ou banimentos, e mantenha um histórico de conduta detalhado de cada membro. Inclui uma blacklist para expulsar automaticamente membros indesejados.',
+    title: '⚖️ Módulo de Conduta e Segurança',
+    description: 'Um sistema completo para registrar punições com base em um Código Penal customizável. Aplique advertências com cargos temporários, timeout, kick ou ban. O sistema mantém um dossiê detalhado por membro e permite revogar punições.',
+  },
+  {
+    title: '🚫 Blacklist Automática',
+    description: 'Proteja sua comunidade contra membros indesejados. Adicione IDs à blacklist, e o bot irá expulsá-los automaticamente caso tentem entrar no servidor. O sistema registra o motivo e o autor da blacklist para total transparência.',
   },
   {
     title: '🤝 Gerenciamento de Alianças Estratégicas',
-    description: 'Organize e exiba suas parcerias em um painel interativo. Adicione, edite e remova aliados, incluindo informações como categorias, descrições e até imagens de uniformes exclusivos.',
+    description: 'Organize e exiba suas parcerias em um painel interativo. Adicione, edite e remova aliados, incluindo informações como categorias, descrições, links de convite e até imagens de uniformes exclusivos.',
   },
   {
     title: '🎯 Organização de Operações Táticas',
@@ -35,8 +47,8 @@ const factionFlowFeatures = [
     description: 'Crie e gerencie sorteios de forma profissional e automatizada. Defina a duração, número de vencedores e requisitos de cargo. Acompanhe os participantes em tempo real e sortei os vencedores de forma justa.',
   },
   {
-    title: '📣 Comunicação em Massa e Relatórios',
-    description: 'Envie comunicados em massa para todos os membros via DM, publique changelogs detalhados, use o criador de embeds para anúncios visualmente atraentes e defina relatórios automáticos de performance da facção.',
+    title: '📣 Comunicação em Massa',
+    description: 'Envie comunicados em massa para todos os membros via DM de forma controlada, pausando ou cancelando a operação a qualquer momento. Publique changelogs detalhados e use o criador de embeds para anúncios visualmente atraentes.',
   },
 ];
 
