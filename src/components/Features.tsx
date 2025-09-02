@@ -15,18 +15,6 @@ const featuresData = [
     description: 'Ofereça um suporte ágil e organizado para sua comunidade. Crie painéis de atendimento personalizados, gerencie tickets por departamento e garanta logs completos de todas as interações.',
     link: '/ticket-ultra',
   },
-  {
-    emoji: '📈',
-    title: 'Dashboard de Gestão',
-    description: 'Uma visão geral e profissional do seu servidor. Acesse estatísticas de performance, ranking de recrutadores e finanças em um painel centralizado e de fácil acesso.',
-    link: '/dashboard',
-  },
-  {
-    emoji: '🚀',
-    title: 'Personalização Extrema',
-    description: 'Nossos bots são modulares e altamente customizáveis. Crie embeds, defina tags de cargos dinâmicas e adapte cada funcionalidade para se encaixar perfeitamente na sua comunidade.',
-    link: '/pricing',
-  },
 ];
 
 export function Features() {
@@ -65,3 +53,4 @@ export function Features() {
     </Container>
   );
 }
+
