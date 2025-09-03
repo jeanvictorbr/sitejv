@@ -41,9 +41,9 @@ function App() {
         <Route
           path="/feedback"
           element={
-            <ProtectedRoute>
+            
               <FeedbackPage />
-            </ProtectedRoute>
+            
           }
         />
 
