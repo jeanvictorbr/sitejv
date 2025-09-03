@@ -14,54 +14,38 @@ import { MyBotsPage } from './pages/MyBotsPage';
 import { SubscriptionPage } from './pages/SubscriptionPage';
 import { AdminRoute } from './components/auth/AdminRoute';
 import { AdminPage } from './pages/AdminPage';
+import { AdminOverview } from './pages/AdminOverview';
 import { MarqueeManager } from './pages/MarqueeManager';
-import { AdminOverview } from './pages/AdminOverview'; // 1. IMPORTE O NOVO COMPONENTE
-import { StatusManager } from './pages/StatusManager'; 
+import { StatusManager } from './pages/StatusManager'; // 1. IMPORTE A PÁGINA
 
 function App() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        {/* === Rotas Públicas === */}
+        {/* === Rotas Públicas e de Usuário (sem alterações) === */}
         <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/bots/factionflow" element={<FactionFlowPage />} />
         <Route path="/bots/ticketultra" element={<TicketUltraPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/request-bot" element={<RequestBotPage />} />
-        <Route path="/login" element={<LoginPage />} />
- 
-
-        {/* === Rotas Protegidas para Usuários === */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <DashboardPage />
-            </ProtectedRoute>
-          }
-        >
+        <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>}>
           <Route index element={<DashboardOverview />} />
           <Route path="my-bots" element={<MyBotsPage />} />
           <Route path="subscription" element={<SubscriptionPage />} />
         </Route>
-        
-        {/* === Rota Protegida para Administradores === */}
+
+        {/* === Rotas Protegidas para Administradores === */}
         <Route
           path="/admin"
-          element={
-            <AdminRoute>
-              <AdminPage />
-            </AdminRoute>
-          }
+          element={<AdminRoute><AdminPage /></AdminRoute>}
         >
-          {/* Sub-rotas do Painel de Admin */}
-          <Route index element={<AdminOverview />} /> {/* 2. ADICIONE A ROTA INDEX */}
+          <Route index element={<AdminOverview />} />
           <Route path="marquee" element={<MarqueeManager />} />
-          <Route path="status" element={<StatusManager />} />
+          <Route path="status" element={<StatusManager />} /> {/* 2. ROTA ADICIONADA */}
         </Route>
       </Route>
     </Routes>
   );
 }
-
 export default App;
