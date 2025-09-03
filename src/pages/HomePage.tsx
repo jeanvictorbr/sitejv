@@ -5,6 +5,7 @@ import { ValueProposition } from '../components/ValueProposition';
 import { Marquee } from '../components/Marquee';
 import { Faq } from '../components/Faq';
 import { motion } from 'framer-motion';
+import VisitorCounter from '../components/VisitorCounter';
 
 const sectionAnimation: any = {
     initial: { opacity: 0, y: 50 },
@@ -17,6 +18,7 @@ export function HomePage() {
   return (
     <>
       <Hero />
+      <VisitorCounter />
 
       {/* AQUI ESTÁ A CORREÇÃO: Adicionamos a margem de topo para espaçar do Hero */}
       <div style={{ marginTop: '2rem' }}>
