@@ -18,6 +18,7 @@ import { MarqueeManager } from './pages/MarqueeManager';
 import { StatusManager } from './pages/StatusManager';
 import FeedbackPage from './pages/FeedbackPage';
 
+
 function App() {
   return (
     <Routes>
@@ -25,6 +26,7 @@ function App() {
         {/* === Rotas Públicas === */}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/feedbacks" element={<FeedbacksPublicPage />} />
         <Route path="/bots/factionflow" element={<FactionFlowPage />} />
         <Route path="/bots/ticketultra" element={<TicketUltraPage />} />
         <Route path="/pricing" element={<PricingPage />} />

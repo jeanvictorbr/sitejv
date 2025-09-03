@@ -24,6 +24,7 @@ const links = [
   { link: '/bots/factionflow', label: 'FactionFlow' },
   { link: '/bots/ticketultra', label: 'TicketUltra' },
   { link: '/pricing', label: 'Preços' },
+  { link: '/feedbacks', label: 'Feedbacks' },
   { link: '/request-bot', label: 'Solicitar Bot' },
 ];
 
