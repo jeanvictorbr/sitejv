@@ -13,6 +13,9 @@ export function StatusManager() {
       status: 'operational',
       message: '',
     },
+    validate: {
+      message: (value) => (value.trim().length < 5 ? 'A mensagem é muito curta.' : null),
+    }
   });
 
   const handleSubmit = async (values: typeof form.values) => {
@@ -20,13 +23,12 @@ export function StatusManager() {
     setStatusMessage('');
     try {
       // Invoca a nossa Supabase Edge Function 'update-status'
-      // Nota: Esta função precisa existir e estar deployada no Supabase
       const { data, error } = await supabase.functions.invoke('update-status', {
         body: { message: values.message, status: values.status },
       });
 
       if (error) throw error;
-
+      
       setStatusMessage('Status atualizado com sucesso!');
     } catch (error: any) {
       setStatusMessage(`Erro: ${error.message || 'Falha ao contatar a API.'}`);
@@ -52,6 +54,7 @@ export function StatusManager() {
           mt="md"
         />
         <TextInput
+          withAsterisk
           label="Mensagem de Status"
           placeholder="Escreva a mensagem que aparecerá na barra"
           {...form.getInputProps('message')}
