@@ -1,19 +1,19 @@
 // src/pages/AdminPage.tsx
-import { Container, Title, Text, Paper, Grid, NavLink as MantineNavLink, Group } from '@mantine/core';
+import { Container, Title, Text, Paper, Grid, Group } from '@mantine/core';
 import { NavLink, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useUserData } from '../hooks/useUserData';
 import classes from './AdminPage.module.css';
 
 const adminLinks = [
-  { to: '/admin', label: 'Visão Geral', end: true, icon: '📊' }, // <<< Ícone substituído por emoji
-  { to: '/admin/marquee', label: 'Letreiro', end: false, icon: '📢' }, // <<< Ícone substituído por emoji
-  { to: '/admin/status', label: 'Status do Site', end: false, icon: '📡' },
+  { to: '/admin', label: 'Visão Geral', end: true, icon: '📊' },
+  { to: '/admin/marquee', label: 'Letreiro', end: false, icon: '📢' },
+  { to: '/admin/status', label: 'Status do Site', end: false, icon: '📡' }, // <<< NOVA LINHA
 ];
 
 export function AdminPage() {
   const { user } = useAuth();
-  const { userData, loading: userDataLoading } = useUserData();
+  const { userData } = useUserData();
 
   return (
     <Container py="xl" size="xl">
@@ -21,7 +21,6 @@ export function AdminPage() {
       <Text c="dimmed">Bem-vindo, {userData?.display_name || user?.email}!</Text>
 
       <Grid mt="xl">
-        {/* Menu Lateral de Navegação do Admin */}
         <Grid.Col span={{ base: 12, md: 3 }}>
           <Paper withBorder p="md" radius="md" h="100%">
             <nav>
@@ -33,7 +32,7 @@ export function AdminPage() {
                   className={({ isActive }) => `${classes.link} ${isActive ? classes.active : ''}`}
                 >
                   <Group gap="sm">
-                    <Text>{link.icon}</Text> {/* <<< Usamos o emoji aqui */}
+                    <Text>{link.icon}</Text>
                     <Text>{link.label}</Text>
                   </Group>
                 </NavLink>
@@ -42,7 +41,6 @@ export function AdminPage() {
           </Paper>
         </Grid.Col>
 
-        {/* Conteúdo Principal do Painel de Admin */}
         <Grid.Col span={{ base: 12, md: 9 }}>
           <Paper withBorder p="xl" radius="md" h="100%">
             <Outlet />
@@ -51,5 +49,4 @@ export function AdminPage() {
       </Grid>
     </Container>
   );
-
 }
