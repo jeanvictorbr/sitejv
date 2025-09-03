@@ -41,6 +41,14 @@ function App() {
           path="/admin"
           element={<AdminRoute><AdminPage /></AdminRoute>}
         >
+{/* ▼▼▼ NOVA ROTA ADICIONADA AQUI ▼▼▼ */}
+            <Route
+              path="/feedback"
+              element={
+                <ProtectedRoute>
+                  <FeedbackPage />
+                </ProtectedRoute>
+              }
           <Route index element={<AdminOverview />} />
           <Route path="marquee" element={<MarqueeManager />} />
           <Route path="status" element={<StatusManager />} /> {/* 2. ROTA ADICIONADA */}
