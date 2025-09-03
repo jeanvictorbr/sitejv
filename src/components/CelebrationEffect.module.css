@@ -5,16 +5,17 @@
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; /* Permite clicar nos elementos por baixo */
+  pointer-events: none;
   overflow: hidden;
-  z-index: 4000; /* Garante que o efeito fique por cima de tudo */
+  z-index: 1; /* <<< ALTERADO AQUI: Diminuímos o z-index */
+  /* Z-index da Header Mega Menu é 1000, StatusBanner pode ser 999. Este ficará por baixo. */
 }
 
 .particle {
   position: absolute;
-  color: white; /* Cor dos emojis (geralmente não afeta a cor principal do emoji) */
+  color: white;
   animation: fall linear infinite;
-  user-select: none; /* Impede que o usuário selecione os emojis */
+  user-select: none;
 }
 
 @keyframes fall {
