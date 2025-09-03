@@ -30,7 +30,7 @@ function App() {
         <Route path="/bots/ticketultra" element={<TicketUltraPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/request-bot" element={<RequestBotPage />} />
-        <Route path="/feedbacks" element={<FeedbacksPublicPage />} /> {/* Rota para ver feedbacks */}
+      
 
         {/* === Rotas Protegidas para Usuários === */}
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>}>
