@@ -9,20 +9,18 @@ Deno.serve(async (req) => {
   }
 
   try {
-    // Pega os dados enviados pelo formulário de admin
     const { message, status } = await req.json()
 
-    // Cria um cliente Supabase com privilégios de administrador para poder escrever no DB
+    // A CORREÇÃO ESTÁ AQUI: Usamos os nomes corretos das variáveis de ambiente
     const supabaseAdmin = createClient(
-      Deno.env.get('https://btleajnwmukyjznwnifr.supabase.co') ?? '',
-      Deno.env.get('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0bGVham53bXVreWp6bnduaWZyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1Njc1OTM0OCwiZXhwIjoyMDcyMzM1MzQ4fQ.B1NtI7-YL8lPV_jaUK_2yA1UHBKFVY144B3BmETw9mA') ?? ''
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     )
 
-    // Atualiza o documento 'current' na tabela 'site_status'
     const { error } = await supabaseAdmin
       .from('site_status')
       .update({ message, status })
-      .eq('id', 'current') // Assumindo que o ID do documento é 'current'
+      .eq('id', 'current') 
 
     if (error) throw error
 
