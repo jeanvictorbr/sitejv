@@ -11,10 +11,6 @@ export function Footer() {
   return (
     <footer className={classes.footer}>
       <Container className={classes.inner}>
-{/* 2. ADICIONE O CONTADOR AQUI, NUM NOVO CONTAINER */}
-      <Container size="xl" pt="md">
-        <VisitorCounter />
-      </Container>
         <Text>JV Store</Text>
 
         {/* Novo grupo para exibir as duas estatísticas */}
@@ -38,3 +34,4 @@ export function Footer() {
   );
 
 }
+
