@@ -8,6 +8,7 @@ import classes from './AdminPage.module.css';
 const adminLinks = [
   { to: '/admin', label: 'Visão Geral', end: true, icon: '📊' }, // <<< Ícone substituído por emoji
   { to: '/admin/marquee', label: 'Letreiro', end: false, icon: '📢' }, // <<< Ícone substituído por emoji
+  { to: '/admin/status', label: 'Status do Site', end: false, icon: '📡' },
 ];
 
 export function AdminPage() {
@@ -50,4 +51,5 @@ export function AdminPage() {
       </Grid>
     </Container>
   );
+
 }
