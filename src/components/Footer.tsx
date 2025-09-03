@@ -2,7 +2,7 @@
 import { Container, Group, Text, Badge, Divider } from '@mantine/core'; // Adicionado Divider
 import classes from './Footer.module.css';
 import { useDiscordStats } from '../hooks/useDiscordStats';
-import { VisitorCounter } from './VisitorCounter';
+
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -34,4 +34,5 @@ export function Footer() {
   );
 
 }
+
 
