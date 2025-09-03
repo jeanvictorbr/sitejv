@@ -5,8 +5,8 @@ import { Container, Title, Text, Textarea, Button, Paper, Group, Notification } 
 import classes from './FeedbackPage.module.css';
 
 // Ícones SVG locais
-const IconCheck = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}> <path d="M5 12l5 5l10 -10" /> </svg> );
-const IconX = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}> <path d="M18 6l-12 12" /> <path d="M6 6l12 12" /> </svg> );
+const IconCheck = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}> <path d="M5 12l5 5l10 -10" /> </svg> );
+const IconX = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}> <path d="M18 6l-12 12" /> <path d="M6 6l12 12" /> </svg> );
 
 const FeedbackPage = () => {
   const { user } = useAuth();
@@ -16,6 +16,9 @@ const FeedbackPage = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [hoverRating, setHoverRating] = useState(0);
+
+  // ▼▼▼ ADICIONE A URL DO SEU WEBHOOK DE NOTIFICAÇÃO DE FEEDBACKS AQUI ▼▼▼
+  const FEEDBACK_WEBHOOK_URL = 'URL_DO_SEU_WEBHOOK_AQUI'; 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,27 +41,50 @@ const FeedbackPage = () => {
     setIsSubmitting(true);
 
     try {
-      // ▼▼▼ CHAMADA PARA A SUPABASE FUNCTION ▼▼▼
+      // 1. Salva o feedback no Supabase
       const { error: functionError } = await supabase.functions.invoke('submit-feedback', {
-        body: { rating, comment }, // Enviamos apenas os dados do formulário
+        body: { rating, comment },
       });
 
       if (functionError) {
-        // Se a função retornar um erro, nós o capturamos aqui.
         throw functionError;
       }
 
-      // Se tudo deu certo:
+      // 2. Se salvou com sucesso, envia a notificação para o Discord
+      if (FEEDBACK_WEBHOOK_URL && FEEDBACK_WEBHOOK_URL !== 'URL_DO_SEU_WEBHOOK_AQUI') {
+        const discordEmbed = {
+          username: 'JV Store - Alerta de Feedback',
+          avatar_url: 'https://i.imgur.com/4M34hi2.png',
+          content: `⭐ Novo feedback de **${user?.user_metadata?.name || 'usuário'}** aguardando moderação!`,
+          embeds: [{
+            title: 'Novo Feedback Recebido!',
+            description: `Acesse o Painel Admin para aprovar, ocultar ou remover.`,
+            color: 16776960, // Amarelo
+            fields: [
+              { name: 'Usuário', value: user?.user_metadata?.name || 'Não identificado', inline: true },
+              { name: 'Avaliação', value: '⭐'.repeat(rating), inline: true },
+              { name: 'Comentário', value: `"${comment.substring(0, 1021)}${comment.length > 1021 ? '...' : ''}"` }
+            ],
+          }],
+        };
+
+        // Envia para o webhook em segundo plano
+        fetch(FEEDBACK_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(discordEmbed),
+        }).catch(err => console.error("Erro ao enviar notificação para o Discord:", err));
+      }
+
+      // 3. Mostra sucesso para o usuário
       setSuccess('Seu feedback foi enviado para moderação. Obrigado!');
       setRating(0);
       setComment('');
 
     } catch (err: any) {
-      // Pega o erro e exibe para o usuário.
       console.error('Erro ao enviar feedback:', err);
       setError(err.message || 'Ocorreu um erro desconhecido.');
     } finally {
-      // Garante que o botão seja reativado no final.
       setIsSubmitting(false);
     }
   };
