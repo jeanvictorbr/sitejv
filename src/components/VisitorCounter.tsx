@@ -1,19 +1,60 @@
-// src/components/VisitorCounter.tsx (VERSÃO DE TESTE SIMPLIFICADA)
-import { Text, Group } from '@mantine/core';
-import { Users } from 'tabler-icons-react';
+// src/components/VisitorCounter.tsx
+import { useEffect, useState } from 'react';
+import { supabase } from '../lib/supabaseClient';
+import { Text, Group, Loader } from '@mantine/core';
+import { Eye } from 'tabler-icons-react'; // Usaremos um ícone diferente
 
-const VisitorCounter = () => {
+export const VisitorCounter = () => {
+  const [count, setCount] = useState<number | null>(null);
+  const COUNTER_ID = 'homepage';
+
+  useEffect(() => {
+    const fetchAndUpdateCount = async () => {
+      // 1. Primeiro, vamos buscar o valor atual do contador na base de dados.
+      let { data, error } = await supabase
+        .from('counters')
+        .select('value')
+        .eq('id', COUNTER_ID)
+        .single();
+
+      if (error) {
+        console.error("Erro ao buscar o contador:", error);
+        // Mesmo que haja um erro, não quebramos a página.
+        // O contador simplesmente não aparecerá.
+        return;
+      }
+
+      // 2. Mostramos o valor atual na tela imediatamente.
+      const currentCount = data.value;
+      setCount(currentCount);
+
+      // 3. Depois, incrementamos o valor na base de dados para o próximo visitante.
+      const { error: updateError } = await supabase
+        .from('counters')
+        .update({ value: currentCount + 1 })
+        .eq('id', COUNTER_ID);
+
+      if (updateError) {
+        console.error("Erro ao atualizar o contador:", updateError);
+      }
+    };
+
+    fetchAndUpdateCount();
+  }, []); // O array vazio garante que isto só executa uma vez.
+
+  // Se o contador ainda não foi carregado, não mostramos nada
+  // para não poluir a interface.
+  if (count === null) {
+    return null;
+  }
+
+  // Quando o contador estiver pronto, mostramos o valor.
   return (
-    // Adicionamos um estilo para garantir que ele seja visível
-    <div style={{ padding: '1rem', backgroundColor: 'rgba(0, 255, 0, 0.1)' }}>
-      <Group justify="center" gap="xs">
-        <Users size={18} />
-        <Text size="sm" c="dimmed">
-          Teste do Contador: 12345 visitantes.
-        </Text>
-      </Group>
-    </div>
+    <Group justify="center" gap="xs">
+      <Eye size={16} />
+      <Text size="xs" c="dimmed">
+        {count.toLocaleString('pt-BR')} visualizações
+      </Text>
+    </Group>
   );
 };
-
-export default VisitorCounter;
