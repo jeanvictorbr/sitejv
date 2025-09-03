@@ -8,6 +8,7 @@ import { StatusBanner } from './StatusBanner';
 import { MusicPlayer } from './MusicPlayer'; // Importe o novo player
 import { Container } from '@mantine/core';
 import { VisitorCounter } from './VisitorCounter'; //
+import { CelebrationEffect } from './CelebrationEffect';
 
 export function MainLayout() {
   const location = useLocation();
@@ -15,6 +16,7 @@ export function MainLayout() {
 
   return (
     <>
+      <CelebrationEffect />
       <Header />
       <StatusBanner />
 {/* 2. ADICIONE O CONTADOR AQUI */}
@@ -46,3 +48,4 @@ export function MainLayout() {
   );
 
 }
+
