@@ -1,8 +1,9 @@
 // src/components/VisitorCounter.tsx
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { Text, Group, Loader } from '@mantine/core';
-import { Eye } from 'tabler-icons-react'; // Usaremos um ícone diferente
+import { Text, Group, Paper } from '@mantine/core';
+import { Eye } from 'tabler-icons-react';
+import { motion } from 'framer-motion';
 
 export const VisitorCounter = () => {
   const [count, setCount] = useState<number | null>(null);
@@ -10,7 +11,6 @@ export const VisitorCounter = () => {
 
   useEffect(() => {
     const fetchAndUpdateCount = async () => {
-      // 1. Primeiro, vamos buscar o valor atual do contador na base de dados.
       let { data, error } = await supabase
         .from('counters')
         .select('value')
@@ -19,42 +19,40 @@ export const VisitorCounter = () => {
 
       if (error) {
         console.error("Erro ao buscar o contador:", error);
-        // Mesmo que haja um erro, não quebramos a página.
-        // O contador simplesmente não aparecerá.
         return;
       }
 
-      // 2. Mostramos o valor atual na tela imediatamente.
       const currentCount = data.value;
       setCount(currentCount);
 
-      // 3. Depois, incrementamos o valor na base de dados para o próximo visitante.
-      const { error: updateError } = await supabase
+      await supabase
         .from('counters')
         .update({ value: currentCount + 1 })
         .eq('id', COUNTER_ID);
-
-      if (updateError) {
-        console.error("Erro ao atualizar o contador:", updateError);
-      }
     };
 
     fetchAndUpdateCount();
-  }, []); // O array vazio garante que isto só executa uma vez.
+  }, []);
 
-  // Se o contador ainda não foi carregado, não mostramos nada
-  // para não poluir a interface.
   if (count === null) {
-    return null;
+    return null; // Não mostra nada enquanto carrega
   }
 
-  // Quando o contador estiver pronto, mostramos o valor.
+  // Usamos motion.div para a animação e Paper para o estilo
   return (
-    <Group justify="center" gap="xs">
-      <Eye size={16} />
-      <Text size="xs" c="dimmed">
-        {count.toLocaleString('pt-BR')} visualizações
-      </Text>
-    </Group>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <Paper withBorder p="xs" radius="md" style={{ display: 'inline-block', margin: 'auto' }}>
+        <Group gap="xs">
+          <Eye size={18} />
+          <Text size="sm" c="dimmed">
+            {count.toLocaleString('pt-BR')} visualizações
+          </Text>
+        </Group>
+      </Paper>
+    </motion.div>
   );
 };
