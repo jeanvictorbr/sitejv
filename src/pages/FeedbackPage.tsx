@@ -2,49 +2,11 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabaseClient';
 import { Container, Title, Text, Textarea, Button, Paper, Group, Notification } from '@mantine/core';
-// A importação de ícones foi REMOVIDA
 import classes from './FeedbackPage.module.css';
 
-// ▼▼▼ ÍCONES ADICIONADOS DIRETAMENTE NO CÓDIGO ▼▼▼
-
-// Ícone de Sucesso (Check)
-const IconCheck = (props: React.ComponentProps<'svg'>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M5 12l5 5l10 -10" />
-  </svg>
-);
-
-// Ícone de Erro (X)
-const IconX = (props: React.ComponentProps<'svg'>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M18 6l-12 12" />
-    <path d="M6 6l12 12" />
-  </svg>
-);
-// ▲▲▲ FIM DOS ÍCONES ▲▲▲
-
+// Ícones SVG locais
+const IconCheck = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}> <path d="M5 12l5 5l10 -10" /> </svg> );
+const IconX = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}> <path d="M18 6l-12 12" /> <path d="M6 6l12 12" /> </svg> );
 
 const FeedbackPage = () => {
   const { user } = useAuth();
@@ -75,27 +37,29 @@ const FeedbackPage = () => {
 
     setIsSubmitting(true);
 
-    const feedbackData = {
-      user_id: user.id,
-      user_display_name: user.user_metadata?.user_name || user.user_metadata?.full_name || 'Usuário Anônimo',
-      user_avatar_url: user.user_metadata?.avatar_url,
-      rating,
-      comment,
-    };
+    try {
+      // ▼▼▼ CHAMADA PARA A SUPABASE FUNCTION ▼▼▼
+      const { error: functionError } = await supabase.functions.invoke('submit-feedback', {
+        body: { rating, comment }, // Enviamos apenas os dados do formulário
+      });
 
-    const { error: insertError } = await supabase
-      .from('feedbacks')
-      .insert(feedbackData);
+      if (functionError) {
+        // Se a função retornar um erro, nós o capturamos aqui.
+        throw functionError;
+      }
 
-    setIsSubmitting(false);
-
-    if (insertError) {
-      console.error('Erro ao enviar feedback:', insertError);
-      setError(`Ocorreu um erro: ${insertError.message}`);
-    } else {
+      // Se tudo deu certo:
       setSuccess('Seu feedback foi enviado para moderação. Obrigado!');
       setRating(0);
       setComment('');
+
+    } catch (err: any) {
+      // Pega o erro e exibe para o usuário.
+      console.error('Erro ao enviar feedback:', err);
+      setError(err.message || 'Ocorreu um erro desconhecido.');
+    } finally {
+      // Garante que o botão seja reativado no final.
+      setIsSubmitting(false);
     }
   };
 
@@ -114,41 +78,15 @@ const FeedbackPage = () => {
             <Text fw={500}>Sua Avaliação:</Text>
             <div className={classes.stars}>
               {[1, 2, 3, 4, 5].map((star) => (
-                <span
-                  key={star}
-                  className={star <= (hoverRating || rating) ? classes.starFilled : classes.star}
-                  onClick={() => setRating(star)}
-                  onMouseEnter={() => setHoverRating(star)}
-                  onMouseLeave={() => setHoverRating(0)}
-                >
-                  ★
-                </span>
+                <span key={star} className={star <= (hoverRating || rating) ? classes.starFilled : classes.star} onClick={() => setRating(star)} onMouseEnter={() => setHoverRating(star)} onMouseLeave={() => setHoverRating(0)}>★</span>
               ))}
             </div>
           </Group>
 
-          <Textarea
-            label="Seu Comentário"
-            placeholder="Conte-nos como foi sua experiência..."
-            required
-            mt="md"
-            value={comment}
-            onChange={(event) => setComment(event.currentTarget.value)}
-            minRows={4}
-          />
+          <Textarea label="Seu Comentário" placeholder="Conte-nos como foi sua experiência..." required mt="md" value={comment} onChange={(event) => setComment(event.currentTarget.value)} minRows={4}/>
           
-          {error && (
-            <Notification icon={<IconX style={{ width: '1.1rem', height: '1.1rem' }} />} color="red" mt="md" onClose={() => setError('')}>
-              {error}
-            </Notification>
-          )}
-
-          {success && (
-            <Notification icon={<IconCheck style={{ width: '1.1rem', height: '1.1rem' }} />} color="teal" title="Sucesso!" mt="md" onClose={() => setSuccess('')}>
-              {success}
-            </Notification>
-          )}
-
+          {error && (<Notification icon={<IconX style={{ width: '1.1rem', height: '1.1rem' }} />} color="red" mt="md" onClose={() => setError('')}>{error}</Notification>)}
+          {success && (<Notification icon={<IconCheck style={{ width: '1.1rem', height: '1.1rem' }} />} color="teal" title="Sucesso!" mt="md" onClose={() => setSuccess('')}>{success}</Notification>)}
 
           <Button type="submit" fullWidth mt="xl" loading={isSubmitting}>
             Enviar Feedback
