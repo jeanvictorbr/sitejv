@@ -16,6 +16,7 @@ import { AdminRoute } from './components/auth/AdminRoute';
 import { AdminPage } from './pages/AdminPage';
 import { MarqueeManager } from './pages/MarqueeManager';
 import { AdminOverview } from './pages/AdminOverview'; // 1. IMPORTE O NOVO COMPONENTE
+import { StatusManager } from './pages/StatusManager'; 
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/request-bot" element={<RequestBotPage />} />
         <Route path="/login" element={<LoginPage />} />
+ 
 
         {/* === Rotas Protegidas para Usuários === */}
         <Route
@@ -55,6 +57,7 @@ function App() {
           {/* Sub-rotas do Painel de Admin */}
           <Route index element={<AdminOverview />} /> {/* 2. ADICIONE A ROTA INDEX */}
           <Route path="marquee" element={<MarqueeManager />} />
+          <Route path="status" element={<StatusManager />} />
         </Route>
       </Route>
     </Routes>
