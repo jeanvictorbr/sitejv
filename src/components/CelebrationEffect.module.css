@@ -7,7 +7,7 @@
   height: 100%;
   pointer-events: none; /* Permite clicar nos elementos por baixo */
   overflow: hidden;
-  z-index: 9999; /* Garante que o efeito fique por cima de tudo */
+  z-index: 4000; /* Garante que o efeito fique por cima de tudo */
 }
 
 .particle {
