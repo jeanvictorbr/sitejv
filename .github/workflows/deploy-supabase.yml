@@ -19,7 +19,7 @@ jobs:
         uses: supabase/setup-cli@v1 # Instala a ferramenta de linha de comando do Supabase
         with:
           version: latest
-
+#dsa
       - name: Deploy Edge Function
         run: supabase functions deploy --project-ref $SUPABASE_PROJECT_ID
         env:
