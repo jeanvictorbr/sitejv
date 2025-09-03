@@ -17,7 +17,6 @@ import { AdminOverview } from './pages/AdminOverview';
 import { MarqueeManager } from './pages/MarqueeManager';
 import { StatusManager } from './pages/StatusManager';
 import FeedbackPage from './pages/FeedbackPage';
-import FeedbacksPublicPage from './pages/FeedbacksPublicPage'; // <<<--- ESTA LINHA ESTAVA FALTANDO
 import FeedbackManager from './pages/FeedbackManager';
 
 function App() {
