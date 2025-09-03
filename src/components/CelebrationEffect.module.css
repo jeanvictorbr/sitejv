@@ -1,4 +1,3 @@
-```css
 /* src/components/CelebrationEffect.module.css */
 .celebrationContainer {
   position: fixed;
@@ -6,16 +5,16 @@
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
+  pointer-events: none; /* Permite clicar nos elementos por baixo */
   overflow: hidden;
-  z-index: 9999;
+  z-index: 9999; /* Garante que o efeito fique por cima de tudo */
 }
 
 .particle {
   position: absolute;
-  /* Removemos o background e o border-radius */
-  color: white;
+  color: white; /* Cor dos emojis (geralmente não afeta a cor principal do emoji) */
   animation: fall linear infinite;
+  user-select: none; /* Impede que o usuário selecione os emojis */
 }
 
 @keyframes fall {
@@ -26,4 +25,3 @@
     transform: translateY(110vh) rotate(360deg);
   }
 }
-```
