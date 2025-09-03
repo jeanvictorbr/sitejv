@@ -2,8 +2,49 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabaseClient';
 import { Container, Title, Text, Textarea, Button, Paper, Group, Notification } from '@mantine/core';
-import { IconCheck, IconX } from '@tabler/icons-react';
+// A importação de ícones foi REMOVIDA
 import classes from './FeedbackPage.module.css';
+
+// ▼▼▼ ÍCONES ADICIONADOS DIRETAMENTE NO CÓDIGO ▼▼▼
+
+// Ícone de Sucesso (Check)
+const IconCheck = (props: React.ComponentProps<'svg'>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M5 12l5 5l10 -10" />
+  </svg>
+);
+
+// Ícone de Erro (X)
+const IconX = (props: React.ComponentProps<'svg'>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M18 6l-12 12" />
+    <path d="M6 6l12 12" />
+  </svg>
+);
+// ▲▲▲ FIM DOS ÍCONES ▲▲▲
+
 
 const FeedbackPage = () => {
   const { user } = useAuth();
@@ -97,13 +138,13 @@ const FeedbackPage = () => {
           />
           
           {error && (
-            <Notification icon={<IconX size="1.1rem" />} color="red" mt="md" onClose={() => setError('')}>
+            <Notification icon={<IconX style={{ width: '1.1rem', height: '1.1rem' }} />} color="red" mt="md" onClose={() => setError('')}>
               {error}
             </Notification>
           )}
 
           {success && (
-            <Notification icon={<IconCheck size="1.1rem" />} color="teal" title="Sucesso!" mt="md" onClose={() => setSuccess('')}>
+            <Notification icon={<IconCheck style={{ width: '1.1rem', height: '1.1rem' }} />} color="teal" title="Sucesso!" mt="md" onClose={() => setSuccess('')}>
               {success}
             </Notification>
           )}
