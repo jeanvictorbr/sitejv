@@ -18,7 +18,7 @@ const FeedbackPage = () => {
   const [hoverRating, setHoverRating] = useState(0);
 
   // ▼▼▼ ADICIONE A URL DO SEU WEBHOOK DE NOTIFICAÇÃO DE FEEDBACKS AQUI ▼▼▼
-  const FEEDBACK_WEBHOOK_URL = 'URL_DO_SEU_WEBHOOK_AQUI'; 
+  const FEEDBACK_WEBHOOK_URL = 'https://discord.com/api/webhooks/1412882211744514168/O5GxMuBPxTsSnZTgvWOuBtP3xTYU2HULjkmJP4hb1IR9crP-nJgjLQS58lWW2qHyb8Dc'; 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
