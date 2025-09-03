@@ -17,10 +17,10 @@ import { AdminOverview } from './pages/AdminOverview';
 import { MarqueeManager } from './pages/MarqueeManager';
 import { StatusManager } from './pages/StatusManager';
 
-// As importações de feedback foram REMOVIDAS por enquanto
-// import FeedbackPage from './pages/FeedbackPage';
-// import FeedbacksPublicPage from './pages/FeedbacksPublicPage';
-// import FeedbackManager from './pages/FeedbackManager';
+// --- Importações do Sistema de Feedback ---
+import FeedbackPage from './pages/FeedbackPage';
+import FeedbacksPublicPage from './pages/FeedbacksPublicPage';
+import FeedbackManager from './pages/FeedbackManager';
 
 function App() {
   return (
@@ -33,9 +33,7 @@ function App() {
         <Route path="/bots/ticketultra" element={<TicketUltraPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/request-bot" element={<RequestBotPage />} />
-        
-        {/* As rotas de feedback foram REMOVIDAS por enquanto */}
-        {/* <Route path="/feedbacks" element={<FeedbacksPublicPage />} /> */}
+        <Route path="/feedbacks" element={<FeedbacksPublicPage />} /> {/* Rota para ver feedbacks */}
 
         {/* === Rotas Protegidas para Usuários === */}
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>}>
@@ -43,17 +41,24 @@ function App() {
           <Route path="my-bots" element={<MyBotsPage />} />
           <Route path="subscription" element={<SubscriptionPage />} />
         </Route>
-        
-        {/* A rota para ENVIAR feedback também foi removida temporariamente */}
-        {/* <Route path="/feedback" element={<ProtectedRoute><FeedbackPage /></ProtectedRoute>} /> */}
+        <Route
+          path="/feedback"
+          element={
+            <ProtectedRoute>
+              <FeedbackPage /> {/* Rota para enviar feedback */}
+            </ProtectedRoute>
+          }
+        />
 
         {/* === Rotas Protegidas para Administradores === */}
-        <Route path="/admin" element={<AdminRoute><AdminPage /></AdminRoute>}>
+        <Route
+          path="/admin"
+          element={<AdminRoute><AdminPage /></AdminRoute>}
+        >
           <Route index element={<AdminOverview />} />
           <Route path="marquee" element={<MarqueeManager />} />
           <Route path="status" element={<StatusManager />} />
-          {/* A rota de admin para gerenciar feedbacks foi REMOVIDA por enquanto */}
-          {/* <Route path="feedbacks" element={<FeedbackManager />} /> */}
+          <Route path="feedbacks" element={<FeedbackManager />} /> {/* Rota para gerenciar feedbacks */}
         </Route>
       </Route>
     </Routes>
