@@ -49,7 +49,7 @@ export const VisitorCounter = () => {
         <Group gap="xs">
           <Eye size={18} />
           <Text size="sm" c="dimmed">
-            {count.toLocaleString('pt-BR')} visualizações
+            {count.toLocaleString('pt-BR')} visualizações no site
           </Text>
         </Group>
       </Paper>
