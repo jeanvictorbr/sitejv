@@ -1,4 +1,3 @@
-// src/App.tsx
 import { Routes, Route } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 import { FactionFlowPage } from './pages/FactionFlowPage';
@@ -16,45 +15,51 @@ import { AdminRoute } from './components/auth/AdminRoute';
 import { AdminPage } from './pages/AdminPage';
 import { AdminOverview } from './pages/AdminOverview';
 import { MarqueeManager } from './pages/MarqueeManager';
-import { StatusManager } from './pages/StatusManager'; // 1. IMPORTE A PÁGINA
+import { StatusManager } from './pages/StatusManager';
 import FeedbackPage from './pages/FeedbackPage';
 
 function App() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        {/* === Rotas Públicas e de Usuário (sem alterações) === */}
+        {/* === Rotas Públicas === */}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/bots/factionflow" element={<FactionFlowPage />} />
         <Route path="/bots/ticketultra" element={<TicketUltraPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/request-bot" element={<RequestBotPage />} />
+
+        {/* === Rotas Protegidas para Usuários Logados === */}
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>}>
           <Route index element={<DashboardOverview />} />
           <Route path="my-bots" element={<MyBotsPage />} />
           <Route path="subscription" element={<SubscriptionPage />} />
         </Route>
+        
+        {/* ▼▼▼ ROTA DE FEEDBACK NO LUGAR CORRETO ▼▼▼ */}
+        <Route
+          path="/feedback"
+          element={
+            <ProtectedRoute>
+              <FeedbackPage />
+            </ProtectedRoute>
+          }
+        />
 
         {/* === Rotas Protegidas para Administradores === */}
         <Route
           path="/admin"
           element={<AdminRoute><AdminPage /></AdminRoute>}
         >
-{/* ▼▼▼ NOVA ROTA ADICIONADA AQUI ▼▼▼ */}
-            <Route
-              path="/feedback"
-              element={
-                <ProtectedRoute>
-                  <FeedbackPage />
-                </ProtectedRoute>
-              }
+          {/* A rota de feedback foi REMOVIDA DAQUI */}
           <Route index element={<AdminOverview />} />
           <Route path="marquee" element={<MarqueeManager />} />
-          <Route path="status" element={<StatusManager />} /> {/* 2. ROTA ADICIONADA */}
+          <Route path="status" element={<StatusManager />} />
         </Route>
       </Route>
     </Routes>
   );
 }
+
 export default App;
