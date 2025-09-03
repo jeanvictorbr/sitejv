@@ -16,8 +16,11 @@ import { AdminPage } from './pages/AdminPage';
 import { AdminOverview } from './pages/AdminOverview';
 import { MarqueeManager } from './pages/MarqueeManager';
 import { StatusManager } from './pages/StatusManager';
-import FeedbackPage from './pages/FeedbackPage';
 
+// --- Importações do Sistema de Feedback ---
+import FeedbackPage from './pages/FeedbackPage'; // Página para ENVIAR feedback
+import FeedbacksPublicPage from './pages/FeedbacksPublicPage'; // <<--- ESTA LINHA ESTAVA FALTANDO
+import FeedbackManager from './pages/FeedbackManager'; // Página para GERENCIAR feedbacks no admin
 
 function App() {
   return (
@@ -26,26 +29,24 @@ function App() {
         {/* === Rotas Públicas === */}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/feedbacks" element={<FeedbacksPublicPage />} />
         <Route path="/bots/factionflow" element={<FactionFlowPage />} />
         <Route path="/bots/ticketultra" element={<TicketUltraPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/request-bot" element={<RequestBotPage />} />
+        <Route path="/feedbacks" element={<FeedbacksPublicPage />} /> {/* Rota pública para ver feedbacks */}
 
-        {/* === Rotas Protegidas para Usuários Logados === */}
+        {/* === Rotas Protegidas para Usuários === */}
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>}>
           <Route index element={<DashboardOverview />} />
           <Route path="my-bots" element={<MyBotsPage />} />
           <Route path="subscription" element={<SubscriptionPage />} />
         </Route>
-        
-        {/* ▼▼▼ ROTA DE FEEDBACK NO LUGAR CORRETO ▼▼▼ */}
         <Route
           path="/feedback"
           element={
-            
-              <FeedbackPage />
-            
+            <ProtectedRoute>
+              <FeedbackPage /> {/* Rota para enviar feedback */}
+            </ProtectedRoute>
           }
         />
 
@@ -54,10 +55,10 @@ function App() {
           path="/admin"
           element={<AdminRoute><AdminPage /></AdminRoute>}
         >
-          {/* A rota de feedback foi REMOVIDA DAQUI */}
           <Route index element={<AdminOverview />} />
           <Route path="marquee" element={<MarqueeManager />} />
           <Route path="status" element={<StatusManager />} />
+          <Route path="feedbacks" element={<FeedbackManager />} /> {/* Rota para gerenciar feedbacks */}
         </Route>
       </Route>
     </Routes>
