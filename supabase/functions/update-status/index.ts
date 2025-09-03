@@ -1,5 +1,5 @@
 // supabase/functions/update-status/index.ts
-import { createClient } from 'npm:@supabase/supabase-js@2'
+import { createClient } from '@supabase/supabase-js'
 import { corsHeaders } from '../_shared/cors.ts'
 
 Deno.serve(async (req) => {
@@ -9,18 +9,20 @@ Deno.serve(async (req) => {
   }
 
   try {
+    // Pega os dados enviados pelo formulário de admin
     const { message, status } = await req.json()
 
-    // A CORREÇÃO ESTÁ AQUI: Usamos os nomes corretos das variáveis de ambiente
+    // Cria um cliente Supabase com privilégios de administrador para poder escrever no DB
     const supabaseAdmin = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     )
 
+    // Atualiza o documento 'current' na tabela 'site_status'
     const { error } = await supabaseAdmin
       .from('site_status')
       .update({ message, status })
-      .eq('id', 'current') 
+      .eq('id', 'current') // Assumindo que o ID do documento é 'current'
 
     if (error) throw error
 
