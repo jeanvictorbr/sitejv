@@ -1,83 +1,80 @@
-// src/components/ValueProposition.tsx
 import { Container, Grid, Title, Text, List, Image } from '@mantine/core';
 import { motion } from 'framer-motion';
 
 export function ValueProposition() {
-  const floatingAnimation: any = {
-    animate: {
-      y: ["-5px", "5px"],
-    },
-    transition: {
-      duration: 3,
-      ease: "easeInOut",
-      repeat: Infinity,
-      repeatType: "reverse",
-    }
-  };
+  const floatingAnimation: any = {
+    animate: {
+      y: ["-5px", "5px"],
+    },
+    transition: {
+      duration: 3,
+      ease: "easeInOut",
+      repeat: Infinity,
+      repeatType: "reverse",
+    }
+  };
 
-  return (
-    <Container size="lg">
-      {/* Seção FactionFlow */}
-      <Grid gutter={50} align="center">
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <motion.div {...floatingAnimation}>
-            <Image
-              radius="md"
-              src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?q=80&w=2070"
-              alt="Demonstração do FactionFlow"
-            />
-          </motion.div>
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <Title order={2} mb="lg">Chega de planilhas e dor de cabeça.</Title>
-          <Text c="dimmed" mt="md" mb="lg">
-            Administrar um servidor de facções é complexo. O FactionFlow elimina o trabalho manual para que você possa focar no que realmente importa: a experiência da sua comunidade.
-          </Text>
-          <List mt="lg" spacing="sm" size="sm">
-            <List.Item>
-              ✅ <b>Gestão de Membros Automatizada:</b> Convites, promoções e expulsões com comandos simples.
-            </List.Item>
-            <List.Item>
-              ✅ <b>Economia Precisa e Segura:</b> Controle o banco da facção e registre transações com logs completos.
-            </List.Item>
-            <List.Item>
-              {/* LINHA CORRIGIDA */}
-              ✅ <b>Domínio de Território Estratégico:</b> Crie regras claras para guerras e conquistas.<b></b>
-            </List.Item>
-          </List>
-        </Grid.Col>
-      </Grid>
+  return (
+    <Container size="lg">
+      {/* Seção FactionFlow */}
+      <Grid gutter={50} align="center">
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <motion.div {...floatingAnimation}>
+            <Image
+              radius="md"
+              src="https://media.discordapp.net/attachments/1310610658844475404/1412858208749621440/Adobe_Express_-_file_1.png?ex=68b9d23e&is=68b880be&hm=5aac7bf81207cbb5c18c00220866400f94d8faf7891c436b63acc5b6f3497453&=&format=webp&quality=lossless&width=728&height=728"
+              alt="Demonstração do FactionFlow"
+            />
+          </motion.div>
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <Title order={2} mb="lg">Eleve a gestão da sua facção ao nível profissional.</Title>
+          <Text c="dimmed" mt="md" mb="lg">
+            Administrar uma comunidade de facções é um desafio de alta complexidade. O FactionFlow foi criado para ser a central de comando que automatiza tarefas repetitivas, otimiza a comunicação e garante segurança, liberando seu tempo para focar no crescimento da comunidade.
+          </Text>
+          <List mt="lg" spacing="sm" size="sm">
+            <List.Item>
+              ✅ <b>Gestão de Membros e Hierarquia:</b> Automatize o registro de novos membros e a padronização de tags com base na hierarquia, mantendo a organização e o profissionalismo do seu servidor.
+            </List.Item>
+            <List.Item>
+              ✅ <b>Economia e Finanças Avançadas:</b> Registre vendas e investimentos com logs detalhados, controle o fluxo de caixa da facção e visualize o desempenho financeiro em um dashboard completo com gráficos e relatórios.
+            </List.Item>
+            <List.Item>
+              ✅ <b>Segurança e Punições:</b> Mantenha a ordem com um sistema de código penal customizável, aplique punições com prazos definidos e utilize uma blacklist automática para proteger seu servidor de membros indesejados.
+            </List.Item>
+          </List>
+        </Grid.Col>
+      </Grid>
 
-      {/* Seção TicketUltra */}
-      <Grid gutter={50} align="center" mt={60}>
-        <Grid.Col span={{ base: 12, md: 6 }} order={{ base: 2, md: 1 }}>
-          <Title order={2} mb="lg">Transforme o caos do suporte em organização.</Title>
-          <Text c="dimmed" mt="md" mb="lg">
-            Mensagens diretas perdidas, dúvidas repetidas, falta de organização... Um suporte ruim frustra seus membros. O TicketUltra centraliza tudo.
-          </Text>
-          <List mt="lg" spacing="sm" size="sm">
-            <List.Item>
-              ✅ <b>Centralize Todo o Suporte:</b> Diga adeus às DMs. Todos os pedidos de ajuda ficam organizados em um só lugar.
-            </List.Item>
-            <List.Item>
-              ✅ <b>Atendimento Ágil e Colaborativo:</b> Sua equipe pode ver quais tickets estão abertos e resolver problemas em conjunto.
-            </List.Item>
-            <List.Item>
-              {/* LINHA CORRIGIDA */}
-              ✅ <b>Histórico Completo e Transcrições:</b> Mantenha um registro de todas as conversas para consultas futuras.<b></b>
-            </List.Item>
-          </List>
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }} order={{ base: 1, md: 2 }}>
-          <motion.div {...floatingAnimation}>
-            <Image
-              radius="md"
-              src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2070"
-              alt="Demonstração do TicketUltra"
-            />
-          </motion.div>
-        </Grid.Col>
-      </Grid>
-    </Container>
-  );
+      {/* Seção TicketUltra */}
+      <Grid gutter={50} align="center" mt={60}>
+        <Grid.Col span={{ base: 12, md: 6 }} order={{ base: 2, md: 1 }}>
+          <Title order={2} mb="lg">Transforme o caos do suporte em organização.</Title>
+          <Text c="dimmed" mt="md" mb="lg">
+            Mensagens diretas perdidas, dúvidas repetidas no chat geral, falta de organização... Um suporte ruim frustra seus membros. O TicketUltra centraliza e profissionaliza o seu canal de comunicação, garantindo a agilidade e a transparência que a sua comunidade merece.
+          </Text>
+          <List mt="lg" spacing="sm" size="sm">
+            <List.Item>
+              ✅ <b>Suporte Centralizado e Departamentos:</b> Crie painéis de tickets com múltiplos departamentos, direcionando cada solicitação para a equipe responsável de forma automática.
+            </List.Item>
+            <List.Item>
+              ✅ <b>Transcrições e Histórico Completo:</b> Mantenha um registro de todas as conversas para auditoria e referência futura. Cada ticket é transcrito, oferecendo total transparência.
+            </List.Item>
+            <List.Item>
+              ✅ <b>Gestão e Ranking de Performance:</b> Dê à sua equipe as ferramentas para o sucesso. Gerencie o fluxo de atendimentos e acesse um ranking de desempenho com base na quantidade e velocidade de resolução dos tickets.
+            </List.Item>
+          </List>
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }} order={{ base: 1, md: 2 }}>
+          <motion.div {...floatingAnimation}>
+            <Image
+              radius="md"
+              src="https://media.discordapp.net/attachments/1310610658844475404/1399929435452604526/width_200.png?ex=68b996a2&is=68b84522&hm=abd696c54a56629efe8d8c49d23eab08b290e9f3c8d461b1253399f21dbc1ba7&=&format=webp&quality=lossless"
+              alt="Demonstração do TicketUltra"
+            />
+          </motion.div>
+        </Grid.Col>
+      </Grid>
+    </Container>
+  );
 }
