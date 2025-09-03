@@ -7,6 +7,7 @@ import { useGlobalSound } from '../hooks/useGlobalSound';
 import { StatusBanner } from './StatusBanner';
 import { MusicPlayer } from './MusicPlayer'; // Importe o novo player
 import { Container } from '@mantine/core';
+import { VisitorCounter } from './VisitorCounter'; //
 
 export function MainLayout() {
   const location = useLocation();
@@ -16,6 +17,11 @@ export function MainLayout() {
     <>
       <Header />
       <StatusBanner />
+{/* 2. ADICIONE O CONTADOR AQUI */}
+      <Container py="md" style={{ textAlign: 'center' }}>
+        <VisitorCounter />
+      </Container>
+      
 
       {/* Container para posicionar o player */}
       <Container py="md">
@@ -38,4 +44,5 @@ export function MainLayout() {
       <Footer />
     </>
   );
+
 }
