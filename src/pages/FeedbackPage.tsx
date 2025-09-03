@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabaseClient';
-import styles from './FeedbackPage.module.css';
+import { Container, Title, Text, Textarea, Button, Paper, Group, Notification } from '@mantine/core';
+import { IconCheck, IconX } from '@tabler/icons-react';
+import classes from './FeedbackPage.module.css';
 
 const FeedbackPage = () => {
   const { user } = useAuth();
@@ -14,6 +16,10 @@ const FeedbackPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Limpa mensagens anteriores
+    setError('');
+    setSuccess('');
+
     if (!user) {
       setError('Você precisa estar logado para enviar um feedback.');
       return;
@@ -28,8 +34,6 @@ const FeedbackPage = () => {
     }
 
     setIsSubmitting(true);
-    setError('');
-    setSuccess('');
 
     const feedbackData = {
       user_id: user.id,
@@ -56,46 +60,62 @@ const FeedbackPage = () => {
   };
 
   return (
-    <div className={styles.feedbackContainer}>
-      <h2>Deixe seu Feedback</h2>
-      <p>Sua opinião é muito importante para nós!</p>
-      <form onSubmit={handleSubmit} className={styles.feedbackForm}>
-        <div className={styles.ratingSection}>
-          <label>Avaliação</label>
-          <div className={styles.stars}>
-            {[1, 2, 3, 4, 5].map((star) => (
-              <span
-                key={star}
-                className={star <= (hoverRating || rating) ? styles.starFilled : styles.star}
-                onClick={() => setRating(star)}
-                onMouseEnter={() => setHoverRating(star)}
-                onMouseLeave={() => setHoverRating(0)}
-              >
-                ★
-              </span>
-            ))}
-          </div>
-        </div>
-        <div className={styles.commentSection}>
-          <label htmlFor="comment">Comentário</label>
-          <textarea
-            id="comment"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
+    <Container size="sm" my={40}>
+      <Title ta="center" className={classes.title}>
+        Deixe seu Feedback
+      </Title>
+      <Text c="dimmed" size="sm" ta="center" mt={5}>
+        Sua opinião é muito importante para nós!
+      </Text>
+
+      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+        <form onSubmit={handleSubmit}>
+          <Group justify="center" className={classes.ratingSection}>
+            <Text fw={500}>Sua Avaliação:</Text>
+            <div className={classes.stars}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <span
+                  key={star}
+                  className={star <= (hoverRating || rating) ? classes.starFilled : classes.star}
+                  onClick={() => setRating(star)}
+                  onMouseEnter={() => setHoverRating(star)}
+                  onMouseLeave={() => setHoverRating(0)}
+                >
+                  ★
+                </span>
+              ))}
+            </div>
+          </Group>
+
+          <Textarea
+            label="Seu Comentário"
             placeholder="Conte-nos como foi sua experiência..."
-            rows={5}
             required
+            mt="md"
+            value={comment}
+            onChange={(event) => setComment(event.currentTarget.value)}
+            minRows={4}
           />
-        </div>
+          
+          {error && (
+            <Notification icon={<IconX size="1.1rem" />} color="red" mt="md" onClose={() => setError('')}>
+              {error}
+            </Notification>
+          )}
 
-        {error && <p className={styles.errorMessage}>{error}</p>}
-        {success && <p className={styles.successMessage}>{success}</p>}
+          {success && (
+            <Notification icon={<IconCheck size="1.1rem" />} color="teal" title="Sucesso!" mt="md" onClose={() => setSuccess('')}>
+              {success}
+            </Notification>
+          )}
 
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Enviando...' : 'Enviar Feedback'}
-        </button>
-      </form>
-    </div>
+
+          <Button type="submit" fullWidth mt="xl" loading={isSubmitting}>
+            Enviar Feedback
+          </Button>
+        </form>
+      </Paper>
+    </Container>
   );
 };
 
