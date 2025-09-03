@@ -16,11 +16,9 @@ import { AdminPage } from './pages/AdminPage';
 import { AdminOverview } from './pages/AdminOverview';
 import { MarqueeManager } from './pages/MarqueeManager';
 import { StatusManager } from './pages/StatusManager';
-
-// --- Importações do Sistema de Feedback ---
-import FeedbackPage from './pages/FeedbackPage'; // Página para ENVIAR feedback
-import FeedbacksPublicPage from './pages/FeedbacksPublicPage'; // <<--- ESTA LINHA ESTAVA FALTANDO
-import FeedbackManager from './pages/FeedbackManager'; // Página para GERENCIAR feedbacks no admin
+import FeedbackPage from './pages/FeedbackPage';
+import FeedbacksPublicPage from './pages/FeedbacksPublicPage'; // <<<--- ESTA LINHA ESTAVA FALTANDO
+import FeedbackManager from './pages/FeedbackManager';
 
 function App() {
   return (
@@ -33,7 +31,7 @@ function App() {
         <Route path="/bots/ticketultra" element={<TicketUltraPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/request-bot" element={<RequestBotPage />} />
-        <Route path="/feedbacks" element={<FeedbacksPublicPage />} /> {/* Rota pública para ver feedbacks */}
+        <Route path="/feedbacks" element={<FeedbacksPublicPage />} /> {/* Rota para ver feedbacks */}
 
         {/* === Rotas Protegidas para Usuários === */}
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>}>
@@ -58,7 +56,7 @@ function App() {
           <Route index element={<AdminOverview />} />
           <Route path="marquee" element={<MarqueeManager />} />
           <Route path="status" element={<StatusManager />} />
-          <Route path="feedbacks" element={<FeedbackManager />} /> {/* Rota para gerenciar feedbacks */}
+          <Route path="feedbacks" element={<FeedbackManager />} />
         </Route>
       </Route>
     </Routes>
