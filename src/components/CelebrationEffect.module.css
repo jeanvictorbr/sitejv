@@ -1,0 +1,29 @@
+/* src/components/CelebrationEffect.module.css */
+
+.celebrationContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Permite clicar nos elementos por baixo */
+  overflow: hidden;
+  z-index: 9999; /* Garante que o efeito fique por cima de tudo */
+}
+
+.particle {
+  position: absolute;
+  background-color: rgba(0, 255, 255, 0.7); /* Cor ciano semi-transparente, combinando com o site */
+  border-radius: 50%;
+  /* A mágica da variação (tamanho, velocidade, etc.) será feita no componente React */
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  from {
+    transform: translateY(-10vh) rotate(0deg); /* Começa acima da tela */
+  }
+  to {
+    transform: translateY(110vh) rotate(360deg); /* Cai até sair da tela */
+  }
+}
