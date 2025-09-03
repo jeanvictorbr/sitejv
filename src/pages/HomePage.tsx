@@ -5,6 +5,7 @@ import { ValueProposition } from '../components/ValueProposition';
 import { Marquee } from '../components/Marquee';
 import { Faq } from '../components/Faq';
 import { motion } from 'framer-motion';
+import { VisitorCounter } from '../components/VisitorCounter';
 
 
 const sectionAnimation: any = {
@@ -18,7 +19,11 @@ export function HomePage() {
   return (
     <>
       <Hero />
-     
+     {/* 2. ADICIONE O CONTADOR AQUI, DENTRO DE UM CONTAINER PARA CENTRALIZAR */}
+      <div style={{ textAlign: 'center', marginTop: '-2rem', marginBottom: '4rem' }}>
+        <VisitorCounter />
+      </div>
+
 
       {/* AQUI ESTÁ A CORREÇÃO: Adicionamos a margem de topo para espaçar do Hero */}
       <div style={{ marginTop: '2rem' }}>
@@ -46,4 +51,5 @@ export function HomePage() {
   );
 
 }
+
 
