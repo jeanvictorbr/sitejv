@@ -7,13 +7,13 @@
   height: 100%;
   pointer-events: none;
   overflow: hidden;
-  z-index: 1; /* <<< ALTERADO AQUI: Diminuímos o z-index */
-  /* Z-index da Header Mega Menu é 1000, StatusBanner pode ser 999. Este ficará por baixo. */
+  z-index: 1; /* JÁ CORRIGIMOS ISSO */
 }
 
 .particle {
   position: absolute;
-  color: white;
+  background-color: rgba(255, 255, 255, 0.8); /* <<< MUDANÇA AQUI: Branco com transparência */
+  border-radius: 50%; /* <<< MUDANÇA AQUI: Para ser uma bolinha */
   animation: fall linear infinite;
   user-select: none;
 }
