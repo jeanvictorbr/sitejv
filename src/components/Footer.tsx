@@ -2,6 +2,7 @@
 import { Container, Group, Text, Badge, Divider } from '@mantine/core'; // Adicionado Divider
 import classes from './Footer.module.css';
 import { useDiscordStats } from '../hooks/useDiscordStats';
+import { VisitorCounter } from './VisitorCounter';
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -10,6 +11,10 @@ export function Footer() {
   return (
     <footer className={classes.footer}>
       <Container className={classes.inner}>
+{/* 2. ADICIONE O CONTADOR AQUI, NUM NOVO CONTAINER */}
+      <Container size="xl" pt="md">
+        <VisitorCounter />
+      </Container>
         <Text>JV Store</Text>
 
         {/* Novo grupo para exibir as duas estatísticas */}
@@ -31,4 +36,5 @@ export function Footer() {
       </Container>
     </footer>
   );
+
 }
