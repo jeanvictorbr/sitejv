@@ -1,5 +1,6 @@
 // supabase/functions/update-status/index.ts
-import { createClient } from '@supabase/supabase-js'
+// DEPOIS (Correto)
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { corsHeaders } from '../_shared/cors.ts'
 
 Deno.serve(async (req) => {
