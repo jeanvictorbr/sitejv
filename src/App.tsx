@@ -17,6 +17,7 @@ import { AdminPage } from './pages/AdminPage';
 import { AdminOverview } from './pages/AdminOverview';
 import { MarqueeManager } from './pages/MarqueeManager';
 import { StatusManager } from './pages/StatusManager'; // 1. IMPORTE A PÁGINA
+import FeedbackPage from './pages/FeedbackPage';
 
 function App() {
   return (
