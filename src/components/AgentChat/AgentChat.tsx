@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
-import { ActionIcon, Paper, Text, TextInput, ScrollArea, Group, Avatar, Loader, CloseButton } from '@mantine/core';
+// ▼▼▼ Importe o ThemeIcon aqui ▼▼▼
+import { ActionIcon, Paper, Text, TextInput, ScrollArea, Group, ThemeIcon, Loader, CloseButton } from '@mantine/core';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../../lib/supabaseClient';
 import classes from './AgentChat.module.css';
 
 // --- Ícones SVG ---
-const IconSparkles = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z" /></svg> );
+const IconSparkles = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z" /></svg> );
 const IconSend = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1-1 0l-3.5-7l-7-3.5a.55 .55 0 0 1 0-1l18-6.5" /></svg> );
 // ------------------
 
@@ -28,7 +29,9 @@ export function AgentChat({ opened, onClose }: AgentChatProps) {
   const viewport = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    viewport.current?.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
+    if (viewport.current) {
+      viewport.current.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
+    }
   };
 
   useEffect(() => {
@@ -71,7 +74,8 @@ export function AgentChat({ opened, onClose }: AgentChatProps) {
           <Paper withBorder radius="lg" shadow="xl" className={classes.paper}>
             <div className={classes.header}>
               <Group>
-                <Avatar color="cyan" radius="xl"><IconSparkles /></Avatar>
+                {/* ▼▼▼ TROCADO Avatar por ThemeIcon para corrigir o erro de SVG ▼▼▼ */}
+                <ThemeIcon size="lg" color="cyan" radius="xl"><IconSparkles /></ThemeIcon>
                 <div>
                   <Text fw={700}>Agente JV</Text>
                   <Text size="xs" c="dimmed">Online</Text>
@@ -79,8 +83,7 @@ export function AgentChat({ opened, onClose }: AgentChatProps) {
               </Group>
               <CloseButton onClick={onClose} aria-label="Fechar chat" />
             </div>
-
-            {/* ▼▼▼ USANDO O SCROLLAREA PADRÃO PARA CONTROLAR O SCROLL ▼▼▼ */}
+            
             <ScrollArea viewportRef={viewport} className={classes.messageArea}>
               {messages.map((msg, index) => (
                 <div key={index} className={classes.messageWrapper} data-type={msg.type}>
