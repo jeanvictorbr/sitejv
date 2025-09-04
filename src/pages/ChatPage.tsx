@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Paper, Text, TextInput, ScrollArea, Group, ThemeIcon, Loader, CloseButton, ActionIcon } from '@mantine/core';
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
-import { MatrixBackground } from '../components/MatrixBackground'; // 1. Importa o novo fundo
+import { MatrixBackground } from '../components/MatrixBackground';
 import { useTextScramble } from '../hooks/useTextScramble';
 import classes from './ChatPage.module.css';
 import { Link } from 'react-router-dom';
@@ -27,10 +27,13 @@ export function ChatPage() {
   const animatedTitle = useTextScramble('Agente JV - Atendimento Virtual');
 
   const scrollToBottom = () => {
-    viewport.current?.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
+    if (viewport.current) {
+      viewport.current.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
+    }
   };
 
   useEffect(() => {
+    // Rola para baixo sempre que uma nova mensagem é adicionada
     setTimeout(scrollToBottom, 100);
   }, [messages]);
 
@@ -57,7 +60,7 @@ export function ChatPage() {
 
   return (
     <div className={classes.chatPage}>
-      <MatrixBackground /> {/* 2. Usa o novo fundo */}
+      <MatrixBackground />
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -100,7 +103,7 @@ export function ChatPage() {
               rightSection={
                 <ActionIcon onClick={handleSendMessage} loading={loading} variant="subtle" color="green">
                   <IconSend />
-                </Action-icon>
+                </ActionIcon>
               }
             />
           </div>
