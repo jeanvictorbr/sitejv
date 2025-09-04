@@ -1,0 +1,9 @@
+.matrixBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0; /* Garante que fique no fundo */
+  background-color: black; /* Fundo sólido preto para o efeito Matrix */
+}
