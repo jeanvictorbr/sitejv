@@ -9,7 +9,7 @@
   max-height: calc(100vh - 120px);
 }
 
-/* ▼▼▼ CORREÇÃO PRINCIPAL DO LAYOUT ▼▼▼ */
+/* O card do chat se torna um container flexível */
 .paper {
   height: 100%;
   display: flex;
@@ -18,7 +18,6 @@
   background-color: rgba(26, 27, 30, 0.95);
   backdrop-filter: blur(15px);
   border: 1px solid var(--mantine-color-dark-4);
-  position: relative; /* Essencial para o posicionamento absoluto dos filhos */
 }
 
 .header {
@@ -27,31 +26,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 10; /* Garante que o header fique sobre as mensagens */
 }
 
-/* A área de mensagens agora ocupa o espaço entre o header e o input */
+/* ▼▼▼ CORREÇÃO DEFINITIVA DO SCROLL ▼▼▼ */
+/* A área de mensagens agora é flexível e rolável */
 .messageArea {
-  position: absolute;
-  top: 60px; /* Altura aproximada do header */
-  bottom: 60px; /* Altura aproximada da área de input */
-  left: 0;
-  right: 0;
-  padding: var(--mantine-spacing-md);
-  overflow-y: auto; /* Adiciona o scroll somente nesta área */
+  flex: 1; /* Faz este elemento crescer e ocupar o espaço restante */
+  /* O componente ScrollArea do Mantine já cuida do overflow: auto */
 }
 
-/* O input fica travado na parte de baixo */
 .inputArea {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
   border-top: 1px solid var(--mantine-color-dark-4);
-  background-color: var(--mantine-color-dark-7); /* Fundo para não ver o scroll por baixo */
 }
-/* -------------------------------------------- */
+/* ------------------------------------------- */
 
 .messageWrapper {
   display: flex;
