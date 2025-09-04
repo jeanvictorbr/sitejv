@@ -3,6 +3,7 @@ import { Container, Group, Text, Badge, Divider } from '@mantine/core'; // Adici
 import classes from './Footer.module.css';
 import { useDiscordStats } from '../hooks/useDiscordStats';
 
+
 export function Footer() {
   const year = new Date().getFullYear();
   const { onlineCount, totalCount } = useDiscordStats(); // Pega os dois valores do hook
@@ -31,4 +32,7 @@ export function Footer() {
       </Container>
     </footer>
   );
+
 }
+
+

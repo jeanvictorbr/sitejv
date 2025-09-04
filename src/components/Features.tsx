@@ -15,6 +15,7 @@ const featuresData = [
     description: 'Ofereça um suporte ágil e organizado para sua comunidade. Crie painéis de atendimento personalizados, gerencie tickets por departamento e garanta logs completos de todas as interações.',
     link: '/ticket-ultra',
   },
+  
 ];
 
 export function Features() {

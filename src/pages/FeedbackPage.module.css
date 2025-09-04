@@ -1,0 +1,113 @@
+.feedbackContainer {
+  max-width: 600px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #2a2a2a;
+}
+
+.feedbackContainer h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.feedbackContainer p {
+  margin-bottom: 2rem;
+  color: #aaa;
+}
+
+.feedbackForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ratingSection,
+.commentSection {
+  text-align: left;
+}
+
+.ratingSection label,
+.commentSection label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #ccc;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+.star {
+  color: #555;
+  transition: color 0.2s ease-in-out;
+}
+
+.starFilled {
+  color: #f39c12;
+  text-shadow: 0 0 5px #f39c12;
+}
+
+.commentSection textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background-color: #2a2a2a;
+  color: #fff;
+  font-size: 1rem;
+  resize: vertical;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.commentSection textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+.feedbackForm button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.feedbackForm button:hover {
+  background-color: #0056b3;
+}
+
+.feedbackForm button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  color: #e74c3c;
+  background-color: rgba(231, 76, 60, 0.1);
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #e74c3c;
+}
+
+.successMessage {
+  color: #2ecc71;
+  background-color: rgba(46, 204, 113, 0.1);
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #2ecc71;
+}
