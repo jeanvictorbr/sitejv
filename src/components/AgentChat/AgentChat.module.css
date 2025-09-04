@@ -1,76 +1,52 @@
-/* Botão que abre o chat */
 .orbButton {
-  position: fixed; /* Fixa na tela */
+  position: fixed;
   bottom: 20px;
-  left: 20px; /* Posição na parte inferior esquerda */
-  z-index: 9999; /* ALTÍSSIMO para garantir que fique acima de TUDO */
+  left: 20px;
+  z-index: 9999;
   box-shadow: var(--mantine-shadow-xl);
-  width: 60px;
-  height: 60px;
-  cursor: pointer; /* Indica que é clicável */
-  display: flex; /* Para centralizar o ícone */
-  align-items: center;
-  justify-content: center;
+  transition: transform 0.2s ease;
 }
 
-/* Janela do Chat que se abre */
+.orbButton:hover {
+  transform: scale(1.1);
+}
+
 .chatWindow {
-  position: fixed; /* Fixa na tela */
-  bottom: 100px; /* Acima do botão */
-  left: 20px; /* Alinhado com o botão */
-  z-index: 9998; /* Um pouco menor que o botão, mas ainda alto */
+  position: fixed;
+  bottom: 100px;
+  left: 20px;
+  z-index: 9998;
   width: 380px;
-  max-width: calc(100vw - 40px); /* Garante que não ultrapasse a tela em mobile */
+  max-width: calc(100vw - 40px);
   height: 500px;
-  max-height: calc(100vh - 120px); /* Garante que não ultrapasse a altura da tela */
+  max-height: calc(100vh - 120px);
 }
 
-/* Estilo do card de chat */
 .paper {
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: rgba(26, 27, 30, 0.95); /* Cor de fundo um pouco mais opaca */
-  backdrop-filter: blur(15px); /* Efeito de blur mais forte */
-  border: 1px solid var(--mantine-color-dark-4); /* Borda sutil */
+  background-color: rgba(26, 27, 30, 0.95);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--mantine-color-dark-4);
 }
 
 .header {
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
   border-bottom: 1px solid var(--mantine-color-dark-4);
-  background-color: rgba(26, 27, 30, 0.8); /* Fundo sutil para o cabeçalho */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .messageArea {
   flex: 1;
-  padding: var(--mantine-spacing-md);
-  /* Ajuste para que a barra de rolagem funcione bem */
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column; /* Mensagens de cima para baixo */
-  justify-content: flex-end; /* Conteúdo sempre no fim */
 }
-/* Estilo da barra de rolagem para ficar mais discreta */
-.messageArea::-webkit-scrollbar {
-    width: 8px;
-}
-.messageArea::-webkit-scrollbar-track {
-    background: transparent;
-}
-.messageArea::-webkit-scrollbar-thumb {
-    background-color: var(--mantine-color-dark-6);
-    border-radius: 4px;
-}
-.messageArea::-webkit-scrollbar-thumb:hover {
-    background-color: var(--mantine-color-dark-5);
-}
-
 
 .inputArea {
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
   border-top: 1px solid var(--mantine-color-dark-4);
-  background-color: rgba(26, 27, 30, 0.8); /* Fundo sutil para a área de input */
 }
 
 .messageWrapper {
@@ -90,8 +66,6 @@
   max-width: 80%;
   padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
   border-radius: var(--mantine-radius-lg);
-  font-size: var(--mantine-font-size-sm);
-  line-height: 1.4;
 }
 
 .messageWrapper[data-type='user'] .messageBubble {

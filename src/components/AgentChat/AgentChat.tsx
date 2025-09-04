@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Portal, ActionIcon, Paper, Text, TextInput, ScrollArea, Group, Avatar, Loader } from '@mantine/core';
+import { Portal, ActionIcon, Paper, Text, TextInput, ScrollArea, Group, Avatar, Loader, CloseButton } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../../lib/supabaseClient';
@@ -7,10 +7,10 @@ import classes from './AgentChat.module.css';
 
 // --- Ícones SVG ---
 const IconSparkles = (props: React.ComponentProps<'svg'>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z" /></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z" /></svg>
 );
 const IconSend = (props: React.ComponentProps<'svg'>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1-1 0l-3.5-7l-7-3.5a.55 .55 0 0 1 0-1l18-6.5" /></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1-1 0l-3.5-7l-7-3.5a.55 .55 0 0 1 0-1l18-6.5" /></svg>
 );
 // ------------------
 
@@ -23,42 +23,34 @@ export function AgentChat() {
   const [opened, { toggle }] = useDisclosure(false);
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { type: 'agent', text: 'Olá! Sou o Agente JV. Como posso ajudar você hoje?' }
+    { type: 'agent', text: 'Olá! Sou o Agente JV. Como posso ajudar com os bots FactionFlow ou TicketUltra?' }
   ]);
   const [inputValue, setInputValue] = useState('');
-  // Use um useRef para o elemento HTML do scroll, não para o componente ScrollArea em si
-  const messagesEndRef = useRef<HTMLDivElement>(null); 
+  const viewport = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    viewport.current?.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
   };
 
   useEffect(() => {
-    if (opened) { // Só rola para baixo se o chat estiver aberto
+    if (opened) {
       scrollToBottom();
     }
-  }, [messages, opened]); // Rola quando novas mensagens chegam ou o chat é aberto
+  }, [messages, opened]);
 
   const handleSendMessage = async () => {
-    if (inputValue.trim() === '') return;
+    if (inputValue.trim() === '' || loading) return;
 
     const userMessage = inputValue;
     setMessages(prev => [...prev, { type: 'user', text: userMessage }]);
     setInputValue('');
-    
-    // Pequeno delay para a mensagem do usuário aparecer antes do loading
-    setTimeout(() => {
-        setLoading(true);
-        scrollToBottom();
-    }, 50); // Ajustado para ser mais rápido
+    setTimeout(() => { setLoading(true); scrollToBottom(); }, 50);
 
     try {
       const { data, error } = await supabase.functions.invoke('ask-agent', {
         body: { query: userMessage },
       });
-
       if (error) throw error;
-      
       setMessages(prev => [...prev, { type: 'agent', text: data.response }]);
     } catch (err) {
       console.error("Erro ao chamar a função 'ask-agent':", err);
@@ -69,14 +61,14 @@ export function AgentChat() {
   };
 
   return (
-    // O Portal ainda é a melhor forma de garantir que ele flutue acima de tudo
+    // O Portal garante que o componente flutue sobre todo o site
     <Portal>
       <AnimatePresence>
         {opened && (
           <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 50, opacity: 0 }}
+            initial={{ y: 20, x: "-50%", opacity: 0 }}
+            animate={{ y: 0, x: "-50%", opacity: 1 }}
+            exit={{ y: 20, x: "-50%", opacity: 0 }}
             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
             className={classes.chatWindow}
           >
@@ -89,42 +81,34 @@ export function AgentChat() {
                     <Text size="xs" c="dimmed">Online</Text>
                   </div>
                 </Group>
+                {/* BOTÃO DE FECHAR ADICIONADO AQUI */}
+                <CloseButton onClick={toggle} aria-label="Fechar chat" />
               </div>
 
-              {/* Ajustamos o ScrollArea para rolar para o final das mensagens */}
-              <ScrollArea className={classes.messageArea}>
-                {messages.map((msg, index) => (
-                  <div key={index} className={classes.messageWrapper} data-type={msg.type}>
-                    <div className={classes.messageBubble}>
-                      <Text size="sm" component="div" dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }} />
+              <ScrollArea.Autosize mah="100%" viewportRef={viewport} className={classes.messageArea}>
+                <div style={{ padding: 'var(--mantine-spacing-md)' }}>
+                  {messages.map((msg, index) => (
+                    <div key={index} className={classes.messageWrapper} data-type={msg.type}>
+                      <div className={classes.messageBubble}>
+                        <Text size="sm" component="div" dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }} />
+                      </div>
                     </div>
-                  </div>
-                ))}
-                {loading && (
+                  ))}
+                  {loading && (
                     <div className={classes.messageWrapper} data-type="agent">
-                        <div className={classes.messageBubble}>
-                            <Loader size="sm" />
-                        </div>
+                      <div className={classes.messageBubble}><Loader size="sm" /></div>
                     </div>
-                )}
-                <div ref={messagesEndRef} /> {/* Elemento "vazio" para o scroll */}
-              </ScrollArea>
+                  )}
+                </div>
+              </ScrollArea.Autosize>
 
               <div className={classes.inputArea}>
                 <TextInput
                   placeholder="Digite sua dúvida..."
                   value={inputValue}
                   onChange={(event) => setInputValue(event.currentTarget.value)}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter' && !loading) {
-                      handleSendMessage();
-                    }
-                  }}
-                  rightSection={
-                    <ActionIcon onClick={handleSendMessage} loading={loading} variant="subtle">
-                      <IconSend />
-                    </ActionIcon>
-                  }
+                  onKeyDown={(event) => { if (event.key === 'Enter' && !loading) { handleSendMessage(); } }}
+                  rightSection={<ActionIcon onClick={handleSendMessage} loading={loading} variant="subtle"><IconSend /></ActionIcon>}
                 />
               </div>
             </Paper>
@@ -132,21 +116,17 @@ export function AgentChat() {
         )}
       </AnimatePresence>
 
-      <motion.div 
-        whileHover={{ scale: 1.05 }} // Animação de "puxar" levemente para dentro
-        whileTap={{ scale: 0.95 }}   // Animação de "clicar" suave
+      {/* ANIMAÇÃO DE HOVER REMOVIDA PARA UM CLIQUE MAIS DIRETO */}
+      <ActionIcon
+        onClick={toggle}
+        size={60}
+        radius="xl"
+        variant="gradient"
+        gradient={{ from: 'cyan', to: 'blue' }}
+        className={classes.orbButton}
       >
-        <ActionIcon
-          onClick={toggle}
-          size="xl"
-          radius="xl"
-          variant="gradient"
-          gradient={{ from: 'cyan', to: 'blue' }}
-          className={classes.orbButton}
-        >
-          <IconSparkles />
-        </ActionIcon>
-      </motion.div>
+        <IconSparkles style={{ width: 32, height: 32 }} />
+      </ActionIcon>
     </Portal>
   );
 }
