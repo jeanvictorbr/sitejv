@@ -13,7 +13,7 @@
 
 .chatWindow {
   position: fixed;
-  bottom: 100px;
+  bottom: 95px; /* Posição um pouco acima do botão */
   left: 20px;
   z-index: 9998;
   width: 380px;
