@@ -11,48 +11,46 @@
 
 .container {
   width: 100%;
-  max-width: 800px;
-  height: 80vh;
+  max-width: 900px; /* Aumentado para deixar a caixa mais larga */
+  height: 85vh; /* Aumentado um pouco a altura */
   z-index: 2;
-  display: flex;
 }
 
-/* ▼▼▼ CORREÇÃO DEFINITIVA DO LAYOUT E SCROLL ▼▼▼ */
+/* ▼▼▼ CORREÇÃO DEFINITIVA COM CSS GRID ▼▼▼ */
 .paper {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column; /* Organiza os filhos (header, messages, input) em uma coluna */
-  overflow: hidden; /* Impede que o conteúdo vaze */
+  display: grid; /* MUDADO PARA GRID */
+  grid-template-rows: auto 1fr auto; /* Header (auto), Conteúdo (ocupa o resto), Input (auto) */
+  overflow: hidden;
   background-color: rgba(10, 10, 15, 0.85);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 255, 0, 0.3); /* Borda verde "hacker" */
+  border: 1px solid rgba(0, 255, 0, 0.3);
   border-radius: var(--mantine-radius-lg);
 }
 
 .header {
-  flex-shrink: 0; /* Impede que o cabeçalho encolha */
+  /* Não precisa mais de 'flex-shrink', o grid cuida disso */
   padding: var(--mantine-spacing-md);
   border-bottom: 1px solid rgba(0, 255, 0, 0.2);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--mantine-color-green-4); /* Texto verde */
+  color: var(--mantine-color-green-4);
 }
 
 .messageArea {
-  flex-grow: 1; /* Faz esta área ocupar TODO o espaço restante */
-  min-height: 0; /* Essencial para o overflow funcionar em layouts flex */
-  overflow-y: auto; /* Adiciona a barra de rolagem APENAS aqui */
+  overflow-y: auto; /* A barra de rolagem agora é controlada aqui */
   padding: var(--mantine-spacing-md);
+  /* 'flex: 1' e 'min-height: 0' não são mais necessários com grid */
 }
 
 .inputArea {
-  flex-shrink: 0; /* Impede que o rodapé encolha */
+  /* Não precisa mais de 'flex-shrink' */
   padding: var(--mantine-spacing-md);
   border-top: 1px solid rgba(0, 255, 0, 0.2);
 }
-/* ---------------------------------------------------- */
+/* ------------------------------------------- */
 
 .messageWrapper {
   display: flex;
@@ -84,14 +82,13 @@
   color: var(--mantine-color-green-2);
 }
 
-/* Estilo para a barra de rolagem "hacker" */
 .messageArea::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 .messageArea::-webkit-scrollbar-track {
-  background: rgba(0, 255, 0, 0.05);
+  background: transparent;
 }
 .messageArea::-webkit-scrollbar-thumb {
   background-color: rgba(0, 255, 0, 0.4);
-  border-radius: 4px;
+  border-radius: 3px;
 }
