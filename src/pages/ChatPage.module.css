@@ -12,7 +12,7 @@
 .container {
   width: 100%;
   max-width: 900px; /* Aumentado para deixar a caixa mais larga */
-  height: 85vh; /* Aumentado um pouco a altura */
+  height: 85vh;
   z-index: 2;
 }
 
@@ -21,16 +21,15 @@
   width: 100%;
   height: 100%;
   display: grid; /* MUDADO PARA GRID */
-  grid-template-rows: auto 1fr auto; /* Header (auto), Conteúdo (ocupa o resto), Input (auto) */
+  grid-template-rows: auto 1fr auto; /* Header (altura automática), Conteúdo (ocupa o resto), Input (altura automática) */
   overflow: hidden;
   background-color: rgba(10, 10, 15, 0.85);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  border: 1px solid rgba(0, 255, 0, 0.3); /* Borda verde "hacker" */
   border-radius: var(--mantine-radius-lg);
 }
 
 .header {
-  /* Não precisa mais de 'flex-shrink', o grid cuida disso */
   padding: var(--mantine-spacing-md);
   border-bottom: 1px solid rgba(0, 255, 0, 0.2);
   display: flex;
@@ -42,11 +41,10 @@
 .messageArea {
   overflow-y: auto; /* A barra de rolagem agora é controlada aqui */
   padding: var(--mantine-spacing-md);
-  /* 'flex: 1' e 'min-height: 0' não são mais necessários com grid */
+  /* 'flex: 1' não é mais necessário com grid */
 }
 
 .inputArea {
-  /* Não precisa mais de 'flex-shrink' */
   padding: var(--mantine-spacing-md);
   border-top: 1px solid rgba(0, 255, 0, 0.2);
 }
