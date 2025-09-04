@@ -1,8 +1,8 @@
 .orbButton {
   position: fixed;
   bottom: 20px;
-  right: 20px;
-  z-index: 1001;
+  left: 20px;
+  z-index: 1001; /* Z-index alto para ficar acima de tudo */
   box-shadow: var(--mantine-shadow-xl);
   width: 60px;
   height: 60px;
@@ -11,7 +11,7 @@
 .chatWindow {
   position: fixed;
   bottom: 100px;
-  right: 20px;
+  left: 20px;
   z-index: 1000;
   width: 380px;
   max-width: calc(100vw - 40px);
@@ -35,7 +35,6 @@
 
 .messageArea {
   flex: 1;
-  padding: var(--mantine-spacing-md);
 }
 
 .inputArea {

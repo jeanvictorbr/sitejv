@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-// 1. Adicionamos o Portal à lista de importações do Mantine
 import { Portal, ActionIcon, Paper, Text, TextInput, ScrollArea, Group, Avatar, Loader } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -8,10 +7,10 @@ import classes from './AgentChat.module.css';
 
 // --- Ícones SVG ---
 const IconSparkles = (props: React.ComponentProps<'svg'>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z" /></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z" /></svg>
 );
 const IconSend = (props: React.ComponentProps<'svg'>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1-1 0l-3.5-7l-7-3.5a.55 .55 0 0 1 0-1l18-6.5" /></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1-1 0l-3.5-7l-7-3.5a.55 .55 0 0 1 0-1l18-6.5" /></svg>
 );
 // ------------------
 
@@ -41,23 +40,16 @@ export function AgentChat() {
 
   const handleSendMessage = async () => {
     if (inputValue.trim() === '') return;
-
     const userMessage = inputValue;
     setMessages(prev => [...prev, { type: 'user', text: userMessage }]);
     setInputValue('');
-    
-    setTimeout(() => {
-        setLoading(true);
-        scrollToBottom();
-    }, 100);
+    setTimeout(() => { setLoading(true); scrollToBottom(); }, 100);
 
     try {
       const { data, error } = await supabase.functions.invoke('ask-agent', {
         body: { query: userMessage },
       });
-
       if (error) throw error;
-      
       setMessages(prev => [...prev, { type: 'agent', text: data.response }]);
     } catch (err) {
       console.error("Erro ao chamar a função 'ask-agent':", err);
@@ -67,7 +59,6 @@ export function AgentChat() {
     }
   };
 
-  // 2. Envolvemos todo o retorno do componente com o <Portal>
   return (
     <Portal>
       <AnimatePresence>
@@ -89,8 +80,7 @@ export function AgentChat() {
                   </div>
                 </Group>
               </div>
-
-              <ScrollArea className={classes.messageArea} viewportRef={viewport}>
+              <ScrollArea.Autosize mah="100%" viewportRef={viewport} className={classes.messageArea}>
                 <div style={{ padding: 'var(--mantine-spacing-md)'}}>
                     {messages.map((msg, index) => (
                       <div key={index} className={classes.messageWrapper} data-type={msg.type}>
@@ -101,36 +91,24 @@ export function AgentChat() {
                     ))}
                     {loading && (
                         <div className={classes.messageWrapper} data-type="agent">
-                            <div className={classes.messageBubble}>
-                                <Loader size="sm" />
-                            </div>
+                            <div className={classes.messageBubble}> <Loader size="sm" /> </div>
                         </div>
                     )}
                 </div>
-              </ScrollArea>
-
+              </ScrollArea.Autosize>
               <div className={classes.inputArea}>
                 <TextInput
                   placeholder="Digite sua dúvida..."
                   value={inputValue}
                   onChange={(event) => setInputValue(event.currentTarget.value)}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter' && !loading) {
-                      handleSendMessage();
-                    }
-                  }}
-                  rightSection={
-                    <ActionIcon onClick={handleSendMessage} loading={loading} variant="subtle">
-                      <IconSend />
-                    </ActionIcon>
-                  }
+                  onKeyDown={(event) => { if (event.key === 'Enter' && !loading) { handleSendMessage(); } }}
+                  rightSection={ <ActionIcon onClick={handleSendMessage} loading={loading} variant="subtle"> <IconSend /> </ActionIcon> }
                 />
               </div>
             </Paper>
           </motion.div>
         )}
       </AnimatePresence>
-
       <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
         <ActionIcon
           onClick={toggle}
