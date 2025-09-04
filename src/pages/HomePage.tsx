@@ -4,10 +4,9 @@ import { ValueProposition } from '../components/ValueProposition';
 import { Marquee } from '../components/Marquee';
 import { Faq } from '../components/Faq';
 import { motion } from 'framer-motion';
-import { AgentChat } from '../components/AgentChat/AgentChat';
-import { DiscordPulseCard } from '../components/DiscordPulseCard';
 import { Button } from '@mantine/core';
-import { useState } from 'react';
+import { Link } from 'react-router-dom'; // 1. Importa o Link para navegação
+import { DiscordPulseCard } from '../components/DiscordPulseCard';
 
 const sectionAnimation: any = {
     initial: { opacity: 0, y: 50 },
@@ -17,8 +16,6 @@ const sectionAnimation: any = {
 };
 
 export function HomePage() {
-  const [chatOpened, setChatOpened] = useState(false);
-
   return (
     <>
       <Hero />
@@ -27,14 +24,15 @@ export function HomePage() {
         <Marquee />
       </div>
 
-      {/* ▼▼▼ BOTÃO MOVIDO PARA A POSIÇÃO CORRETA ▼▼▼ */}
+      {/* 2. Botão agora é um Link que leva para a página /chat */}
       <motion.div {...sectionAnimation} style={{ textAlign: 'center', marginTop: '3rem', marginBottom: '3rem' }}>
         <Button
+          component={Link}
+          to="/chat"
           size="xl"
           radius="md"
           variant="gradient"
           gradient={{ from: 'red', to: 'orange', deg: 45 }}
-          onClick={() => setChatOpened(true)}
           style={{
             fontWeight: 700,
             textTransform: 'uppercase',
@@ -73,7 +71,7 @@ export function HomePage() {
         </motion.div>
       </div>
 
-      <AgentChat opened={chatOpened} onClose={() => setChatOpened(false)} />
+      {/* 3. O antigo <AgentChat/> foi removido e mantemos apenas o card do Discord */}
       <DiscordPulseCard />
     </>
   );
