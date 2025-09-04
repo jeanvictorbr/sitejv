@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { ActionIcon, Paper, Text, TextInput, ScrollArea, Group, Avatar, Loader } from '@mantine/core';
+import { useState, useRef, useEffect } from 'react';
+// 1. Adicionamos o Portal à lista de importações do Mantine
+import { Portal, ActionIcon, Paper, Text, TextInput, ScrollArea, Group, Avatar, Loader } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../../lib/supabaseClient';
@@ -12,7 +13,7 @@ const IconSparkles = (props: React.ComponentProps<'svg'>) => (
 const IconSend = (props: React.ComponentProps<'svg'>) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1-1 0l-3.5-7l-7-3.5a.55 .55 0 0 1 0-1l18-6.5" /></svg>
 );
-// ------------------sad
+// ------------------
 
 interface Message {
   type: 'user' | 'agent';
@@ -26,6 +27,17 @@ export function AgentChat() {
     { type: 'agent', text: 'Olá! Sou o Agente JV. Como posso ajudar você hoje?' }
   ]);
   const [inputValue, setInputValue] = useState('');
+  const viewport = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    viewport.current?.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    if (opened) {
+      scrollToBottom();
+    }
+  }, [messages, opened]);
 
   const handleSendMessage = async () => {
     if (inputValue.trim() === '') return;
@@ -33,7 +45,11 @@ export function AgentChat() {
     const userMessage = inputValue;
     setMessages(prev => [...prev, { type: 'user', text: userMessage }]);
     setInputValue('');
-    setLoading(true);
+    
+    setTimeout(() => {
+        setLoading(true);
+        scrollToBottom();
+    }, 100);
 
     try {
       const { data, error } = await supabase.functions.invoke('ask-agent', {
@@ -51,8 +67,9 @@ export function AgentChat() {
     }
   };
 
+  // 2. Envolvemos todo o retorno do componente com o <Portal>
   return (
-    <>
+    <Portal>
       <AnimatePresence>
         {opened && (
           <motion.div
@@ -73,21 +90,23 @@ export function AgentChat() {
                 </Group>
               </div>
 
-              <ScrollArea className={classes.messageArea}>
-                {messages.map((msg, index) => (
-                  <div key={index} className={classes.messageWrapper} data-type={msg.type}>
-                    <div className={classes.messageBubble}>
-                      <Text size="sm" component="div" dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }} />
-                    </div>
-                  </div>
-                ))}
-                {loading && (
-                    <div className={classes.messageWrapper} data-type="agent">
+              <ScrollArea className={classes.messageArea} viewportRef={viewport}>
+                <div style={{ padding: 'var(--mantine-spacing-md)'}}>
+                    {messages.map((msg, index) => (
+                      <div key={index} className={classes.messageWrapper} data-type={msg.type}>
                         <div className={classes.messageBubble}>
-                            <Loader size="sm" />
+                          <Text size="sm" component="div" dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }} />
                         </div>
-                    </div>
-                )}
+                      </div>
+                    ))}
+                    {loading && (
+                        <div className={classes.messageWrapper} data-type="agent">
+                            <div className={classes.messageBubble}>
+                                <Loader size="sm" />
+                            </div>
+                        </div>
+                    )}
+                </div>
               </ScrollArea>
 
               <div className={classes.inputArea}>
@@ -124,6 +143,6 @@ export function AgentChat() {
           <IconSparkles />
         </ActionIcon>
       </motion.div>
-    </>
+    </Portal>
   );
 }
