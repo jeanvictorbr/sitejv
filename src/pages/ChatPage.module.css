@@ -12,53 +12,55 @@
 .container {
   width: 100%;
   max-width: 800px;
-  height: 80vh;
+  height: 80vh; /* Garante que o contêiner tem uma altura definida */
   z-index: 2;
-  display: flex; /* Adicionado para garantir que o Paper preencha a altura */
-  flex-direction: column; /* Adicionado */
+  display: flex;
+  flex-direction: column;
 }
 
 /* ▼▼▼ CORREÇÕES DEFINITIVAS DE LAYOUT E SCROLL ▼▼▼ */
 .paper {
   width: 100%;
-  height: 100%; /* Garante que o Paper ocupa 100% da altura do container */
+  height: 100%; /* Agora o Paper irá preencher a altura do .container (80vh) */
   display: flex;
   flex-direction: column;
-  background-color: rgba(10, 10, 15, 0.7);
-  backdrop-filter: blur(20px);
-  border-color: rgba(255, 255, 255, 0.1);
-  border-width: 1px; /* Garante que a borda seja visível */
-  border-style: solid; /* Garante que a borda seja visível */
-  border-radius: var(--mantine-radius-lg); /* Aplica o radius */
-  overflow: hidden; /* Importante para que o scroll fique dentro dos limites do Paper */
+  background-color: rgba(10, 10, 15, 0.85); /* Fundo mais escuro para o "efeito hacker" */
+  backdrop-filter: blur(15px);
+  border-color: rgba(0, 255, 0, 0.3); /* Borda verde brilhante */
+  border-width: 1px;
+  border-style: solid;
+  border-radius: var(--mantine-radius-lg);
+  overflow: hidden; /* Muito importante para conter o scroll */
 }
 
 .header {
-  flex-shrink: 0; /* Impede que o cabeçalho encolha */
+  flex-shrink: 0; /* Impede que o cabeçalho seja "espremido" */
   padding: var(--mantine-spacing-md);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 255, 0, 0.2); /* Borda verde */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: var(--mantine-color-green-4); /* Texto verde */
 }
 
 .messageArea {
-  flex: 1; /* Faz esta área ocupar todo o espaço restante */
-  min-height: 0; /* Impede overflow em layouts flex */
-  padding: var(--mantine-spacing-md); /* Adicionado padding aqui para que as mensagens não colem nas bordas */
+  flex: 1; /* Faz esta área ocupar todo o espaço restante disponível */
+  min-height: 0; /* Essencial para que 'flex: 1' funcione corretamente e o scroll apareça */
+  padding: var(--mantine-spacing-md); /* Padding interno para as mensagens */
+  overflow-y: auto; /* Garante que a barra de rolagem apareça SOMENTE aqui */
 }
 
 .inputArea {
-  flex-shrink: 0; /* Impede que a área de input encolha */
+  flex-shrink: 0; /* Impede que a área de input seja "espremida" */
   padding: var(--mantine-spacing-md);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0, 255, 0, 0.2); /* Borda verde */
 }
 /* ---------------------------------------------------- */
 
 .messageWrapper {
   display: flex;
   margin-bottom: var(--mantine-spacing-md);
-  /* Removido o padding lateral daqui, agora está no .messageArea */
+  /* O padding lateral agora é tratado pelo .messageArea */
 }
 
 .messageWrapper[data-type='user'] {
@@ -79,9 +81,27 @@
 .messageWrapper[data-type='user'] .messageBubble {
   background: linear-gradient(45deg, var(--mantine-color-blue-7), var(--mantine-color-cyan-6));
   color: var(--mantine-color-white);
+  box-shadow: 0 2px 8px rgba(0, 255, 0, 0.1); /* Sombra sutil para "brilho" */
 }
 
 .messageWrapper[data-type='agent'] .messageBubble {
-  background-color: var(--mantine-color-dark-5);
-  color: var(--mantine-color-dark-0);
+  background-color: var(--mantine-color-dark-7); /* Fundo mais escuro para mensagens do agente */
+  color: var(--mantine-color-green-2); /* Texto verde claro */
+  box-shadow: 0 2px 8px rgba(0, 255, 0, 0.1); /* Sombra sutil para "brilho" */
+}
+
+/* Estilo para a barra de rolagem (WebKit - Chrome, Safari) */
+.messageArea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messageArea::-webkit-scrollbar-track {
+  background: rgba(0, 255, 0, 0.05); /* Trilha levemente verde */
+  border-radius: 10px;
+}
+
+.messageArea::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 255, 0, 0.3); /* Alça verde mais visível */
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.1); /* Borda para contraste */
 }
