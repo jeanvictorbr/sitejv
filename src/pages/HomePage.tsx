@@ -1,13 +1,10 @@
-// src/pages/HomePage.tsx
 import { Hero } from '../components/Hero';
 import { Features } from '../components/Features';
 import { ValueProposition } from '../components/ValueProposition';
 import { Marquee } from '../components/Marquee';
 import { Faq } from '../components/Faq';
 import { motion } from 'framer-motion';
-import { DiscordPulseCard } from '../components/DiscordPulseCard';
-import { AgentChat } from './AgentChat/AgentChat';
-
+import { AgentChat } from '../components/AgentChat/AgentChat'; // <-- 1. Caminho de importação CORRIGIDO
 
 const sectionAnimation: any = {
     initial: { opacity: 0, y: 50 },
@@ -20,16 +17,11 @@ export function HomePage() {
   return (
     <>
       <Hero />
-      <DiscordPulseCard />
-      {/* AQUI ESTÁ A CORREÇÃO: Adicionamos a margem de topo para espaçar do Hero */}
+ 
       <div style={{ marginTop: '2rem' }}>
         <Marquee />
       </div>
-      <Hero />
-       <AgentChat />
-      <div style={{ marginTop: '2rem' }}>
-        <Marquee />
-      </div>
+
       <div style={{ marginTop: '2rem' }}>
         <motion.div {...sectionAnimation}>
           <Features />
@@ -47,11 +39,8 @@ export function HomePage() {
           <Faq />
         </motion.div>
       </div>
+
+      <AgentChat /> {/* <-- 2. Componente adicionado aqui */}
     </>
   );
-
 }
-
-
-
-
