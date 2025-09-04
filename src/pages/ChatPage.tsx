@@ -2,17 +2,14 @@ import { useState, useRef, useEffect } from 'react';
 import { Paper, Text, TextInput, ScrollArea, Group, ThemeIcon, Loader, CloseButton, ActionIcon } from '@mantine/core';
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
-// REMOVA: import { ParticlesBackground } from '../components/ParticlesBackground';
-// REMOVA: import { GradientBackground } from '../components/GradientBackground';
-import { MatrixBackground } from '../components/MatrixBackground'; // <<< ADICIONADO
+import { MatrixBackground } from '../components/MatrixBackground';
 import { useTextScramble } from '../hooks/useTextScramble';
 import classes from './ChatPage.module.css';
 import { Link } from 'react-router-dom';
 
 // --- Ícones SVG ---
-// (Mantenha os SVGs aqui, não precisa mudar)
 const IconSparkles = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z" /></svg> );
-const IconSend = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1-1 0l-3.5-7l-7-3.5a.55 .55 0 0 1 0-1l18-6.5" /></svg> );
+const IconSend = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1-1 0l-3.5-7l-7-3.5a.55 .55 0 0 1 0-1l18-6.5" /></svg> );
 // ------------------
 
 interface Message {
@@ -30,15 +27,11 @@ export function ChatPage() {
   const animatedTitle = useTextScramble('Agente JV - Atendimento Virtual');
 
   const scrollToBottom = () => {
-    if (viewport.current) {
-      viewport.current.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
-    }
+    viewport.current?.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
   };
 
   useEffect(() => {
-    // Usa requestAnimationFrame para garantir que a rolagem aconteça após a renderização
-    const id = requestAnimationFrame(scrollToBottom);
-    return () => cancelAnimationFrame(id);
+    setTimeout(scrollToBottom, 100);
   }, [messages]);
 
   const handleSendMessage = async () => {
@@ -64,14 +57,14 @@ export function ChatPage() {
 
   return (
     <div className={classes.chatPage}>
-      <MatrixBackground /> {/* <<< USANDO O NOVO COMPONENTE DE FUNDO */}
+      <MatrixBackground />
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className={classes.container}
       >
-        <Paper radius="lg" shadow="xl" className={classes.paper}>
+        <Paper withBorder radius="lg" shadow="xl" className={classes.paper}>
           <div className={classes.header}>
             <Group>
               <ThemeIcon size="lg" variant="gradient" gradient={{ from: 'lime', to: 'green' }} radius="xl"><IconSparkles /></ThemeIcon>
@@ -82,22 +75,22 @@ export function ChatPage() {
             </Group>
             <CloseButton component={Link} to="/" aria-label="Voltar para a página inicial" />
           </div>
-
+          
           <ScrollArea viewportRef={viewport} className={classes.messageArea}>
             {messages.map((msg, index) => (
-              <div key={index} className={classes.messageWrapper} data-type={msg.type}>
-                <div className={classes.messageBubble}>
+              <div key={index} className={classes.messageWrapper}>
+                <div className={classes.messageBubble} data-type={msg.type}>
                   <Text size="sm">{msg.text}</Text>
                 </div>
               </div>
             ))}
             {loading && (
               <div className={classes.messageWrapper} data-type="agent">
-                <div className={classes.messageBubble}><Loader size="sm" /></div>
+                <div className={classes.messageBubble}><Loader color="green" size="sm" /></div>
               </div>
             )}
           </ScrollArea>
-
+          
           <div className={classes.inputArea}>
             <TextInput
               placeholder="Digite sua dúvida..."
