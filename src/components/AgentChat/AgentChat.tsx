@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { Portal, ActionIcon, Paper, Text, TextInput, ScrollArea, Group, Avatar, Loader, CloseButton, Tooltip } from '@mantine/core';
+// 1. A importação do 'Portal' foi REMOVIDA
+import { ActionIcon, Paper, Text, TextInput, ScrollArea, Group, Avatar, Loader, CloseButton, Tooltip } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../../lib/supabaseClient';
@@ -55,8 +56,9 @@ export function AgentChat() {
     }
   };
 
+  // 2. O <Portal> foi REMOVIDO daqui. Agora usamos um Fragment <>
   return (
-    <Portal>
+    <>
       <AnimatePresence>
         {opened && (
           <motion.div
@@ -106,7 +108,7 @@ export function AgentChat() {
           </motion.div>
         )}
       </AnimatePresence>
-      <Tooltip label="Fale com o Agente JV" position="right">
+      <Tooltip label="Fale com o Agente JV" position="right" withArrow>
         <ActionIcon
           onClick={toggle}
           size={60}
@@ -118,6 +120,6 @@ export function AgentChat() {
           <IconSparkles style={{ width: 32, height: 32 }} />
         </ActionIcon>
       </Tooltip>
-    </Portal>
+    </>
   );
 }
