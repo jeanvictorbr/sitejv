@@ -16,18 +16,20 @@
   z-index: 2;
 }
 
-/* ▼▼▼ CORREÇÃO DO LAYOUT INTERNO DO CHAT ▼▼▼ */
+/* ▼▼▼ CORREÇÃO DEFINITIVA DO LAYOUT INTERNO DO CHAT ▼▼▼ */
 .paper {
   width: 100%;
   height: 100%;
   display: flex; /* Ativa o layout flexbox */
   flex-direction: column; /* Organiza os filhos em coluna */
+  overflow: hidden; /* Impede que o card inteiro cresça */
   background-color: rgba(10, 10, 15, 0.7);
   backdrop-filter: blur(20px);
   border-color: rgba(255, 255, 255, 0.1);
 }
 
 .header {
+  /* O header tem altura automática, não cresce */
   padding: var(--mantine-spacing-md);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
@@ -37,11 +39,12 @@
 
 /* A área de mensagens agora é flexível e rolável */
 .messageArea {
-  flex: 1; /* Faz este elemento crescer e ocupar o espaço restante */
-  min-height: 0; /* Impede que o flexbox transborde o container */
-  /* O componente ScrollArea do Mantine cuidará do 'overflow' */
+  flex: 1; /* Faz este elemento crescer e ocupar todo o espaço restante */
+  min-height: 0; /* Truque de CSS para impedir que o flexbox transborde o container */
+  /* O componente ScrollArea do Mantine cuidará do 'overflow' e da barra de rolagem */
 }
 
+/* O input tem altura automática e fica fixo embaixo */
 .inputArea {
   padding: var(--mantine-spacing-md);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -51,7 +54,7 @@
 .messageWrapper {
   display: flex;
   margin-bottom: var(--mantine-spacing-md);
-  padding: 0 var(--mantine-spacing-md); /* Adiciona padding lateral */
+  padding: 0 var(--mantine-spacing-md);
 }
 
 .messageWrapper[data-type='user'] {
