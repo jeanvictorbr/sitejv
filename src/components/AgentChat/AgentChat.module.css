@@ -1,10 +1,8 @@
-/* O .orbButton foi REMOVIDO, pois ele não existirá mais */
-
 .chatWindow {
   position: fixed;
-  bottom: 20px; /* Alinhado ao rodapé */
-  right: 20px; /* ALTERADO: para o canto DIREITO */
-  z-index: 9998; /* Continua alto para ficar acima de tudo */
+  bottom: 20px;
+  right: 20px;
+  z-index: 9998;
   width: 380px;
   max-width: calc(100vw - 40px);
   height: 500px;
@@ -29,8 +27,10 @@
   align-items: center;
 }
 
+/* MODIFICAÇÃO PRINCIPAL: Faz a área de scroll ocupar todo o espaço disponível */
 .messageArea {
-  flex: 1;
+  flex: 1 1 0; /* Permite que o elemento cresça e encolha */
+  padding: var(--mantine-spacing-md);
 }
 
 .inputArea {

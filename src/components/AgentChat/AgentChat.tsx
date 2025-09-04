@@ -14,28 +14,28 @@ interface Message {
   text: string;
 }
 
-// Props para controlar a abertura/fechamento
 interface AgentChatProps {
   opened: boolean;
   onClose: () => void;
 }
 
-// Removido 'useDisclosure' e adicionado 'opened', 'onClose' como props
 export function AgentChat({ opened, onClose }: AgentChatProps) {
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { type: 'agent', text: 'Olá! Sou o Agente JV. Como posso ajudar com os bots FactionFlow ou TicketUltra?' }
   ]);
   const [inputValue, setInputValue] = useState('');
-  const viewport = useRef<HTMLDivElement>(null);
+  const viewport = useRef<HTMLDivElement>(null); // Ref para o container do scroll
 
+  // Função para rolar para o final
   const scrollToBottom = () => {
     viewport.current?.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
   };
 
+  // Efeito para rolar sempre que uma nova mensagem chega ou o chat abre
   useEffect(() => {
     if (opened) {
-      scrollToBottom();
+      setTimeout(scrollToBottom, 100); // Pequeno delay para garantir que o DOM atualizou
     }
   }, [messages, opened]);
 
@@ -43,8 +43,8 @@ export function AgentChat({ opened, onClose }: AgentChatProps) {
     if (inputValue.trim() === '' || loading) return;
     const userMessage = inputValue;
     setMessages(prev => [...prev, { type: 'user', text: userMessage }]);
-    setInputValue(''); // Limpa o input após enviar a mensagem
-    setTimeout(() => { setLoading(true); scrollToBottom(); }, 50);
+    setInputValue('');
+    setLoading(true);
 
     try {
       const { data, error } = await supabase.functions.invoke('ask-agent', {
@@ -61,9 +61,8 @@ export function AgentChat({ opened, onClose }: AgentChatProps) {
   };
 
   return (
-    // Não precisamos mais do Portal aqui, pois o chatWindow já é fixed e o pai está na homepage
     <AnimatePresence>
-      {opened && ( // O chat só aparece se 'opened' for true
+      {opened && (
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -80,24 +79,26 @@ export function AgentChat({ opened, onClose }: AgentChatProps) {
                   <Text size="xs" c="dimmed">Online</Text>
                 </div>
               </Group>
-              <CloseButton onClick={onClose} aria-label="Fechar chat" /> {/* Usa a prop onClose */}
+              <CloseButton onClick={onClose} aria-label="Fechar chat" />
             </div>
-            <ScrollArea.Autosize mah="100%" viewportRef={viewport} className={classes.messageArea}>
-              <div style={{ padding: 'var(--mantine-spacing-md)' }}>
-                {messages.map((msg, index) => (
-                  <div key={index} className={classes.messageWrapper} data-type={msg.type}>
-                    <div className={classes.messageBubble}>
-                      <Text size="sm" component="div" dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }} />
-                    </div>
+
+            {/* A ÁREA DE SCROLL AGORA OCUPA O ESPAÇO RESTANTE */}
+            <ScrollArea viewportRef={viewport} className={classes.messageArea}>
+              {messages.map((msg, index) => (
+                <div key={index} className={classes.messageWrapper} data-type={msg.type}>
+                  <div className={classes.messageBubble}>
+                    <Text size="sm">{msg.text}</Text>
                   </div>
-                ))}
-                {loading && (
-                  <div className={classes.messageWrapper} data-type="agent">
-                    <div className={classes.messageBubble}><Loader size="sm" /></div>
-                  </div>
-                )}
-              </div>
-            </ScrollArea.Autosize>
+                </div>
+              ))}
+              {loading && (
+                <div className={classes.messageWrapper} data-type="agent">
+                  <div className={classes.messageBubble}><Loader size="sm" /></div>
+                </div>
+              )}
+            </ScrollArea>
+            
+            {/* O INPUT FICA SEMPRE FIXO NA PARTE DE BAIXO */}
             <div className={classes.inputArea}>
               <TextInput
                 placeholder="Digite sua dúvida..."

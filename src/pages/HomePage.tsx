@@ -6,8 +6,8 @@ import { Faq } from '../components/Faq';
 import { motion } from 'framer-motion';
 import { AgentChat } from '../components/AgentChat/AgentChat';
 import { DiscordPulseCard } from '../components/DiscordPulseCard';
-import { Button } from '@mantine/core'; // Importe o componente Button do Mantine
-import { useState } from 'react'; // Importe useState para controlar a abertura do chat
+import { Button } from '@mantine/core';
+import { useState } from 'react';
 
 const sectionAnimation: any = {
     initial: { opacity: 0, y: 50 },
@@ -17,7 +17,7 @@ const sectionAnimation: any = {
 };
 
 export function HomePage() {
-  const [chatOpened, setChatOpened] = useState(false); // Novo estado para controlar a abertura do chat
+  const [chatOpened, setChatOpened] = useState(false);
 
   return (
     <>
@@ -27,20 +27,14 @@ export function HomePage() {
         <Marquee />
       </div>
 
-      <div style={{ marginTop: '2rem' }}>
-        <motion.div {...sectionAnimation}>
-          <Features />
-        </motion.div>
-      </div>
-
-      {/* NOVO BOTÃO AQUI */}
+      {/* ▼▼▼ BOTÃO MOVIDO PARA A POSIÇÃO CORRETA ▼▼▼ */}
       <motion.div {...sectionAnimation} style={{ textAlign: 'center', marginTop: '3rem', marginBottom: '3rem' }}>
         <Button
           size="xl"
           radius="md"
           variant="gradient"
-          gradient={{ from: 'red', to: 'orange', deg: 45 }} // Cores vermelhas/laranjas
-          onClick={() => setChatOpened(true)} // Abre o chat ao clicar
+          gradient={{ from: 'red', to: 'orange', deg: 45 }}
+          onClick={() => setChatOpened(true)}
           style={{
             fontWeight: 700,
             textTransform: 'uppercase',
@@ -63,6 +57,12 @@ export function HomePage() {
 
       <div style={{ marginTop: '2rem' }}>
         <motion.div {...sectionAnimation}>
+          <Features />
+        </motion.div>
+      </div>
+
+      <div style={{ marginTop: '2rem' }}>
+        <motion.div {...sectionAnimation}>
           <ValueProposition />
         </motion.div>
       </div>
@@ -73,7 +73,6 @@ export function HomePage() {
         </motion.div>
       </div>
 
-      {/* Agente de Chat agora é controlado pelo estado `chatOpened` */}
       <AgentChat opened={chatOpened} onClose={() => setChatOpened(false)} />
       <DiscordPulseCard />
     </>
