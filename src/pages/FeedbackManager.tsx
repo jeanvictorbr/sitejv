@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { Table, Button, Group, Text, Avatar, Alert, LoadingOverlay, Badge, Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-// A importação de ícones foi REMOVIDA
 import classes from './FeedbackManager.module.css';
 
 // --- ÍCONES SVG EMBUTIDOS ---
@@ -34,7 +33,7 @@ const FeedbackManager = () => {
   const fetchFeedbacks = async () => {
     setLoading(true);
     const { data, error: fetchError } = await supabase.from('feedbacks').select('*').order('created_at', { ascending: false });
-    if (fetchError) { setError('Erro ao carregar os feedbacks.'); console.error(fetchError); } else { setFeedbacks(data); }
+    if (fetchError) { setError('Erro ao carregar os feedbacks.'); console.error(fetchError); } else { setFeedbacks(data as Feedback[]); }
     setLoading(false);
   };
 
@@ -43,16 +42,25 @@ const FeedbackManager = () => {
   const handleVisibilityToggle = async (feedback: Feedback) => {
     setLoading(true);
     const { error: updateError } = await supabase.from('feedbacks').update({ is_visible: !feedback.is_visible }).eq('id', feedback.id);
-    if (updateError) { setError('Erro ao atualizar o feedback.'); } else { setFeedbacks(feedbacks.map(f => f.id === feedback.id ? { ...f, is_visible: !f.is_visible } : f)); }
-    setLoading(false);
+    if (updateError) {
+      setError('Erro ao atualizar o feedback.');
+      setLoading(false);
+    } else {
+      await fetchFeedbacks(); // Busca a lista atualizada do banco
+    }
   };
 
   const handleDelete = async () => {
     if (!selectedFeedback) return;
     setLoading(true);
     const { error: deleteError } = await supabase.from('feedbacks').delete().eq('id', selectedFeedback.id);
-    if (deleteError) { setError('Erro ao apagar o feedback.'); } else { setFeedbacks(feedbacks.filter(f => f.id !== selectedFeedback.id)); close(); }
-    setLoading(false);
+    if (deleteError) {
+      setError('Erro ao apagar o feedback.');
+      setLoading(false);
+    } else {
+      close();
+      await fetchFeedbacks(); // Busca a lista atualizada do banco
+    }
   };
 
   const openDeleteModal = (feedback: Feedback) => { setSelectedFeedback(feedback); open(); };
