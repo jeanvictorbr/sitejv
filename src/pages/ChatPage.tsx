@@ -3,14 +3,16 @@ import { Paper, Text, TextInput, ScrollArea, Group, ThemeIcon, Loader, CloseButt
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
 // REMOVA: import { ParticlesBackground } from '../components/ParticlesBackground';
-import { GradientBackground } from '../components/GradientBackground'; // <<< ADICIONADO
+// REMOVA: import { GradientBackground } from '../components/GradientBackground';
+import { MatrixBackground } from '../components/MatrixBackground'; // <<< ADICIONADO
 import { useTextScramble } from '../hooks/useTextScramble';
 import classes from './ChatPage.module.css';
 import { Link } from 'react-router-dom';
 
 // --- Ícones SVG ---
+// (Mantenha os SVGs aqui, não precisa mudar)
 const IconSparkles = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z" /></svg> );
-const IconSend = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1-1 0l-3.5-7l-7-3.5a.55 .55 0 0 1 0-1l18-6.5" /></svg> );
+const IconSend = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1-1 0l-3.5-7l-7-3.5a.55 .55 0 0 1 0-1l18-6.5" /></svg> );
 // ------------------
 
 interface Message {
@@ -28,11 +30,15 @@ export function ChatPage() {
   const animatedTitle = useTextScramble('Agente JV - Atendimento Virtual');
 
   const scrollToBottom = () => {
-    viewport.current?.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
+    if (viewport.current) {
+      viewport.current.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
+    }
   };
 
   useEffect(() => {
-    setTimeout(scrollToBottom, 100);
+    // Usa requestAnimationFrame para garantir que a rolagem aconteça após a renderização
+    const id = requestAnimationFrame(scrollToBottom);
+    return () => cancelAnimationFrame(id);
   }, [messages]);
 
   const handleSendMessage = async () => {
@@ -58,17 +64,17 @@ export function ChatPage() {
 
   return (
     <div className={classes.chatPage}>
-      <GradientBackground /> {/* <<< USANDO O NOVO COMPONENTE DE FUNDO */}
+      <MatrixBackground /> {/* <<< USANDO O NOVO COMPONENTE DE FUNDO */}
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className={classes.container}
       >
-        <Paper withBorder radius="lg" shadow="xl" className={classes.paper}>
+        <Paper radius="lg" shadow="xl" className={classes.paper}>
           <div className={classes.header}>
             <Group>
-              <ThemeIcon size="lg" variant="gradient" gradient={{ from: 'cyan', to: 'blue' }} radius="xl"><IconSparkles /></ThemeIcon>
+              <ThemeIcon size="lg" variant="gradient" gradient={{ from: 'lime', to: 'green' }} radius="xl"><IconSparkles /></ThemeIcon>
               <div>
                 <Text fw={700} dangerouslySetInnerHTML={{ __html: animatedTitle }} />
                 <Text size="xs" c="dimmed">Online</Text>
@@ -98,7 +104,11 @@ export function ChatPage() {
               value={inputValue}
               onChange={(event) => setInputValue(event.currentTarget.value)}
               onKeyDown={(event) => { if (event.key === 'Enter' && !loading) { handleSendMessage(); } }}
-              rightSection={<ActionIcon onClick={handleSendMessage} loading={loading} variant="subtle"><IconSend /></ActionIcon>}
+              rightSection={
+                <ActionIcon onClick={handleSendMessage} loading={loading} variant="subtle" color="green">
+                  <IconSend />
+                </ActionIcon>
+              }
             />
           </div>
         </Paper>
