@@ -1,0 +1,75 @@
+.orbButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1001; /* Acima do card do discord */
+  box-shadow: var(--mantine-shadow-xl);
+  width: 60px;
+  height: 60px;
+}
+
+.chatWindow {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  z-index: 1000;
+  width: 380px;
+  max-width: calc(100vw - 40px);
+  height: 500px;
+  max-height: calc(100vh - 120px);
+}
+
+.paper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: rgba(26, 27, 30, 0.9);
+  backdrop-filter: blur(10px);
+}
+
+.header {
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border-bottom: 1px solid var(--mantine-color-dark-4);
+}
+
+.messageArea {
+  flex: 1;
+  padding: var(--mantine-spacing-md);
+}
+
+.inputArea {
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border-top: 1px solid var(--mantine-color-dark-4);
+}
+
+.messageWrapper {
+  display: flex;
+  margin-bottom: var(--mantine-spacing-sm);
+}
+
+.messageWrapper[data-type='user'] {
+  justify-content: flex-end;
+}
+
+.messageWrapper[data-type='agent'] {
+  justify-content: flex-start;
+}
+
+.messageBubble {
+  max-width: 80%;
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
+  border-radius: var(--mantine-radius-lg);
+}
+
+.messageWrapper[data-type='user'] .messageBubble {
+  background-color: var(--mantine-color-blue-8);
+  color: var(--mantine-color-white);
+  border-bottom-right-radius: var(--mantine-radius-xs);
+}
+
+.messageWrapper[data-type='agent'] .messageBubble {
+  background-color: var(--mantine-color-dark-4);
+  color: var(--mantine-color-dark-0);
+  border-bottom-left-radius: var(--mantine-radius-xs);
+}
