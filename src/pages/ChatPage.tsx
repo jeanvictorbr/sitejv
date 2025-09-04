@@ -33,6 +33,7 @@ export function ChatPage() {
   };
 
   useEffect(() => {
+    // Rola para baixo sempre que uma nova mensagem é adicionada
     setTimeout(scrollToBottom, 100);
   }, [messages]);
 
