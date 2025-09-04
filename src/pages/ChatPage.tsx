@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import { Paper, Text, TextInput, ScrollArea, Group, ThemeIcon, Loader, CloseButton, ActionIcon } from '@mantine/core';
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
-import { ParticlesBackground } from '../components/ParticlesBackground';
+// REMOVA: import { ParticlesBackground } from '../components/ParticlesBackground';
+import { GradientBackground } from '../components/GradientBackground'; // <<< ADICIONADO
 import { useTextScramble } from '../hooks/useTextScramble';
 import classes from './ChatPage.module.css';
 import { Link } from 'react-router-dom';
@@ -27,12 +28,10 @@ export function ChatPage() {
   const animatedTitle = useTextScramble('Agente JV - Atendimento Virtual');
 
   const scrollToBottom = () => {
-    // Rola a área de scroll para o final
     viewport.current?.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
   };
 
   useEffect(() => {
-    // Sempre que as mensagens mudam, rola para baixo
     setTimeout(scrollToBottom, 100);
   }, [messages]);
 
@@ -59,7 +58,7 @@ export function ChatPage() {
 
   return (
     <div className={classes.chatPage}>
-      <ParticlesBackground />
+      <GradientBackground /> {/* <<< USANDO O NOVO COMPONENTE DE FUNDO */}
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -77,7 +76,7 @@ export function ChatPage() {
             </Group>
             <CloseButton component={Link} to="/" aria-label="Voltar para a página inicial" />
           </div>
-          
+
           <ScrollArea viewportRef={viewport} className={classes.messageArea}>
             {messages.map((msg, index) => (
               <div key={index} className={classes.messageWrapper} data-type={msg.type}>
@@ -92,7 +91,7 @@ export function ChatPage() {
               </div>
             )}
           </ScrollArea>
-          
+
           <div className={classes.inputArea}>
             <TextInput
               placeholder="Digite sua dúvida..."
