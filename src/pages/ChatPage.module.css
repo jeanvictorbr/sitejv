@@ -12,31 +12,28 @@
 .container {
   width: 100%;
   max-width: 800px;
-  height: 80vh; /* Garante que o contêiner tem uma altura definida */
+  height: 80vh;
   z-index: 2;
   display: flex;
-  flex-direction: column;
 }
 
-/* ▼▼▼ CORREÇÕES DEFINITIVAS DE LAYOUT E SCROLL ▼▼▼ */
+/* ▼▼▼ CORREÇÃO DEFINITIVA DO LAYOUT E SCROLL ▼▼▼ */
 .paper {
   width: 100%;
-  height: 100%; /* Agora o Paper irá preencher a altura do .container (80vh) */
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  background-color: rgba(10, 10, 15, 0.85); /* Fundo mais escuro para o "efeito hacker" */
-  backdrop-filter: blur(15px);
-  border-color: rgba(0, 255, 0, 0.3); /* Borda verde brilhante */
-  border-width: 1px;
-  border-style: solid;
+  flex-direction: column; /* Organiza os filhos (header, messages, input) em uma coluna */
+  overflow: hidden; /* Impede que o conteúdo vaze */
+  background-color: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 255, 0, 0.3); /* Borda verde "hacker" */
   border-radius: var(--mantine-radius-lg);
-  overflow: hidden; /* Muito importante para conter o scroll */
 }
 
 .header {
-  flex-shrink: 0; /* Impede que o cabeçalho seja "espremido" */
+  flex-shrink: 0; /* Impede que o cabeçalho encolha */
   padding: var(--mantine-spacing-md);
-  border-bottom: 1px solid rgba(0, 255, 0, 0.2); /* Borda verde */
+  border-bottom: 1px solid rgba(0, 255, 0, 0.2);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,23 +41,22 @@
 }
 
 .messageArea {
-  flex: 1; /* Faz esta área ocupar todo o espaço restante disponível */
-  min-height: 0; /* Essencial para que 'flex: 1' funcione corretamente e o scroll apareça */
-  padding: var(--mantine-spacing-md); /* Padding interno para as mensagens */
-  overflow-y: auto; /* Garante que a barra de rolagem apareça SOMENTE aqui */
+  flex-grow: 1; /* Faz esta área ocupar TODO o espaço restante */
+  min-height: 0; /* Essencial para o overflow funcionar em layouts flex */
+  overflow-y: auto; /* Adiciona a barra de rolagem APENAS aqui */
+  padding: var(--mantine-spacing-md);
 }
 
 .inputArea {
-  flex-shrink: 0; /* Impede que a área de input seja "espremida" */
+  flex-shrink: 0; /* Impede que o rodapé encolha */
   padding: var(--mantine-spacing-md);
-  border-top: 1px solid rgba(0, 255, 0, 0.2); /* Borda verde */
+  border-top: 1px solid rgba(0, 255, 0, 0.2);
 }
 /* ---------------------------------------------------- */
 
 .messageWrapper {
   display: flex;
   margin-bottom: var(--mantine-spacing-md);
-  /* O padding lateral agora é tratado pelo .messageArea */
 }
 
 .messageWrapper[data-type='user'] {
@@ -81,27 +77,21 @@
 .messageWrapper[data-type='user'] .messageBubble {
   background: linear-gradient(45deg, var(--mantine-color-blue-7), var(--mantine-color-cyan-6));
   color: var(--mantine-color-white);
-  box-shadow: 0 2px 8px rgba(0, 255, 0, 0.1); /* Sombra sutil para "brilho" */
 }
 
 .messageWrapper[data-type='agent'] .messageBubble {
-  background-color: var(--mantine-color-dark-7); /* Fundo mais escuro para mensagens do agente */
-  color: var(--mantine-color-green-2); /* Texto verde claro */
-  box-shadow: 0 2px 8px rgba(0, 255, 0, 0.1); /* Sombra sutil para "brilho" */
+  background-color: var(--mantine-color-dark-7);
+  color: var(--mantine-color-green-2);
 }
 
-/* Estilo para a barra de rolagem (WebKit - Chrome, Safari) */
+/* Estilo para a barra de rolagem "hacker" */
 .messageArea::-webkit-scrollbar {
   width: 8px;
 }
-
 .messageArea::-webkit-scrollbar-track {
-  background: rgba(0, 255, 0, 0.05); /* Trilha levemente verde */
-  border-radius: 10px;
+  background: rgba(0, 255, 0, 0.05);
 }
-
 .messageArea::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 255, 0, 0.3); /* Alça verde mais visível */
-  border-radius: 10px;
-  border: 2px solid rgba(0, 0, 0, 0.1); /* Borda para contraste */
+  background-color: rgba(0, 255, 0, 0.4);
+  border-radius: 4px;
 }
