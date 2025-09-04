@@ -22,24 +22,22 @@ import FeedbackPage from './pages/FeedbackPage';
 import FeedbacksPublicPage from './pages/FeedbacksPublicPage';
 import FeedbackManager from './pages/FeedbackManager';
 
-// 1. Importe a nova página de Chat
+// ▼▼▼ CAMINHO DE IMPORTAÇÃO CORRIGIDO ▼▼▼
 import { ChatPage } from './pages/ChatPage';
 
 function App() {
   return (
     <Routes>
-      {/* Rotas que USAM o layout principal (cabeçalho, rodapé, etc.) */}
+      {/* Rotas que USAM o layout principal */}
       <Route element={<MainLayout />}>
-        {/* === Rotas Públicas === */}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/bots/factionflow" element={<FactionFlowPage />} />
         <Route path="/bots/ticketultra" element={<TicketUltraPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/request-bot" element={<RequestBotPage />} />
-        <Route path="/feedbacks" element={<FeedbacksPublicPage />} /> {/* Rota para ver feedbacks */}
+        <Route path="/feedbacks" element={<FeedbacksPublicPage />} />
 
-        {/* === Rotas Protegidas para Usuários === */}
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>}>
           <Route index element={<DashboardOverview />} />
           <Route path="my-bots" element={<MyBotsPage />} />
@@ -49,12 +47,11 @@ function App() {
           path="/feedback"
           element={
             <ProtectedRoute>
-              <FeedbackPage /> {/* Rota para enviar feedback */}
+              <FeedbackPage />
             </ProtectedRoute>
           }
         />
 
-        {/* === Rotas Protegidas para Administradores === */}
         <Route
           path="/admin"
           element={<AdminRoute><AdminPage /></AdminRoute>}
@@ -62,11 +59,11 @@ function App() {
           <Route index element={<AdminOverview />} />
           <Route path="marquee" element={<MarqueeManager />} />
           <Route path="status" element={<StatusManager />} />
-          <Route path="feedbacks" element={<FeedbackManager />} /> {/* Rota para gerenciar feedbacks */}
+          <Route path="feedbacks" element={<FeedbackManager />} />
         </Route>
       </Route>
       
-      {/* 2. Rota do Chat, que NÃO USA o layout principal */}
+      {/* Rota do Chat, que NÃO USA o layout principal */}
       <Route path="/chat" element={<ChatPage />} />
     </Routes>
   );
