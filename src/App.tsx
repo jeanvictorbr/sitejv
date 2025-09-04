@@ -22,9 +22,13 @@ import FeedbackPage from './pages/FeedbackPage';
 import FeedbacksPublicPage from './pages/FeedbacksPublicPage';
 import FeedbackManager from './pages/FeedbackManager';
 
+// 1. Importe a nova página de Chat
+import { ChatPage } from './pages/ChatPage';
+
 function App() {
   return (
     <Routes>
+      {/* Rotas que USAM o layout principal (cabeçalho, rodapé, etc.) */}
       <Route element={<MainLayout />}>
         {/* === Rotas Públicas === */}
         <Route path="/" element={<HomePage />} />
@@ -61,6 +65,9 @@ function App() {
           <Route path="feedbacks" element={<FeedbackManager />} /> {/* Rota para gerenciar feedbacks */}
         </Route>
       </Route>
+      
+      {/* 2. Rota do Chat, que NÃO USA o layout principal */}
+      <Route path="/chat" element={<ChatPage />} />
     </Routes>
   );
 }
