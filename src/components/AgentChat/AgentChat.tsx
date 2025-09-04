@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-// 1. A importação do 'Portal' foi REMOVIDA
-import { ActionIcon, Paper, Text, TextInput, ScrollArea, Group, Avatar, Loader, CloseButton, Tooltip } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { ActionIcon, Paper, Text, TextInput, ScrollArea, Group, Avatar, Loader, CloseButton } from '@mantine/core';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../../lib/supabaseClient';
 import classes from './AgentChat.module.css';
@@ -16,8 +14,14 @@ interface Message {
   text: string;
 }
 
-export function AgentChat() {
-  const [opened, { toggle }] = useDisclosure(false);
+// Props para controlar a abertura/fechamento
+interface AgentChatProps {
+  opened: boolean;
+  onClose: () => void;
+}
+
+// Removido 'useDisclosure' e adicionado 'opened', 'onClose' como props
+export function AgentChat({ opened, onClose }: AgentChatProps) {
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { type: 'agent', text: 'Olá! Sou o Agente JV. Como posso ajudar com os bots FactionFlow ou TicketUltra?' }
@@ -39,7 +43,7 @@ export function AgentChat() {
     if (inputValue.trim() === '' || loading) return;
     const userMessage = inputValue;
     setMessages(prev => [...prev, { type: 'user', text: userMessage }]);
-    setInputValue('');
+    setInputValue(''); // Limpa o input após enviar a mensagem
     setTimeout(() => { setLoading(true); scrollToBottom(); }, 50);
 
     try {
@@ -56,70 +60,56 @@ export function AgentChat() {
     }
   };
 
-  // 2. O <Portal> foi REMOVIDO daqui. Agora usamos um Fragment <>
   return (
-    <>
-      <AnimatePresence>
-        {opened && (
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 20, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-            className={classes.chatWindow}
-          >
-            <Paper withBorder radius="lg" shadow="xl" className={classes.paper}>
-              <div className={classes.header}>
-                <Group>
-                  <Avatar color="cyan" radius="xl"><IconSparkles /></Avatar>
-                  <div>
-                    <Text fw={700}>Agente JV</Text>
-                    <Text size="xs" c="dimmed">Online</Text>
-                  </div>
-                </Group>
-                <CloseButton onClick={toggle} aria-label="Fechar chat" />
-              </div>
-              <ScrollArea.Autosize mah="100%" viewportRef={viewport} className={classes.messageArea}>
-                <div style={{ padding: 'var(--mantine-spacing-md)' }}>
-                  {messages.map((msg, index) => (
-                    <div key={index} className={classes.messageWrapper} data-type={msg.type}>
-                      <div className={classes.messageBubble}>
-                        <Text size="sm" component="div" dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }} />
-                      </div>
-                    </div>
-                  ))}
-                  {loading && (
-                    <div className={classes.messageWrapper} data-type="agent">
-                      <div className={classes.messageBubble}><Loader size="sm" /></div>
-                    </div>
-                  )}
-                </div>
-              </ScrollArea.Autosize>
-              <div className={classes.inputArea}>
-                <TextInput
-                  placeholder="Digite sua dúvida..."
-                  value={inputValue}
-                  onChange={(event) => setInputValue(event.currentTarget.value)}
-                  onKeyDown={(event) => { if (event.key === 'Enter' && !loading) { handleSendMessage(); } }}
-                  rightSection={<ActionIcon onClick={handleSendMessage} loading={loading} variant="subtle"><IconSend /></ActionIcon>}
-                />
-              </div>
-            </Paper>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <Tooltip label="Fale com o Agente JV" position="right" withArrow>
-        <ActionIcon
-          onClick={toggle}
-          size={60}
-          radius="xl"
-          variant="gradient"
-          gradient={{ from: 'cyan', to: 'blue' }}
-          className={classes.orbButton}
+    // Não precisamos mais do Portal aqui, pois o chatWindow já é fixed e o pai está na homepage
+    <AnimatePresence>
+      {opened && ( // O chat só aparece se 'opened' for true
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 20, opacity: 0 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+          className={classes.chatWindow}
         >
-          <IconSparkles style={{ width: 32, height: 32 }} />
-        </ActionIcon>
-      </Tooltip>
-    </>
+          <Paper withBorder radius="lg" shadow="xl" className={classes.paper}>
+            <div className={classes.header}>
+              <Group>
+                <Avatar color="cyan" radius="xl"><IconSparkles /></Avatar>
+                <div>
+                  <Text fw={700}>Agente JV</Text>
+                  <Text size="xs" c="dimmed">Online</Text>
+                </div>
+              </Group>
+              <CloseButton onClick={onClose} aria-label="Fechar chat" /> {/* Usa a prop onClose */}
+            </div>
+            <ScrollArea.Autosize mah="100%" viewportRef={viewport} className={classes.messageArea}>
+              <div style={{ padding: 'var(--mantine-spacing-md)' }}>
+                {messages.map((msg, index) => (
+                  <div key={index} className={classes.messageWrapper} data-type={msg.type}>
+                    <div className={classes.messageBubble}>
+                      <Text size="sm" component="div" dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }} />
+                    </div>
+                  </div>
+                ))}
+                {loading && (
+                  <div className={classes.messageWrapper} data-type="agent">
+                    <div className={classes.messageBubble}><Loader size="sm" /></div>
+                  </div>
+                )}
+              </div>
+            </ScrollArea.Autosize>
+            <div className={classes.inputArea}>
+              <TextInput
+                placeholder="Digite sua dúvida..."
+                value={inputValue}
+                onChange={(event) => setInputValue(event.currentTarget.value)}
+                onKeyDown={(event) => { if (event.key === 'Enter' && !loading) { handleSendMessage(); } }}
+                rightSection={<ActionIcon onClick={handleSendMessage} loading={loading} variant="subtle"><IconSend /></ActionIcon>}
+              />
+            </div>
+          </Paper>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

@@ -4,10 +4,10 @@ import { ValueProposition } from '../components/ValueProposition';
 import { Marquee } from '../components/Marquee';
 import { Faq } from '../components/Faq';
 import { motion } from 'framer-motion';
-
-// 1. Importe os DOIS componentes flutuantes
 import { AgentChat } from '../components/AgentChat/AgentChat';
 import { DiscordPulseCard } from '../components/DiscordPulseCard';
+import { Button } from '@mantine/core'; // Importe o componente Button do Mantine
+import { useState } from 'react'; // Importe useState para controlar a abertura do chat
 
 const sectionAnimation: any = {
     initial: { opacity: 0, y: 50 },
@@ -17,6 +17,8 @@ const sectionAnimation: any = {
 };
 
 export function HomePage() {
+  const [chatOpened, setChatOpened] = useState(false); // Novo estado para controlar a abertura do chat
+
   return (
     <>
       <Hero />
@@ -31,6 +33,34 @@ export function HomePage() {
         </motion.div>
       </div>
 
+      {/* NOVO BOTÃO AQUI */}
+      <motion.div {...sectionAnimation} style={{ textAlign: 'center', marginTop: '3rem', marginBottom: '3rem' }}>
+        <Button
+          size="xl"
+          radius="md"
+          variant="gradient"
+          gradient={{ from: 'red', to: 'orange', deg: 45 }} // Cores vermelhas/laranjas
+          onClick={() => setChatOpened(true)} // Abre o chat ao clicar
+          style={{
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '1px',
+            boxShadow: '0 4px 15px rgba(255, 0, 0, 0.4)',
+            transition: 'all 0.3s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 6px 20px rgba(255, 0, 0, 0.6)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 15px rgba(255, 0, 0, 0.4)';
+          }}
+        >
+          Tirar Todas as Minhas Dúvidas
+        </Button>
+      </motion.div>
+
       <div style={{ marginTop: '2rem' }}>
         <motion.div {...sectionAnimation}>
           <ValueProposition />
@@ -43,8 +73,8 @@ export function HomePage() {
         </motion.div>
       </div>
 
-      {/* 2. Adicione os DOIS componentes aqui */}
-      <AgentChat />
+      {/* Agente de Chat agora é controlado pelo estado `chatOpened` */}
+      <AgentChat opened={chatOpened} onClose={() => setChatOpened(false)} />
       <DiscordPulseCard />
     </>
   );

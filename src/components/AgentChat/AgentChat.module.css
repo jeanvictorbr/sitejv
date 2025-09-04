@@ -1,21 +1,10 @@
-.orbButton {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 9999;
-  box-shadow: var(--mantine-shadow-xl);
-  transition: transform 0.2s ease;
-}
-
-.orbButton:hover {
-  transform: scale(1.1);
-}
+/* O .orbButton foi REMOVIDO, pois ele não existirá mais */
 
 .chatWindow {
   position: fixed;
-  bottom: 95px; /* Posição um pouco acima do botão */
-  left: 20px;
-  z-index: 9998;
+  bottom: 20px; /* Alinhado ao rodapé */
+  right: 20px; /* ALTERADO: para o canto DIREITO */
+  z-index: 9998; /* Continua alto para ficar acima de tudo */
   width: 380px;
   max-width: calc(100vw - 40px);
   height: 500px;
