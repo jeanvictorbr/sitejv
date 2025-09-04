@@ -8,7 +8,7 @@ const DiscordIcon = () => (
 );
 
 // URL do seu convite do Discord
-const DISCORD_INVITE_URL = 'https://discord.gg/jv-software';
+const DISCORD_INVITE_URL = 'https://discord.gg/VxmmFpp7vD';
 
 export function DiscordPulseCard() {
   const { presenceCount, loading, error } = useDiscordStats();
