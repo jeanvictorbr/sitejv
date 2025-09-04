@@ -9,7 +9,7 @@ import { MusicPlayer } from './MusicPlayer'; // Importe o novo player
 import { Container } from '@mantine/core';
 import { VisitorCounter } from './VisitorCounter'; //
 import { CelebrationEffect } from './CelebrationEffect';
-import { AgentChat } from './AgentChat/AgentChat';
+
 
 export function MainLayout() {
   const location = useLocation();
@@ -45,7 +45,6 @@ export function MainLayout() {
         </AnimatePresence>
       </main>
 
-      <AgentChat />
 
       <Footer />
     </>

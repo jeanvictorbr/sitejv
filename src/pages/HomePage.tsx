@@ -6,6 +6,8 @@ import { Marquee } from '../components/Marquee';
 import { Faq } from '../components/Faq';
 import { motion } from 'framer-motion';
 import { DiscordPulseCard } from '../components/DiscordPulseCard';
+import { AgentChat } from './AgentChat/AgentChat';
+
 
 const sectionAnimation: any = {
     initial: { opacity: 0, y: 50 },
@@ -23,7 +25,11 @@ export function HomePage() {
       <div style={{ marginTop: '2rem' }}>
         <Marquee />
       </div>
-
+      <Hero />
+       <AgentChat />
+      <div style={{ marginTop: '2rem' }}>
+        <Marquee />
+      </div>
       <div style={{ marginTop: '2rem' }}>
         <motion.div {...sectionAnimation}>
           <Features />
