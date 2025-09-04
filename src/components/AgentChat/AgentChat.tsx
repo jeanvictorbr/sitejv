@@ -28,7 +28,9 @@ export function AgentChat({ opened, onClose }: AgentChatProps) {
   const viewport = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    viewport.current?.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
+    if (viewport.current) {
+      viewport.current.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
+    }
   };
 
   useEffect(() => {
@@ -77,11 +79,12 @@ export function AgentChat({ opened, onClose }: AgentChatProps) {
                   <Text size="xs" c="dimmed">Online</Text>
                 </div>
               </Group>
+              {/* ▼▼▼ BOTÃO DE FECHAR DE VOLTA NO LUGAR ▼▼▼ */}
               <CloseButton onClick={onClose} aria-label="Fechar chat" />
             </div>
 
-            {/* ▼▼▼ USANDO ScrollArea.Autosize PARA MELHOR COMPATIBILIDADE ▼▼▼ */}
-            <ScrollArea.Autosize viewportRef={viewport} className={classes.messageArea}>
+            {/* A ÁREA DE SCROLL AGORA OCUPA O ESPAÇO RESTANTE E ROLA O CONTEÚDO */}
+            <ScrollArea viewportRef={viewport} className={classes.messageArea}>
               {messages.map((msg, index) => (
                 <div key={index} className={classes.messageWrapper} data-type={msg.type}>
                   <div className={classes.messageBubble}>
@@ -94,7 +97,7 @@ export function AgentChat({ opened, onClose }: AgentChatProps) {
                   <div className={classes.messageBubble}><Loader size="sm" /></div>
                 </div>
               )}
-            </ScrollArea.Autosize>
+            </ScrollArea>
             
             <div className={classes.inputArea}>
               <TextInput
