@@ -7,10 +7,10 @@ import classes from './AgentChat.module.css';
 
 // --- Ícones SVG ---
 const IconSparkles = (props: React.ComponentProps<'svg'>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z" /></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z" /></svg>
 );
 const IconSend = (props: React.ComponentProps<'svg'>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1-1 0l-3.5-7l-7-3.5a.55 .55 0 0 1 0-1l18-6.5" /></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1-1 0l-3.5-7l-7-3.5a.55 .55 0 0 1 0-1l18-6.5" /></svg>
 );
 // ------------------
 
@@ -26,30 +26,39 @@ export function AgentChat() {
     { type: 'agent', text: 'Olá! Sou o Agente JV. Como posso ajudar você hoje?' }
   ]);
   const [inputValue, setInputValue] = useState('');
-  const viewport = useRef<HTMLDivElement>(null);
+  // Use um useRef para o elemento HTML do scroll, não para o componente ScrollArea em si
+  const messagesEndRef = useRef<HTMLDivElement>(null); 
 
   const scrollToBottom = () => {
-    viewport.current?.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
-    if (opened) {
+    if (opened) { // Só rola para baixo se o chat estiver aberto
       scrollToBottom();
     }
-  }, [messages, opened]);
+  }, [messages, opened]); // Rola quando novas mensagens chegam ou o chat é aberto
 
   const handleSendMessage = async () => {
     if (inputValue.trim() === '') return;
+
     const userMessage = inputValue;
     setMessages(prev => [...prev, { type: 'user', text: userMessage }]);
     setInputValue('');
-    setTimeout(() => { setLoading(true); scrollToBottom(); }, 100);
+    
+    // Pequeno delay para a mensagem do usuário aparecer antes do loading
+    setTimeout(() => {
+        setLoading(true);
+        scrollToBottom();
+    }, 50); // Ajustado para ser mais rápido
 
     try {
       const { data, error } = await supabase.functions.invoke('ask-agent', {
         body: { query: userMessage },
       });
+
       if (error) throw error;
+      
       setMessages(prev => [...prev, { type: 'agent', text: data.response }]);
     } catch (err) {
       console.error("Erro ao chamar a função 'ask-agent':", err);
@@ -60,6 +69,7 @@ export function AgentChat() {
   };
 
   return (
+    // O Portal ainda é a melhor forma de garantir que ele flutue acima de tudo
     <Portal>
       <AnimatePresence>
         {opened && (
@@ -80,36 +90,52 @@ export function AgentChat() {
                   </div>
                 </Group>
               </div>
-              <ScrollArea.Autosize mah="100%" viewportRef={viewport} className={classes.messageArea}>
-                <div style={{ padding: 'var(--mantine-spacing-md)'}}>
-                    {messages.map((msg, index) => (
-                      <div key={index} className={classes.messageWrapper} data-type={msg.type}>
+
+              {/* Ajustamos o ScrollArea para rolar para o final das mensagens */}
+              <ScrollArea className={classes.messageArea}>
+                {messages.map((msg, index) => (
+                  <div key={index} className={classes.messageWrapper} data-type={msg.type}>
+                    <div className={classes.messageBubble}>
+                      <Text size="sm" component="div" dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }} />
+                    </div>
+                  </div>
+                ))}
+                {loading && (
+                    <div className={classes.messageWrapper} data-type="agent">
                         <div className={classes.messageBubble}>
-                          <Text size="sm" component="div" dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }} />
+                            <Loader size="sm" />
                         </div>
-                      </div>
-                    ))}
-                    {loading && (
-                        <div className={classes.messageWrapper} data-type="agent">
-                            <div className={classes.messageBubble}> <Loader size="sm" /> </div>
-                        </div>
-                    )}
-                </div>
-              </ScrollArea.Autosize>
+                    </div>
+                )}
+                <div ref={messagesEndRef} /> {/* Elemento "vazio" para o scroll */}
+              </ScrollArea>
+
               <div className={classes.inputArea}>
                 <TextInput
                   placeholder="Digite sua dúvida..."
                   value={inputValue}
                   onChange={(event) => setInputValue(event.currentTarget.value)}
-                  onKeyDown={(event) => { if (event.key === 'Enter' && !loading) { handleSendMessage(); } }}
-                  rightSection={ <ActionIcon onClick={handleSendMessage} loading={loading} variant="subtle"> <IconSend /> </ActionIcon> }
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' && !loading) {
+                      handleSendMessage();
+                    }
+                  }}
+                  rightSection={
+                    <ActionIcon onClick={handleSendMessage} loading={loading} variant="subtle">
+                      <IconSend />
+                    </ActionIcon>
+                  }
                 />
               </div>
             </Paper>
           </motion.div>
         )}
       </AnimatePresence>
-      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+
+      <motion.div 
+        whileHover={{ scale: 1.05 }} // Animação de "puxar" levemente para dentro
+        whileTap={{ scale: 0.95 }}   // Animação de "clicar" suave
+      >
         <ActionIcon
           onClick={toggle}
           size="xl"
