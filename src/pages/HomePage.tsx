@@ -4,7 +4,10 @@ import { ValueProposition } from '../components/ValueProposition';
 import { Marquee } from '../components/Marquee';
 import { Faq } from '../components/Faq';
 import { motion } from 'framer-motion';
-import { AgentChat } from '../components/AgentChat/AgentChat'; // <-- 1. Caminho de importação CORRIGIDO
+
+// 1. Importe os DOIS componentes flutuantes
+import { AgentChat } from '../components/AgentChat/AgentChat';
+import { DiscordPulseCard } from '../components/DiscordPulseCard';
 
 const sectionAnimation: any = {
     initial: { opacity: 0, y: 50 },
@@ -40,7 +43,9 @@ export function HomePage() {
         </motion.div>
       </div>
 
-      <AgentChat /> {/* <-- 2. Componente adicionado aqui */}
+      {/* 2. Adicione os DOIS componentes aqui */}
+      <AgentChat />
+      <DiscordPulseCard />
     </>
   );
 }
