@@ -60,7 +60,7 @@ export function AgentChat({ opened, onClose }: AgentChatProps) {
       setLoading(false);
     }
   };
-# dsd
+
   return (
     <AnimatePresence>
       {opened && (
