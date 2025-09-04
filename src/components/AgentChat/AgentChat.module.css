@@ -27,10 +27,22 @@
   align-items: center;
 }
 
-/* MODIFICAÇÃO PRINCIPAL: Faz a área de scroll ocupar todo o espaço disponível */
+/* ▼▼▼ CORREÇÃO PRINCIPAL AQUI ▼▼▼ */
 .messageArea {
-  flex: 1 1 0; /* Permite que o elemento cresça e encolha */
+  flex: 1; /* Faz a área de mensagens ocupar todo o espaço vertical disponível */
+  overflow-y: auto; /* ADICIONA A BARRA DE ROLAGEM VERTICAL QUANDO NECESSÁRIO */
   padding: var(--mantine-spacing-md);
+}
+/* Estilo para a barra de rolagem ficar mais bonita (opcional) */
+.messageArea::-webkit-scrollbar {
+    width: 6px;
+}
+.messageArea::-webkit-scrollbar-track {
+    background: transparent;
+}
+.messageArea::-webkit-scrollbar-thumb {
+    background-color: var(--mantine-color-dark-4);
+    border-radius: 3px;
 }
 
 .inputArea {

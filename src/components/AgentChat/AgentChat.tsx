@@ -25,17 +25,15 @@ export function AgentChat({ opened, onClose }: AgentChatProps) {
     { type: 'agent', text: 'Olá! Sou o Agente JV. Como posso ajudar com os bots FactionFlow ou TicketUltra?' }
   ]);
   const [inputValue, setInputValue] = useState('');
-  const viewport = useRef<HTMLDivElement>(null); // Ref para o container do scroll
+  const viewport = useRef<HTMLDivElement>(null);
 
-  // Função para rolar para o final
   const scrollToBottom = () => {
     viewport.current?.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
   };
 
-  // Efeito para rolar sempre que uma nova mensagem chega ou o chat abre
   useEffect(() => {
     if (opened) {
-      setTimeout(scrollToBottom, 100); // Pequeno delay para garantir que o DOM atualizou
+      setTimeout(scrollToBottom, 100);
     }
   }, [messages, opened]);
 
@@ -82,8 +80,8 @@ export function AgentChat({ opened, onClose }: AgentChatProps) {
               <CloseButton onClick={onClose} aria-label="Fechar chat" />
             </div>
 
-            {/* A ÁREA DE SCROLL AGORA OCUPA O ESPAÇO RESTANTE */}
-            <ScrollArea viewportRef={viewport} className={classes.messageArea}>
+            {/* ▼▼▼ USANDO ScrollArea.Autosize PARA MELHOR COMPATIBILIDADE ▼▼▼ */}
+            <ScrollArea.Autosize viewportRef={viewport} className={classes.messageArea}>
               {messages.map((msg, index) => (
                 <div key={index} className={classes.messageWrapper} data-type={msg.type}>
                   <div className={classes.messageBubble}>
@@ -96,9 +94,8 @@ export function AgentChat({ opened, onClose }: AgentChatProps) {
                   <div className={classes.messageBubble}><Loader size="sm" /></div>
                 </div>
               )}
-            </ScrollArea>
+            </ScrollArea.Autosize>
             
-            {/* O INPUT FICA SEMPRE FIXO NA PARTE DE BAIXO */}
             <div className={classes.inputArea}>
               <TextInput
                 placeholder="Digite sua dúvida..."
