@@ -9,10 +9,11 @@
   max-height: calc(100vh - 120px);
 }
 
+/* ▼▼▼ CORREÇÃO PRINCIPAL NO LAYOUT FLEX ▼▼▼ */
 .paper {
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  display: flex; /* Ativa o layout flexbox */
+  flex-direction: column; /* Organiza os itens em coluna */
   overflow: hidden;
   background-color: rgba(26, 27, 30, 0.95);
   backdrop-filter: blur(15px);
@@ -27,18 +28,19 @@
   align-items: center;
 }
 
-/* ▼▼▼ CORREÇÃO DEFINITIVA DO SCROLL ▼▼▼ */
+/* A área de mensagens agora é flexível e rolável */
 .messageArea {
-  flex: 1; /* Permite que o elemento cresça e ocupe o espaço */
+  flex: 1; /* Faz este elemento crescer e ocupar o espaço restante */
   padding: var(--mantine-spacing-md);
-  /* overflow-y: auto; já é gerenciado pelo componente ScrollArea do Mantine, 
-     mas o 'flex: 1' é crucial para dar a ele o espaço para rolar. */
+  /* O componente ScrollArea do Mantine já cuida do overflow: auto */
 }
 
+/* O input fica fixo na parte de baixo */
 .inputArea {
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
   border-top: 1px solid var(--mantine-color-dark-4);
 }
+/* ------------------------------------------- */
 
 .messageWrapper {
   display: flex;
