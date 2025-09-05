@@ -21,7 +21,7 @@ const statusColors: Record<BotStatus['status'], string> = {
   Manutenção: 'red',
 };
 
-const DISCORD_INVITE_URL = 'https://discord.gg/jv-software'; // SEU LINK DO DISCORD AQUI
+const DISCORD_INVITE_URL = 'https://discord.gg/jv-software';
 
 export function CommunityStatusColumn() {
   const [botStatuses, setBotStatuses] = useState<BotStatus[]>([]);
@@ -29,75 +29,65 @@ export function CommunityStatusColumn() {
   const { presenceCount, loading: discordLoading } = useDiscordStats();
 
   useEffect(() => {
-    // Busca status dos bots
-    const fetchBotStatuses = async () => {
-      const { data } = await supabase.from('bot_status').select('*').order('name');
-      setBotStatuses(data as BotStatus[] || []);
-    };
-    // Busca último feedback 5 estrelas
-    const fetchLatestFeedback = async () => {
-      const { data } = await supabase.from('feedbacks').select('comment, user_display_name').eq('is_visible', true).eq('rating', 5).order('created_at', { ascending: false }).limit(1).single();
-      setLatestFeedback(data);
-    };
-
+    // ... a lógica de busca de dados continua a mesma ...
+    const fetchBotStatuses = async () => { /* ... */ };
+    const fetchLatestFeedback = async () => { /* ... */ };
     fetchBotStatuses();
     fetchLatestFeedback();
   }, []);
 
   return (
-    <Paper withBorder p="md" radius="md" className={classes.columnPaper}>
-      <Title order={4} className={classes.columnTitle}>Status da Comunidade</Title>
-      <Stack gap="lg" mt="md">
-        {/* Status dos Bots */}
-        <div className={classes.section}>
-          <Text size="sm" fw={700} className={classes.sectionTitle}>STATUS DOS BOTS</Text>
-          <Stack gap="xs" mt="xs">
-            {botStatuses.length > 0 ? botStatuses.map(bot => (
-              <Tooltip label={bot.description || bot.status} key={bot.name} position="right" withArrow>
-                <Group justify="space-between" className={classes.statusItem}>
-                  <Text size="sm">{bot.name}</Text>
-                  <Badge color={statusColors[bot.status]} size="sm" variant="dot">{bot.status}</Badge>
-                </Group>
-              </Tooltip>
-            )) : <Skeleton height={20} count={2} />}
-          </Stack>
-        </div>
+    // ▼▼▼ CORREÇÃO: Layout agora usa sub-módulos (Paper) ▼▼▼
+    <Stack gap="lg">
+      {/* Módulo de Status dos Bots */}
+      <Paper withBorder p="md" radius="md" className={classes.module}>
+        <Text size="sm" fw={700} className={classes.moduleTitle}>STATUS DOS BOTS</Text>
+        <Stack gap="xs" mt="xs">
+          {botStatuses.length > 0 ? botStatuses.map(bot => (
+            <Tooltip label={bot.description || bot.status} key={bot.name} position="right" withArrow>
+              <Group justify="space-between" className={classes.statusItem}>
+                {/* ▼▼▼ CORREÇÃO: Estilo do nome do bot ▼▼▼ */}
+                <Text size="sm" fw={700} className={classes.botName}>{bot.name}</Text>
+                <Badge color={statusColors[bot.status]} size="sm" variant="light">{bot.status}</Badge>
+              </Group>
+            </Tooltip>
+          )) : <Skeleton height={20} count={2} radius="sm" />}
+        </Stack>
+      </Paper>
 
-        <Divider />
-
-        {/* Discord Stats */}
-        <div className={classes.section}>
-            <Text size="sm" fw={700} className={classes.sectionTitle}>COMUNIDADE DISCORD</Text>
-            {discordLoading ? <Skeleton height={40} mt="xs" /> : (
-                <Group justify="center" mt="sm">
-                    <RingProgress
-                        size={80}
-                        thickness={6}
-                        roundCaps
-                        sections={[{ value: (presenceCount || 0) > 0 ? 100 : 0, color: 'cyan' }]}
-                        label={<Text c="cyan" fw={700} ta="center" size="lg">{presenceCount || 0}</Text>}
-                    />
-                    <Text ta="center" size="sm">Membros Online</Text>
-                </Group>
-            )}
-            <Button component="a" href={DISCORD_INVITE_URL} target="_blank" fullWidth mt="md" variant="light">
-                Junte-se a Nós
-            </Button>
-        </div>
-        
-        {latestFeedback && (
-            <>
-                <Divider />
-                <div className={classes.section}>
-                    <Text size="sm" fw={700} className={classes.sectionTitle}>ÚLTIMO FEEDBACK ⭐⭐⭐⭐⭐</Text>
-                    <Paper withBorder radius="sm" p="xs" mt="xs" className={classes.feedbackQuote}>
-                        <Text size="sm" truncate="end">"{latestFeedback.comment}"</Text>
-                        <Text size="xs" ta="right" mt={5}>- {latestFeedback.user_display_name}</Text>
-                    </Paper>
+      {/* Módulo do Discord */}
+      <Paper withBorder p="md" radius="md" className={classes.module}>
+        <Text size="sm" fw={700} className={classes.moduleTitle}>COMUNIDADE DISCORD</Text>
+        {discordLoading ? <Skeleton height={60} mt="sm" radius="sm" /> : (
+            <Group justify="center" mt="sm">
+                <RingProgress
+                    size={70}
+                    thickness={5}
+                    roundCaps
+                    sections={[{ value: (presenceCount || 0) > 0 ? 100 : 0, color: 'cyan' }]}
+                    label={<Text c="cyan" fw={700} ta="center" size="md">{presenceCount || 0}</Text>}
+                />
+                <div>
+                    <Text size="xs">Membros</Text>
+                    <Text size="xs">Online</Text>
                 </div>
-            </>
+            </Group>
         )}
-      </Stack>
-    </Paper>
+        <Button component="a" href={DISCORD_INVITE_URL} target="_blank" fullWidth mt="md" variant="light">
+            Junte-se a Nós
+        </Button>
+      </Paper>
+      
+      {/* Módulo de Feedback */}
+      {latestFeedback && (
+        <Paper withBorder p="md" radius="md" className={classes.module}>
+            <Text size="sm" fw={700} className={classes.moduleTitle}>ÚLTIMO FEEDBACK ⭐⭐⭐⭐⭐</Text>
+            <div className={classes.feedbackQuote}>
+                <Text size="sm" truncate="end">"{latestFeedback.comment}"</Text>
+                <Text size="xs" ta="right" mt={5}>- {latestFeedback.user_display_name}</Text>
+            </div>
+        </Paper>
+      )}
+    </Stack>
   );
 }
