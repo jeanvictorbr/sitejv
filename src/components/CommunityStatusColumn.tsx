@@ -1,18 +1,13 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { useDiscordStats } from '../hooks/useDiscordStats';
-import { Text, Paper, Button, Skeleton, Stack, Group, Badge, Divider, Tooltip } from '@mantine/core';
+import { Text, Paper, Button, Skeleton, Stack, Group, Badge, Tooltip } from '@mantine/core';
 import classes from './CommunityStatusColumn.module.css';
-const DISCORD_SERVER_ID = '1302492815409938514'; 
 
 interface BotStatus {
   name: string;
   status: 'Operacional' | 'Instável' | 'Manutenção';
   description?: string;
-}
-interface Feedback {
-  comment: string;
-  user_display_name: string;
 }
 
 const statusColors: Record<BotStatus['status'], string> = {
@@ -21,11 +16,10 @@ const statusColors: Record<BotStatus['status'], string> = {
   Manutenção: 'red',
 };
 
-const DISCORD_INVITE_URL = 'https://discord.gg/VxmmFpp7vD';
+const DISCORD_INVITE_URL = 'https://discord.gg/WsB9vygB3c';
 
 export function CommunityStatusColumn() {
   const [botStatuses, setBotStatuses] = useState<BotStatus[]>([]);
-  const [latestFeedback, setLatestFeedback] = useState<Feedback | null>(null);
   const { presenceCount, memberCount, loading: discordLoading } = useDiscordStats();
 
   useEffect(() => {
@@ -33,36 +27,32 @@ export function CommunityStatusColumn() {
       const { data } = await supabase.from('bot_status').select('*').order('name');
       setBotStatuses(data as BotStatus[] || []);
     };
-    const fetchLatestFeedback = async () => {
-      const { data } = await supabase.from('feedbacks').select('comment, user_display_name').eq('is_visible', true).eq('rating', 5).order('created_at', { ascending: false }).limit(1).single();
-      setLatestFeedback(data);
-    };
-
     fetchBotStatuses();
-    fetchLatestFeedback();
   }, []);
 
   return (
-    // ▼▼▼ CORREÇÃO: Layout agora usa sub-módulos (Paper) dentro de um Stack ▼▼▼
     <Stack gap="lg">
       {/* Módulo de Status dos Bots */}
       <Paper withBorder p="md" radius="md" className={classes.module}>
-        <Text size="sm" fw={700} className={classes.moduleTitle}>STATUS DOS BOTS</Text>
-        <Stack gap="xs" mt="xs">
+        <Text component="h3" className={classes.mainModuleTitle}>Status dos Bots</Text>
+        <Stack gap="sm" mt="sm">
           {botStatuses.length > 0 ? botStatuses.map(bot => (
             <Tooltip label={bot.description || bot.status} key={bot.name} position="right" withArrow>
-              <div className={classes.statusItem}>
+              {/* ▼▼▼ CORREÇÃO: Subseção com fundo cinza para cada bot ▼▼▼ */}
+              <Paper withBorder className={classes.subModule}>
                 <Text size="sm" fw={700} className={classes.botName}>{bot.name}</Text>
-                <Badge color={statusColors[bot.status]} size="sm" variant="light" radius="sm">{bot.status}</Badge>
-              </div>
+                <Badge color={statusColors[bot.status]} variant="light" radius="sm" fullWidth>
+                  {bot.status}
+                </Badge>
+              </Paper>
             </Tooltip>
-          )) : <Skeleton height={20} count={2} radius="sm" />}
+          )) : <Skeleton height={40} count={2} radius="sm" />}
         </Stack>
       </Paper>
 
       {/* Módulo do Discord */}
       <Paper withBorder p="md" radius="md" className={classes.module}>
-        <Text size="sm" fw={700} className={classes.moduleTitle}>COMUNIDADE DISCORD</Text>
+        <Text component="h3" className={classes.mainModuleTitle}>Comunidade</Text>
         {discordLoading ? <Skeleton height={60} mt="sm" radius="sm" /> : (
             <Group justify="space-around" mt="sm">
                 <div className={classes.stat}>
@@ -79,17 +69,6 @@ export function CommunityStatusColumn() {
             Junte-se a Nós
         </Button>
       </Paper>
-      
-      {/* Módulo de Feedback */}
-      {latestFeedback && (
-        <Paper withBorder p="md" radius="md" className={classes.module}>
-            <Text size="sm" fw={700} className={classes.moduleTitle}>ÚLTIMO FEEDBACK ⭐⭐⭐⭐⭐</Text>
-            <div className={classes.feedbackQuote}>
-                <Text size="sm" truncate="end">"{latestFeedback.comment}"</Text>
-                <Text size="xs" ta="right" mt={5}>- {latestFeedback.user_display_name}</Text>
-            </div>
-        </Paper>
-      )}
     </Stack>
   );
 }
