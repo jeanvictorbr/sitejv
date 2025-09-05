@@ -14,14 +14,17 @@ export function StatusBanner() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    // 1. Busca o status inicial
+    // 1. Busca o status inicial ao carregar a página
     const fetchStatus = async () => {
       const { data } = await supabase
         .from('site_status')
         .select('status_text, color')
         .eq('id', 1)
         .single();
-      setStatus(data);
+      if (data) {
+        setStatus(data);
+        setVisible(true); // Garante que a barra seja visível se houver status
+      }
     };
 
     fetchStatus();
@@ -34,7 +37,9 @@ export function StatusBanner() {
         { event: 'UPDATE', schema: 'public', table: 'site_status', filter: 'id=eq.1' },
         (payload) => {
           // Quando uma atualização acontece, atualiza o estado local com os novos dados
-          setStatus(payload.new as Status);
+          const newStatus = payload.new as Status;
+          setStatus(newStatus);
+          setVisible(true); // Mostra a barra novamente se um novo status for salvo
         }
       )
       .subscribe();
