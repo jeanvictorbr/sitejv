@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { useDiscordStats } from '../hooks/useDiscordStats';
-import { Title, Text, Paper, Button, Skeleton, Stack, Group, RingProgress, Badge, Divider, Tooltip } from '@mantine/core';
+import { Text, Paper, Button, Skeleton, Stack, Group, Badge, Divider, Tooltip } from '@mantine/core';
 import classes from './CommunityStatusColumn.module.css';
 
 interface BotStatus {
@@ -28,7 +28,6 @@ export function CommunityStatusColumn() {
   const { presenceCount, memberCount, loading: discordLoading } = useDiscordStats();
 
   useEffect(() => {
-    // Lógica de busca de dados (sem alterações)
     const fetchBotStatuses = async () => {
       const { data } = await supabase.from('bot_status').select('*').order('name');
       setBotStatuses(data as BotStatus[] || []);
@@ -43,7 +42,7 @@ export function CommunityStatusColumn() {
   }, []);
 
   return (
-    // ▼▼▼ CORREÇÃO: Layout agora usa sub-módulos (Paper) ▼▼▼
+    // ▼▼▼ CORREÇÃO: Layout agora usa sub-módulos (Paper) dentro de um Stack ▼▼▼
     <Stack gap="lg">
       {/* Módulo de Status dos Bots */}
       <Paper withBorder p="md" radius="md" className={classes.module}>
@@ -51,10 +50,10 @@ export function CommunityStatusColumn() {
         <Stack gap="xs" mt="xs">
           {botStatuses.length > 0 ? botStatuses.map(bot => (
             <Tooltip label={bot.description || bot.status} key={bot.name} position="right" withArrow>
-              <Group justify="space-between" className={classes.statusItem}>
+              <div className={classes.statusItem}>
                 <Text size="sm" fw={700} className={classes.botName}>{bot.name}</Text>
-                <Badge color={statusColors[bot.status]} size="sm" variant="light">{bot.status}</Badge>
-              </Group>
+                <Badge color={statusColors[bot.status]} size="sm" variant="light" radius="sm">{bot.status}</Badge>
+              </div>
             </Tooltip>
           )) : <Skeleton height={20} count={2} radius="sm" />}
         </Stack>
@@ -69,9 +68,8 @@ export function CommunityStatusColumn() {
                     <Text size="xl" fw={700} c="cyan">{presenceCount || 0}</Text>
                     <Text size="xs" c="dimmed">Online</Text>
                 </div>
-                {/* ▼▼▼ NOVO: Total de Membros ▼▼▼ */}
                 <div className={classes.stat}>
-                    <Text size="xl" fw={700}>{memberCount || 'N/A'}</Text>
+                    <Text size="xl" fw={700}>{memberCount || '---'}</Text>
                     <Text size="xs" c="dimmed">Membros</Text>
                 </div>
             </Group>
