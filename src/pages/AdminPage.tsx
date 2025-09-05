@@ -9,6 +9,7 @@ const adminLinks = [
   { to: '/admin', label: 'Visão Geral', end: true, icon: '📊' },
   { to: '/admin/marquee', label: 'Letreiro', end: false, icon: '📢' },
   { to: '/admin/status', label: 'Status do Site', end: false, icon: '📡' }, // <<< NOVA LINHA ADICIONADA
+  { to: '/admin/feedbacks', label: 'Feedbacks', end: false, icon: '⭐' },
 ];
 
 export function AdminPage() {
@@ -50,3 +51,4 @@ export function AdminPage() {
     </Container>
   );
 }
+
