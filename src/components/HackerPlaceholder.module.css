@@ -2,21 +2,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 180px;
-  background-color: var(--mantine-color-dark-8);
-  border-bottom: 1px solid var(--mantine-color-dark-6);
+  height: 100%;
+  min-height: 220px; /* Altura mínima para o card */
+  background-color: #000;
   position: relative;
   overflow: hidden;
 }
 
 .hackerText {
   font-family: 'Courier New', Courier, monospace;
-  font-size: 2.5rem;
+  font-size: 4rem; /* LETRA ENORME */
   font-weight: 700;
   color: var(--mantine-color-cyan-4);
   text-shadow: 0 0 10px var(--mantine-color-cyan-5), 0 0 20px var(--mantine-color-cyan-5);
   z-index: 2;
   letter-spacing: 2px;
+}
+
+@media (max-width: 768px) {
+  .hackerText { font-size: 3rem; }
 }
 
 .rays {
@@ -26,24 +30,29 @@
   width: 2px;
   height: 2px;
   z-index: 1;
+  box-shadow: 0 0 20px 10px var(--mantine-color-blue-8);
+  border-radius: 50%;
+  animation: rays-pulse 4s infinite ease-in-out;
 }
 
-.ray {
+.rays::before, .rays::after {
+  content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 2px;
-  height: 200px; /* Comprimento dos raios */
-  background: linear-gradient(to bottom, transparent, var(--mantine-color-cyan-7));
-  transform-origin: top center;
-  animation: ray-rotate 10s linear infinite;
+  inset: -400px; /* Tamanho dos raios */
+  background: conic-gradient(from var(--angle), transparent, var(--mantine-color-blue-7), transparent);
+  animation: rays-rotate 10s linear infinite;
 }
 
-.ray:nth-child(2) { animation-delay: -2.5s; }
-.ray:nth-child(3) { animation-delay: -5s; }
-.ray:nth-child(4) { animation-delay: -7.5s; }
+.rays::after {
+  animation-delay: -5s;
+}
 
-@keyframes ray-rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@keyframes rays-rotate {
+  from { --angle: 0deg; }
+  to { --angle: 360deg; }
+}
+
+@keyframes rays-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1); }
 }
