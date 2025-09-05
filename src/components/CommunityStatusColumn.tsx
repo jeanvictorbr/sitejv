@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabaseClient';
 import { useDiscordStats } from '../hooks/useDiscordStats';
 import { Text, Paper, Button, Skeleton, Stack, Group, Badge, Divider, Tooltip } from '@mantine/core';
 import classes from './CommunityStatusColumn.module.css';
+const DISCORD_SERVER_ID = '1302492815409938514'; 
 
 interface BotStatus {
   name: string;
