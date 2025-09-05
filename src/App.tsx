@@ -16,6 +16,7 @@ import { AdminPage } from './pages/AdminPage';
 import { AdminOverview } from './pages/AdminOverview';
 import { MarqueeManager } from './pages/MarqueeManager';
 import { StatusManager } from './pages/StatusManager';
+import { NewsManager } from './pages/NewsManager';
 
 // --- Importações do Sistema de Feedback ---
 import FeedbackPage from './pages/FeedbackPage';
@@ -60,6 +61,7 @@ function App() {
           <Route path="marquee" element={<MarqueeManager />} />
           <Route path="status" element={<StatusManager />} />
           <Route path="feedbacks" element={<FeedbackManager />} />
+          <Route path="news" element={<NewsManager />} />
         </Route>
       </Route>
       
