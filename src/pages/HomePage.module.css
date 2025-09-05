@@ -4,9 +4,8 @@
 
 .sideColumn {
   position: sticky;
-  top: 80px; /* Altura do header */
+  top: 80px;
   height: calc(100vh - 100px);
   overflow-y: auto;
-  background-color: rgba(var(--mantine-color-dark-8-rgb), 0.8);
-  backdrop-filter: blur(5px);
+  /* Removido o Paper daqui para que cada coluna tenha seu próprio estilo */
 }
