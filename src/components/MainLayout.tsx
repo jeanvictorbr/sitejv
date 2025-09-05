@@ -4,7 +4,7 @@ import { Header } from './Header';
 import { Footer } from './Footer';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useGlobalSound } from '../hooks/useGlobalSound';
-import { StatusBanner } from './StatusBanner';
+import { CommandCenter } from './CommandCenter'; 
 import { MusicPlayer } from './MusicPlayer'; // Importe o novo player
 import { Container } from '@mantine/core';
 import { VisitorCounter } from './VisitorCounter'; //
@@ -19,7 +19,7 @@ export function MainLayout() {
     <>
       <CelebrationEffect />
       <Header />
-      <StatusBanner />
+      <CommandCenter />
 {/* 2. ADICIONE O CONTADOR AQUI */}
       <Container py="md" style={{ textAlign: 'center' }}>
         <VisitorCounter />
@@ -51,5 +51,6 @@ export function MainLayout() {
   );
 
 }
+
 
 
