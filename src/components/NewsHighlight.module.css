@@ -1,50 +1,67 @@
 .container {
   position: relative;
   /* Garante que o container se adapte ao conteúdo e ao espaçamento */
+  padding: var(--mantine-spacing-xl) 0; /* Espaçamento para o efeito de glow */
 }
 
 .card {
+  position: relative;
   background-size: cover;
   background-position: center;
-  position: relative;
-  color: var(--mantine-color-white); /* Garante que o texto seja branco */
+  color: var(--mantine-color-white);
   text-align: center;
   overflow: hidden; /* Importante para o pseudo-elemento do glow */
+  border-color: rgba(0, 255, 0, 0.4) !important; /* Borda inicial sutil */
 
-  /* ▼▼▼ NOVO: EFEITO DE GLOW/LUZZ ▼▼▼ */
-  transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.4), 0 0 30px rgba(0, 255, 0, 0.2); /* Brilho inicial */
-  border-color: rgba(0, 255, 0, 0.6) !important; /* Borda mais verde */
+  /* Efeito de pseudo-elemento para o glow */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -5px; /* Expande um pouco para fora */
+    background: linear-gradient(45deg, var(--mantine-color-cyan-6) 0%, var(--mantine-color-lime-6) 100%);
+    z-index: 0; /* Abaixo do conteúdo e do overlay */
+    border-radius: inherit;
+    filter: blur(20px); /* Suaviza o gradiente para parecer um brilho */
+    opacity: 0.6;
+    animation: pulse-glow 3s infinite alternate ease-in-out;
+    pointer-events: none; /* Garante que não interfira com cliques */
+  }
+
+  /* Um segundo pseudo-elemento para um brilho mais sutil no centro */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: radial-gradient(circle at center, rgba(0,255,255,0.1) 0%, transparent 70%);
+    border-radius: inherit;
+    z-index: 0;
+    opacity: 0.5;
+    animation: subtle-pulse 5s infinite ease-in-out;
+    pointer-events: none;
+  }
 }
 
 .card:hover {
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.6), 0 0 40px rgba(0, 255, 0, 0.3); /* Brilho mais intenso no hover */
-  transform: translateY(-2px); /* Pequeno efeito de elevação */
-}
-
-/* Opcional: Adicionar um pseudo-elemento para um efeito de luz interna animada */
-.card::before {
-  content: '';
-  position: absolute;
-  inset: -5px; /* Expande um pouco para fora */
-  background: linear-gradient(45deg, rgba(0,255,0,0.1), rgba(0,255,255,0.1));
-  z-index: 0; /* Abaixo do conteúdo e do overlay */
-  border-radius: inherit;
-  filter: blur(20px); /* Suaviza o gradiente para parecer um brilho */
-  opacity: 0.7;
-  animation: pulse-glow 3s infinite alternate ease-in-out;
-  pointer-events: none; /* Garante que não interfira com cliques */
+  transform: translateY(-3px); /* Pequeno efeito de elevação no hover */
+  box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3); /* Sombra mais destacada */
 }
 
 @keyframes pulse-glow {
-  from { transform: scale(1); opacity: 0.7; }
-  to { transform: scale(1.02); opacity: 1; }
+  0% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.01); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 0.6; }
+}
+
+@keyframes subtle-pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 0.7; }
+  100% { opacity: 0.5; }
 }
 
 .overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.85); /* Fundo mais escuro para contraste */
+  background-color: rgba(0, 0, 0, 0.88); /* Fundo mais escuro para contraste forte */
   border-radius: inherit;
   z-index: 1;
 }
@@ -56,9 +73,26 @@
   flex-direction: column;
   align-items: center;
   color: var(--mantine-color-white); /* Garante que o texto seja branco */
+  padding: var(--mantine-spacing-xl);
 }
 
-.content h2, .content h3 { /* Ajusta a cor dos títulos dentro da novidade */
-  color: var(--mantine-color-cyan-3); 
-  text-shadow: 0 0 5px rgba(0,255,255,0.5); /* Sutil sombra para destacar */
+.label {
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px var(--mantine-color-cyan-5);
+  color: var(--mantine-color-cyan-4); /* Cor mais vibrante para a label */
+}
+
+.title {
+  color: var(--mantine-color-lime-4); /* Título em cor de destaque */
+  text-shadow: 0 0 8px rgba(0,255,0,0.7); /* Sombra para o título */
+  font-size: var(--mantine-font-size-xl);
+
+  @media (min-width: 768px) {
+    font-size: var(--mantine-font-size-xxl); /* Título maior em telas maiores */
+  }
+}
+
+.description {
+  color: var(--mantine-color-gray-3); /* Cor do texto mais suave */
 }
