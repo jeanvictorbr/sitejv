@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { useDiscordStats } from '../hooks/useDiscordStats';
 import { Title, Text, Paper, Button, Skeleton, Stack, Group, RingProgress, Badge, Divider, Tooltip } from '@mantine/core';
-import { Link } from 'react-router-dom';
 import classes from './CommunityStatusColumn.module.css';
 
 interface BotStatus {
@@ -21,17 +20,24 @@ const statusColors: Record<BotStatus['status'], string> = {
   Manutenção: 'red',
 };
 
-const DISCORD_INVITE_URL = 'https://discord.gg/VxmmFpp7vD';
+const DISCORD_INVITE_URL = 'https://discord.gg/jv-software';
 
 export function CommunityStatusColumn() {
   const [botStatuses, setBotStatuses] = useState<BotStatus[]>([]);
   const [latestFeedback, setLatestFeedback] = useState<Feedback | null>(null);
-  const { presenceCount, loading: discordLoading } = useDiscordStats();
+  const { presenceCount, memberCount, loading: discordLoading } = useDiscordStats();
 
   useEffect(() => {
-    // ... a lógica de busca de dados continua a mesma ...
-    const fetchBotStatuses = async () => { /* ... */ };
-    const fetchLatestFeedback = async () => { /* ... */ };
+    // Lógica de busca de dados (sem alterações)
+    const fetchBotStatuses = async () => {
+      const { data } = await supabase.from('bot_status').select('*').order('name');
+      setBotStatuses(data as BotStatus[] || []);
+    };
+    const fetchLatestFeedback = async () => {
+      const { data } = await supabase.from('feedbacks').select('comment, user_display_name').eq('is_visible', true).eq('rating', 5).order('created_at', { ascending: false }).limit(1).single();
+      setLatestFeedback(data);
+    };
+
     fetchBotStatuses();
     fetchLatestFeedback();
   }, []);
@@ -46,7 +52,6 @@ export function CommunityStatusColumn() {
           {botStatuses.length > 0 ? botStatuses.map(bot => (
             <Tooltip label={bot.description || bot.status} key={bot.name} position="right" withArrow>
               <Group justify="space-between" className={classes.statusItem}>
-                {/* ▼▼▼ CORREÇÃO: Estilo do nome do bot ▼▼▼ */}
                 <Text size="sm" fw={700} className={classes.botName}>{bot.name}</Text>
                 <Badge color={statusColors[bot.status]} size="sm" variant="light">{bot.status}</Badge>
               </Group>
@@ -59,17 +64,15 @@ export function CommunityStatusColumn() {
       <Paper withBorder p="md" radius="md" className={classes.module}>
         <Text size="sm" fw={700} className={classes.moduleTitle}>COMUNIDADE DISCORD</Text>
         {discordLoading ? <Skeleton height={60} mt="sm" radius="sm" /> : (
-            <Group justify="center" mt="sm">
-                <RingProgress
-                    size={70}
-                    thickness={5}
-                    roundCaps
-                    sections={[{ value: (presenceCount || 0) > 0 ? 100 : 0, color: 'cyan' }]}
-                    label={<Text c="cyan" fw={700} ta="center" size="md">{presenceCount || 0}</Text>}
-                />
-                <div>
-                    <Text size="xs">Membros</Text>
-                    <Text size="xs">Online</Text>
+            <Group justify="space-around" mt="sm">
+                <div className={classes.stat}>
+                    <Text size="xl" fw={700} c="cyan">{presenceCount || 0}</Text>
+                    <Text size="xs" c="dimmed">Online</Text>
+                </div>
+                {/* ▼▼▼ NOVO: Total de Membros ▼▼▼ */}
+                <div className={classes.stat}>
+                    <Text size="xl" fw={700}>{memberCount || 'N/A'}</Text>
+                    <Text size="xs" c="dimmed">Membros</Text>
                 </div>
             </Group>
         )}
