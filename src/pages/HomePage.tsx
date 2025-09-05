@@ -19,6 +19,7 @@ export function HomePage() {
   return (
     <>
       <Hero />
+      <NewsHighlight />
  
       <div style={{ marginTop: '2rem' }}>
         <Marquee />
@@ -76,3 +77,4 @@ export function HomePage() {
     </>
   );
 }
+
