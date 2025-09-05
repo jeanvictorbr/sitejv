@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabaseClient';
-import { Group, Text, Popover, Stack, Badge, Skeleton } from '@mantine/core';
+import { Popover, Stack, Badge, Skeleton, ActionIcon, Box } from '@mantine/core';
 import classes from './Widget.module.css';
 
 // Ícone de Robô
@@ -22,23 +22,23 @@ export function BotsStatusSummary() {
     fetchStatuses();
   }, []);
 
-  const overallStatus = statuses.some(s => s.status !== 'Operacional') ? 'Instável' : 'Operacional';
+  const hasIssue = statuses.some(s => s.status !== 'Operacional');
 
   return (
-    <Popover width={240} position="bottom" withArrow shadow="md">
+    <Popover width={240} position="bottom" withArrow shadow="md" openDelay={200}>
       <Popover.Target>
-        <Group gap="xs" className={classes.widget} style={{ cursor: 'pointer' }}>
-          <IconRobot size={18} color={overallStatus === 'Operacional' ? 'var(--mantine-color-teal-5)' : 'var(--mantine-color-orange-5)'} />
-          <Text size="xs">Status dos Bots</Text>
-        </Group>
+        <ActionIcon variant="transparent" color="gray" className={classes.widgetIcon}>
+          <IconRobot size={20} />
+          <Box className={classes.statusIndicator} data-issue={hasIssue} />
+        </ActionIcon>
       </Popover.Target>
       <Popover.Dropdown>
         <Stack gap="xs">
           {loading ? <Skeleton height={20} count={2} /> : statuses.map(bot => (
-            <Group key={bot.name} justify="space-between">
+            <div key={bot.name} className={classes.statusRow}>
               <Text size="sm">{bot.name}</Text>
-              <Badge color={statusColors[bot.status]} variant="light">{bot.status}</Badge>
-            </Group>
+              <Badge color={statusColors[bot.status]} variant="light" size="sm">{bot.status}</Badge>
+            </div>
           ))}
         </Stack>
       </Popover.Dropdown>
