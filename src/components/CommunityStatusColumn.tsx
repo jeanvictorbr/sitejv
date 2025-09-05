@@ -16,7 +16,7 @@ const statusColors: Record<BotStatus['status'], string> = {
   Manutenção: 'red',
 };
 
-const DISCORD_INVITE_URL = 'https://discord.gg/WsB9vygB3c';
+const DISCORD_INVITE_URL = 'https://discord.gg/VxmmFpp7vD';
 
 export function CommunityStatusColumn() {
   const [botStatuses, setBotStatuses] = useState<BotStatus[]>([]);
