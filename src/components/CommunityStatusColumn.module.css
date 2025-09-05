@@ -3,43 +3,32 @@
   backdrop-filter: blur(5px);
 }
 
-.moduleTitle {
-  color: var(--mantine-color-gray-5);
-  letter-spacing: 0.5px;
+/* ▼▼▼ CORREÇÃO: Título maior e azul ▼▼▼ */
+.mainModuleTitle {
+  font-size: var(--mantine-font-size-lg);
+  color: var(--mantine-color-cyan-4);
   text-align: center;
-  border-bottom: 1px solid var(--mantine-color-dark-6);
-  padding-bottom: var(--mantine-spacing-xs);
+  border-bottom: 1px solid var(--mantine-color-dark-5);
+  padding-bottom: var(--mantine-spacing-sm);
   margin-bottom: var(--mantine-spacing-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-/* ▼▼▼ CORREÇÃO: Layout em colunas para cada item de status ▼▼▼ */
-.statusItem {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    padding: var(--mantine-spacing-xs);
-    border-radius: var(--mantine-radius-sm);
-    transition: background-color 0.2s ease;
-}
-
-.statusItem:hover {
-    background-color: var(--mantine-color-dark-7);
+/* ▼▼▼ NOVO: Estilo para a subseção de cada bot ▼▼▼ */
+.subModule {
+  padding: var(--mantine-spacing-xs);
+  background-color: var(--mantine-color-dark-7); /* Fundo cinza mais claro */
+  border-color: var(--mantine-color-dark-5);
+  text-align: center;
 }
 
 .botName {
     color: var(--mantine-color-cyan-6);
+    margin-bottom: var(--mantine-spacing-xs);
 }
 
 .stat {
     text-align: center;
-}
-
-.feedbackQuote {
-    padding: var(--mantine-spacing-xs);
-    margin-top: var(--mantine-spacing-xs);
-    border-radius: var(--mantine-radius-sm);
-    background-color: var(--mantine-color-dark-7);
-    border-left: 3px solid var(--mantine-color-cyan-8);
-    font-style: italic;
-    color: var(--mantine-color-gray-4);
 }
