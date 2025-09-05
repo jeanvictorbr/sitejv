@@ -11,7 +11,7 @@
   text-align: center;
   overflow: hidden; /* Importante para o pseudo-elemento do glow */
 
-  /* ▼▼▼ NOVO: EFEITO DE GLOW/LUZ ▼▼▼ */
+  /* ▼▼▼ NOVO: EFEITO DE GLOW/LUZZ ▼▼▼ */
   transition: all 0.3s ease;
   box-shadow: 0 0 15px rgba(0, 255, 0, 0.4), 0 0 30px rgba(0, 255, 0, 0.2); /* Brilho inicial */
   border-color: rgba(0, 255, 0, 0.6) !important; /* Borda mais verde */
