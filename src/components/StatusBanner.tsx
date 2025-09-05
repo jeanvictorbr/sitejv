@@ -14,8 +14,8 @@ export function StatusBanner() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    // 1. Busca o status inicial ao carregar a página
     const fetchStatus = async () => {
+      // Busca o status inicial ao carregar a página
       const { data } = await supabase
         .from('site_status')
         .select('status_text, color')
@@ -29,7 +29,7 @@ export function StatusBanner() {
 
     fetchStatus();
 
-    // 2. ▼▼▼ CORREÇÃO: Escuta por mudanças em tempo real na tabela site_status ▼▼▼
+    // ▼▼▼ CORREÇÃO: Escuta por mudanças em tempo real na tabela site_status ▼▼▼
     const channel = supabase
       .channel('realtime-status-banner')
       .on(
@@ -44,7 +44,7 @@ export function StatusBanner() {
       )
       .subscribe();
 
-    // 3. Limpa a "escuta" quando o componente é desmontado
+    // Limpa a "escuta" quando o componente é desmontado
     return () => {
       supabase.removeChannel(channel);
     };
