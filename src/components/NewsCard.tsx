@@ -1,6 +1,7 @@
 import { Card, Image, Text, Group, Badge, ActionIcon } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import classes from './NewsCard.module.css';
+import { HackerPlaceholder } from './HackerPlaceholder'; 
 
 // ÍCONE SVG ADICIONADO DIRETAMENTE NO CÓDIGO
 const IconCalendar = (props: React.ComponentProps<'svg'>) => (
@@ -33,13 +34,11 @@ export function NewsCard({ id, title, content, imageUrl, createdAt }: NewsCardPr
       to={`/news/${id}`} // Assumindo uma futura página de detalhe
       className={classes.card}
     >
-      <Card.Section className={classes.imageSection}>
+     <Card.Section className={classes.imageSection}>
         {imageUrl ? (
           <Image src={imageUrl} height={180} alt={title} className={classes.image} />
         ) : (
-          <div className={classes.placeholderImage}>
-            <Text size="xl" c="dimmed">JV Store</Text>
-          </div>
+          <HackerPlaceholder /> // 2. Use o novo componente aqui
         )}
       </Card.Section>
 
