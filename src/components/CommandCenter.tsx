@@ -8,17 +8,14 @@ import { MusicController } from './CommandCenter/MusicController';
 export function CommandCenter() {
   return (
     <Paper withBorder className={classes.commandCenter}>
-      <Group justify="space-between" h="100%">
-        <Group gap="xs">
-          <DiscordStatus />
-          <Divider orientation="vertical" />
-          <BotsStatusSummary />
-        </Group>
-        <Group gap="xs">
-          <NewsNotification />
-          <Divider orientation="vertical" />
-          <MusicController />
-        </Group>
+      <Group justify="center" h="100%" gap="xl">
+        <DiscordStatus />
+        <Divider orientation="vertical" />
+        <BotsStatusSummary />
+        <Divider orientation="vertical" />
+        <NewsNotification />
+        <Divider orientation="vertical" />
+        <MusicController />
       </Group>
     </Paper>
   );
