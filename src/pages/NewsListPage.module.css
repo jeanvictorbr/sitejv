@@ -1,22 +1,43 @@
 .pageWrapper {
   min-height: 100vh;
-  background-color: var(--mantine-color-dark-9); /* Fundo escuro */
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%230a2a0a' fill-opacity='0.4'%3E%3Cpath d='M0 40L40 0H20L0 20Z'/%3E%3Cpath d='M10 40L40 10V0H0L10 30Z'/%3E%3C/g%3E%3C/svg%3E"); /* Padrão de background sutil */
-  background-attachment: fixed; /* Mantém o fundo fixo ao rolar */
+  background-color: #010409; /* Fundo preto GitHub */
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(0, 191, 255, 0.2) 1px, transparent 0);
+  background-size: 20px 20px; /* Padrão de pontos sutis */
+  background-attachment: fixed;
   color: var(--mantine-color-gray-0);
 }
 
 .mainTitle {
-  color: var(--mantine-color-lime-4);
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-  font-size: var(--mantine-font-size-xxxl);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 3.5rem;
+  color: var(--mantine-color-cyan-4);
+  text-transform: uppercase;
+  text-shadow:
+    0 0 5px var(--mantine-color-cyan-3),
+    0 0 10px var(--mantine-color-cyan-4),
+    0 0 20px var(--mantine-color-cyan-5),
+    0 0 40px var(--mantine-color-blue-7);
+  animation: flicker 3s infinite alternate;
+}
 
-  @media (max-width: 768px) {
-    font-size: var(--mantine-font-size-xxl);
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    text-shadow:
+      0 0 5px var(--mantine-color-cyan-3),
+      0 0 10px var(--mantine-color-cyan-4),
+      0 0 20px var(--mantine-color-cyan-5),
+      0 0 40px var(--mantine-color-blue-7);
   }
+  20%, 24%, 55% { text-shadow: none; }
+}
+
+@media (max-width: 768px) {
+  .mainTitle { font-size: 2.5rem; }
 }
 
 .subtitle {
-  color: var(--mantine-color-gray-3);
+  color: var(--mantine-color-gray-5);
   font-size: var(--mantine-font-size-lg);
+  letter-spacing: 1px;
 }
