@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useMemo, useRef, useCallbac
 const songs = [
   { title: "Música 1", artist: "Artista 1", src: "/music/song1.mp3" },
   { title: "Música 2", artist: "Artista 2", src: "/music/song2.mp3" },
-  // Adicione mais músicas aqui
+  // Adicione mais músicas aquix
 ];
 
 interface MusicContextType {
