@@ -1,7 +1,6 @@
 .container {
   position: relative;
-  /* Garante que o container se adapte ao conteúdo e ao espaçamento */
-  padding: var(--mantine-spacing-xl) 0; /* Espaçamento para o efeito de glow */
+  padding: var(--mantine-spacing-xl) 0;
 }
 
 .card {
@@ -10,89 +9,75 @@
   background-position: center;
   color: var(--mantine-color-white);
   text-align: center;
-  overflow: hidden; /* Importante para o pseudo-elemento do glow */
-  border-color: rgba(0, 255, 0, 0.4) !important; /* Borda inicial sutil */
+  overflow: hidden;
+  border-color: rgba(0, 191, 255, 0.4) !important; /* Borda azul ciano */
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.3); /* Sombra de brilho azul */
 
-  /* Efeito de pseudo-elemento para o glow */
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -5px; /* Expande um pouco para fora */
-    background: linear-gradient(45deg, var(--mantine-color-cyan-6) 0%, var(--mantine-color-lime-6) 100%);
-    z-index: 0; /* Abaixo do conteúdo e do overlay */
-    border-radius: inherit;
-    filter: blur(20px); /* Suaviza o gradiente para parecer um brilho */
-    opacity: 0.6;
-    animation: pulse-glow 3s infinite alternate ease-in-out;
-    pointer-events: none; /* Garante que não interfira com cliques */
-  }
+  /* Efeito de brilho pulsante constante */
+  animation: pulse-border 4s infinite ease-in-out;
+}
 
-  /* Um segundo pseudo-elemento para um brilho mais sutil no centro */
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 2px;
-    background: radial-gradient(circle at center, rgba(0,255,255,0.1) 0%, transparent 70%);
-    border-radius: inherit;
-    z-index: 0;
-    opacity: 0.5;
-    animation: subtle-pulse 5s infinite ease-in-out;
-    pointer-events: none;
-  }
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at top left, rgba(0, 191, 255, 0.3), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(0, 191, 255, 0.3), transparent 30%);
+  z-index: 1;
+  opacity: 0;
+  animation: subtle-light-sweep 8s infinite alternate ease-in-out;
 }
 
 .card:hover {
-  transform: translateY(-3px); /* Pequeno efeito de elevação no hover */
-  box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3); /* Sombra mais destacada */
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 0 25px rgba(0, 191, 255, 0.5), 0 0 40px rgba(0, 191, 255, 0.2);
 }
 
-@keyframes pulse-glow {
-  0% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.01); opacity: 0.9; }
-  100% { transform: scale(1); opacity: 0.6; }
+.card:hover::before {
+  opacity: 1;
 }
 
-@keyframes subtle-pulse {
-  0% { opacity: 0.5; }
-  50% { opacity: 0.7; }
-  100% { opacity: 0.5; }
+@keyframes pulse-border {
+  0% { border-color: rgba(0, 191, 255, 0.4); box-shadow: 0 0 15px rgba(0, 191, 255, 0.3); }
+  50% { border-color: rgba(0, 255, 255, 0.8); box-shadow: 0 0 25px rgba(0, 191, 255, 0.5); }
+  100% { border-color: rgba(0, 191, 255, 0.4); box-shadow: 0 0 15px rgba(0, 191, 255, 0.3); }
+}
+
+@keyframes subtle-light-sweep {
+  from { opacity: 0; }
+  to { opacity: 0.5; }
 }
 
 .overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.88); /* Fundo mais escuro para contraste forte */
+  background-color: rgba(10, 20, 30, 0.88); /* Fundo azulado escuro */
   border-radius: inherit;
-  z-index: 1;
+  z-index: 2;
 }
 
 .content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: var(--mantine-color-white); /* Garante que o texto seja branco */
   padding: var(--mantine-spacing-xl);
 }
 
 .label {
   font-weight: 700;
-  letter-spacing: 1px;
-  text-shadow: 0 0 5px var(--mantine-color-cyan-5);
-  color: var(--mantine-color-cyan-4); /* Cor mais vibrante para a label */
+  letter-spacing: 2px;
+  color: var(--mantine-color-cyan-4);
+  text-shadow: 0 0 8px var(--mantine-color-cyan-5);
 }
 
 .title {
-  color: var(--mantine-color-lime-4); /* Título em cor de destaque */
-  text-shadow: 0 0 8px rgba(0,255,0,0.7); /* Sombra para o título */
-  font-size: var(--mantine-font-size-xl);
-
-  @media (min-width: 768px) {
-    font-size: var(--mantine-font-size-xxl); /* Título maior em telas maiores */
-  }
+  color: var(--mantine-color-white);
+  text-shadow: 0 0 10px rgba(0, 191, 255, 0.8);
 }
 
 .description {
-  color: var(--mantine-color-gray-3); /* Cor do texto mais suave */
+  color: var(--mantine-color-gray-4);
 }
