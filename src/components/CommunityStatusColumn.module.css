@@ -1,5 +1,3 @@
-/* Removemos o .columnPaper, cada módulo tem seu próprio estilo */
-
 .module {
   background-color: rgba(var(--mantine-color-dark-8-rgb), 0.8);
   backdrop-filter: blur(5px);
@@ -24,9 +22,12 @@
     background-color: var(--mantine-color-dark-7);
 }
 
-/* ▼▼▼ CORREÇÃO: Estilo do nome do bot ▼▼▼ */
 .botName {
     color: var(--mantine-color-cyan-6);
+}
+
+.stat {
+    text-align: center;
 }
 
 .feedbackQuote {
