@@ -1,9 +1,9 @@
 .pageWrapper {
   min-height: 100vh;
-  background-color: #010409; /* Fundo preto GitHub */
+  background-color: #010409;
   background-image:
     radial-gradient(circle at 1px 1px, rgba(0, 191, 255, 0.2) 1px, transparent 0);
-  background-size: 20px 20px; /* Padrão de pontos sutis */
+  background-size: 25px 25px;
   background-attachment: fixed;
   color: var(--mantine-color-gray-0);
 }
