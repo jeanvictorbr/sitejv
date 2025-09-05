@@ -1,19 +1,50 @@
 .container {
   position: relative;
+  /* Garante que o container se adapte ao conteúdo e ao espaçamento */
 }
 
 .card {
   background-size: cover;
   background-position: center;
   position: relative;
-  color: var(--mantine-color-white);
+  color: var(--mantine-color-white); /* Garante que o texto seja branco */
   text-align: center;
+  overflow: hidden; /* Importante para o pseudo-elemento do glow */
+
+  /* ▼▼▼ NOVO: EFEITO DE GLOW/LUZ ▼▼▼ */
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.4), 0 0 30px rgba(0, 255, 0, 0.2); /* Brilho inicial */
+  border-color: rgba(0, 255, 0, 0.6) !important; /* Borda mais verde */
+}
+
+.card:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.6), 0 0 40px rgba(0, 255, 0, 0.3); /* Brilho mais intenso no hover */
+  transform: translateY(-2px); /* Pequeno efeito de elevação */
+}
+
+/* Opcional: Adicionar um pseudo-elemento para um efeito de luz interna animada */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: -5px; /* Expande um pouco para fora */
+  background: linear-gradient(45deg, rgba(0,255,0,0.1), rgba(0,255,255,0.1));
+  z-index: 0; /* Abaixo do conteúdo e do overlay */
+  border-radius: inherit;
+  filter: blur(20px); /* Suaviza o gradiente para parecer um brilho */
+  opacity: 0.7;
+  animation: pulse-glow 3s infinite alternate ease-in-out;
+  pointer-events: none; /* Garante que não interfira com cliques */
+}
+
+@keyframes pulse-glow {
+  from { transform: scale(1); opacity: 0.7; }
+  to { transform: scale(1.02); opacity: 1; }
 }
 
 .overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.85); /* Fundo mais escuro para contraste */
   border-radius: inherit;
   z-index: 1;
 }
@@ -24,4 +55,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: var(--mantine-color-white); /* Garante que o texto seja branco */
+}
+
+.content h2, .content h3 { /* Ajusta a cor dos títulos dentro da novidade */
+  color: var(--mantine-color-cyan-3); 
+  text-shadow: 0 0 5px rgba(0,255,255,0.5); /* Sutil sombra para destacar */
 }
