@@ -1,30 +1,40 @@
-// src/hooks/useDiscordStats.ts
 import { useState, useEffect } from 'react';
 
-export const useDiscordStats = () => {
-  const [stats, setStats] = useState<{ onlineCount: number | null; totalCount: number | null }>({
-    onlineCount: null,
-    totalCount: null,
-  });
+// ▼▼▼ CORREÇÃO: ID do servidor "JV SOFTWARE" adicionado aqui ▼▼▼
+const DISCORD_SERVER_ID = '1302492815409938514'; 
+
+interface DiscordStats {
+  presenceCount: number | null;
+  loading: boolean;
+  error: string | null;
+}
+
+export const useDiscordStats = (): DiscordStats => {
+  const [presenceCount, setPresenceCount] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // ▼▼▼ COLOQUE O CÓDIGO DO SEU CONVITE DO DISCORD AQUI ▼▼▼
-    const INVITE_CODE = 'VxmmFpp7vD'; 
+    const fetchStats = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(`https://discord.com/api/guilds/${DISCORD_SERVER_ID}/widget.json`);
+        if (!response.ok) {
+          throw new Error('Não foi possível buscar os dados do widget do Discord. Verifique se o widget está habilitado no seu servidor.');
+        }
+        const data = await response.json();
+        setPresenceCount(data.presence_count);
+      } catch (err: any) {
+        setError(err.message);
+        console.error("Erro no hook useDiscordStats:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    // Esta é a nova API, que busca dados do convite
-    const apiUrl = `https://discord.com/api/v9/invites/${INVITE_CODE}?with_counts=true`;
-
-    fetch(apiUrl)
-      .then(res => res.json())
-      .then(data => {
-        // A API de convite usa nomes diferentes para os dados
-        const online = data.approximate_presence_count || 0;
-        const total = data.approximate_member_count || 0;
-
-        setStats({ onlineCount: online, totalCount: total });
-      })
-      .catch(err => console.error("Falha ao buscar stats do Discord via convite:", err));
+    fetchStats();
   }, []);
 
-  return stats;
+  return { presenceCount, loading, error };
 };
