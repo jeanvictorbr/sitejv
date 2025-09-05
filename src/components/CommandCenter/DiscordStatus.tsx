@@ -1,4 +1,4 @@
-import { Group, Popover, Text, Skeleton } from '@mantine/core';
+import { Group, Popover, Text, Skeleton, ActionIcon } from '@mantine/core';
 import { useDiscordStats } from '../../hooks/useDiscordStats';
 import classes from './Widget.module.css';
 
@@ -9,24 +9,19 @@ export function DiscordStatus() {
   const { presenceCount, memberCount, loading } = useDiscordStats();
 
   return (
-    <Popover width={200} position="bottom" withArrow shadow="md">
+    <Popover width={200} position="bottom" withArrow shadow="md" openDelay={200}>
       <Popover.Target>
-        <Group gap="xs" className={classes.widget} style={{ cursor: 'pointer' }}>
-          <IconDiscord size={18} />
-          {loading ? (
-            <Skeleton height={12} width={50} />
-          ) : (
-            <Text size="xs">{presenceCount} Online</Text>
-          )}
-        </Group>
+        <ActionIcon variant="transparent" color="gray" className={classes.widgetIcon}>
+          <IconDiscord size={20} />
+        </ActionIcon>
       </Popover.Target>
       <Popover.Dropdown>
-        <Text size="sm">
-          <Text span c="cyan" fw={700}>{presenceCount}</Text> Online
-        </Text>
-        <Text size="sm">
-          <Text span fw={700}>{memberCount}</Text> Membros
-        </Text>
+        {loading ? <Skeleton height={30} /> : (
+            <>
+                <Text size="sm"><Text span c="cyan" fw={700}>{presenceCount}</Text> Online</Text>
+                <Text size="sm"><Text span fw={700}>{memberCount}</Text> Membros</Text>
+            </>
+        )}
       </Popover.Dropdown>
     </Popover>
   );
