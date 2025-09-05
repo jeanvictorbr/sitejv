@@ -1,0 +1,74 @@
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease-in-out;
+  background-color: var(--mantine-color-dark-8); /* Fundo mais escuro */
+  border-color: var(--mantine-color-dark-6) !important;
+  color: var(--mantine-color-gray-1);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 255, 255, 0.2); /* Sombra com glow azul */
+    border-color: var(--mantine-color-cyan-5) !important;
+  }
+}
+
+.imageSection {
+  position: relative;
+  overflow: hidden;
+  height: 180px;
+}
+
+.image {
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.placeholderImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 180px;
+  background-color: var(--mantine-color-dark-7);
+  border-bottom: 1px solid var(--mantine-color-dark-6);
+}
+
+.contentWrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--mantine-spacing-lg);
+}
+
+.title {
+  color: var(--mantine-color-cyan-3);
+  text-shadow: 0 0 3px rgba(0, 255, 255, 0.3);
+}
+
+.dateBadge {
+  color: var(--mantine-color-gray-4);
+  background-color: var(--mantine-color-dark-6);
+  border: 1px solid var(--mantine-color-dark-5);
+}
+
+.description {
+  flex-grow: 1;
+  margin-top: var(--mantine-spacing-sm);
+  margin-bottom: var(--mantine-spacing-md);
+  color: var(--mantine-color-gray-4);
+}
+
+.readMore {
+    align-self: flex-end; /* Alinha o botão "Ler Mais" ao final do card */
+    color: var(--mantine-color-cyan-5);
+    font-weight: bold;
+    font-size: var(--mantine-font-size-sm);
+
+    &:hover {
+        background-color: transparent;
+        color: var(--mantine-color-cyan-3);
+    }
+}
