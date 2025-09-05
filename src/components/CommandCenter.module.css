@@ -2,7 +2,7 @@
   position: sticky;
   top: 60px; /* Altura do seu Header. Ajuste se necessário. */
   z-index: 1000;
-  height: 40px;
+  height: 45px; /* Um pouco mais alta para os ícones */
   background-color: rgba(var(--mantine-color-dark-8-rgb), 0.8);
   backdrop-filter: blur(10px);
   border-left: 0;
