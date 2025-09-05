@@ -1,0 +1,13 @@
+.commandCenter {
+  position: sticky;
+  top: 60px; /* Altura do seu Header. Ajuste se necessário. */
+  z-index: 1000;
+  height: 40px;
+  background-color: rgba(var(--mantine-color-dark-8-rgb), 0.8);
+  backdrop-filter: blur(10px);
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  border-radius: 0;
+  padding: 0 var(--mantine-spacing-md);
+}
