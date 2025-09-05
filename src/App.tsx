@@ -17,6 +17,7 @@ import { AdminOverview } from './pages/AdminOverview';
 import { MarqueeManager } from './pages/MarqueeManager';
 import { StatusManager } from './pages/StatusManager';
 import { NewsManager } from './pages/NewsManager';
+import { NewsListPage } from './pages/NewsListPage';
 
 // --- Importações do Sistema de Feedback ---
 import FeedbackPage from './pages/FeedbackPage';
@@ -32,6 +33,7 @@ function App() {
       {/* Rotas que USAM o layout principal */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/news" element={<NewsListPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/bots/factionflow" element={<FactionFlowPage />} />
         <Route path="/bots/ticketultra" element={<TicketUltraPage />} />
