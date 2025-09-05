@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@mantine/core';
 import { Link } from 'react-router-dom'; // 1. Importa o Link para navegação
 import { DiscordPulseCard } from '../components/DiscordPulseCard';
+import { NewsHighlight } from '../components/NewsHighlight';
 
 const sectionAnimation: any = {
     initial: { opacity: 0, y: 50 },
@@ -77,4 +78,5 @@ export function HomePage() {
     </>
   );
 }
+
 
