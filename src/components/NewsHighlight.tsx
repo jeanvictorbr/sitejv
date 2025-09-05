@@ -1,9 +1,11 @@
+
 // src/components/NewsHighlight.tsx
+import classes from './NewsHighlight.module.css';
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { Container, Title, Text, Paper, Button, Skeleton } from '@mantine/core';
 import { Link } from 'react-router-dom';
-import classes from './NewsHighlight.module.css';
+
 
 interface NewsArticle {
   title: string;
