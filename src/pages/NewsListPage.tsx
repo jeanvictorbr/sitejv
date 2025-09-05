@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabaseClient';
 import { Container, Title, Text, SimpleGrid, Skeleton } from '@mantine/core';
 import { motion } from 'framer-motion';
 import { NewsCard } from '../components/NewsCard'; // Importa o novo NewsCard
-import classes from './NewsListPage.module.css'; // Importa o CSS da página
+import classes from './NewsListPage.module.css'; // Importa o CSS da páginaa
 
 interface NewsArticle {
   id: string;
