@@ -1,0 +1,24 @@
+.widget {
+  height: 100%;
+  padding: 0 var(--mantine-spacing-xs);
+  color: var(--mantine-color-gray-4);
+  transition: background-color 0.2s ease;
+  border-radius: var(--mantine-radius-sm);
+
+  &:hover {
+    background-color: var(--mantine-color-dark-6);
+    color: var(--mantine-color-white);
+  }
+}
+
+.newsLink {
+    display: block;
+    padding: var(--mantine-spacing-xs);
+    border-radius: var(--mantine-radius-sm);
+    color: var(--mantine-color-gray-2);
+    text-decoration: none;
+
+    &:hover {
+        background-color: var(--mantine-color-dark-5);
+    }
+}
