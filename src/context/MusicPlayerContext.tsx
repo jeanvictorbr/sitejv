@@ -1,75 +1,39 @@
-import React, { createContext, useContext, useState, useMemo, useRef, useCallback } from 'react';
+import { Group, Text, ActionIcon, Popover, Box } from '@mantine/core';
+import { useMusicPlayer } from '../../context/MusicPlayerContext'; // Caminho corrigido
+import classes from './Widget.module.css';
 
-const songs = [
-  { title: "Música 1", artist: "Artista 1", src: "/music/song1.mp3" },
-  { title: "Música 2", artist: "Artista 2", src: "/music/song2.mp3" },
-  // Adicione mais músicas aquix
-];
+// ... Ícones ...
+const IconPlayerPlay = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M7 4v16l13-8z" /></svg> );
+const IconPlayerPause = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M6 5h4v14h-4z" /><path d="M14 5h4v14h-4z" /></svg> );
+const IconPlayerSkipBack = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M20 5v14l-12-7z" /><path d="M4 5v14" /></svg> );
+const IconPlayerSkipForward = (props: React.ComponentProps<'svg'>) => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M4 5v14l12-7z" /><path d="M20 5v14" /></svg> );
 
-interface MusicContextType {
-  isPlaying: boolean;
-  currentSong: typeof songs[0];
-  togglePlay: () => void;
-  nextSong: () => void;
-  prevSong: () => void;
-}
-
-const MusicPlayerContext = createContext<MusicContextType | undefined>(undefined);
-
-export const MusicPlayerProvider = ({ children }: { children: React.ReactNode }) => {
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  const togglePlay = useCallback(() => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play().catch(e => console.error("Erro ao tocar música:", e));
-      }
-      setIsPlaying(!isPlaying);
-    }
-  }, [isPlaying]);
-
-  const nextSong = useCallback(() => {
-    setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
-  }, []);
-
-  const prevSong = useCallback(() => {
-    setCurrentSongIndex((prevIndex) => (prevIndex - 1 + songs.length) % songs.length);
-  }, []);
-  
-  // Efeito para tocar a música quando o índice ou estado de play muda
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.src = songs[currentSongIndex].src;
-      if (isPlaying) {
-        audioRef.current.play().catch(e => console.error("Erro ao tocar música:", e));
-      }
-    }
-  }, [currentSongIndex, isPlaying]);
-
-  const value = useMemo(() => ({
-    isPlaying,
-    currentSong: songs[currentSongIndex],
-    togglePlay,
-    nextSong,
-    prevSong,
-  }), [isPlaying, currentSongIndex, togglePlay, nextSong, prevSong]);
+export function MusicController() {
+  const { isPlaying, togglePlay, nextSong, prevSong, currentSong } = useMusicPlayer();
 
   return (
-    <MusicPlayerContext.Provider value={value}>
-      <audio ref={audioRef} />
-      {children}
-    </MusicPlayerContext.Provider>
+    <Popover width={280} position="bottom" withArrow shadow="md">
+      <Popover.Target>
+        <Group gap="xs" className={classes.widget} style={{ cursor: 'pointer' }}>
+          <Text size="xs" c="cyan">♪</Text>
+          <Text size="xs" truncate="end" style={{ maxWidth: 120 }}>
+            {currentSong?.title || "Música"}
+          </Text>
+        </Group>
+      </Popover.Target>
+      <Popover.Dropdown>
+        <Box p="xs">
+          <Text ta="center" size="sm" fw={500} truncate="end">{currentSong?.title}</Text>
+          <Text ta="center" size="xs" c="dimmed">{currentSong?.artist}</Text>
+          <Group justify="center" mt="sm">
+            <ActionIcon onClick={prevSong} variant="default"><IconPlayerSkipBack size={16} /></ActionIcon>
+            <ActionIcon onClick={togglePlay} variant="default" size="lg">
+              {isPlaying ? <IconPlayerPause size={20} /> : <IconPlayerPlay size={20} />}
+            </ActionIcon>
+            <ActionIcon onClick={nextSong} variant="default"><IconPlayerSkipForward size={16} /></ActionIcon>
+          </Group>
+        </Box>
+      </Popover.Dropdown>
+    </Popover>
   );
-};
-
-export const useMusicPlayer = () => {
-  const context = useContext(MusicPlayerContext);
-  if (context === undefined) {
-    throw new Error('useMusicPlayer must be used within a MusicPlayerProvider');
-  }
-  return context;
-};
+}
