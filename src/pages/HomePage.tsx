@@ -28,7 +28,7 @@ export function HomePage() {
           </Paper>
         </Grid.Col>
 
-        {/* Coluna Central: Conteúdo Principal */}
+        {/* Coluna Central: Conteúdo Principals */}
         <Grid.Col span={{ base: 12, lg: 8 }}>
           <Hero />
           <div style={{ marginTop: '2rem' }}> <Marquee /> </div>
@@ -53,3 +53,4 @@ export function HomePage() {
     </div>
   );
 }
+
