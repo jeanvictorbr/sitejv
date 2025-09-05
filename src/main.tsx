@@ -1,19 +1,23 @@
-// src/main.tsx
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
-import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
+import { MantineProvider } from '@mantine/core';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext.tsx';
+import { MusicPlayerProvider } from './context/MusicPlayerContext.tsx'; // 1. Importe o Provider
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  // A ORDEM CORRETA E FINAL:
-  <BrowserRouter>       {/* 1º - O Roteador, que gerencia as páginas */}
-    <MantineProvider defaultColorScheme="dark">   {/* 2º - O Provedor de Estilos, que dá o visual */}
-      <AuthProvider>    {/* 3º - O Provedor de Login, que usa os estilos para o 'loading' */}
-        <App />
-      </AuthProvider>
-    </MantineProvider>
-  </BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
+      <MantineProvider defaultColorScheme="dark">
+        <AuthProvider>
+          <MusicPlayerProvider> {/* 2. Envolva o App com ele */}
+            <App />
+          </MusicPlayerProvider>
+        </AuthProvider>
+      </MantineProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
 );
