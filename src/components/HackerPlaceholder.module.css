@@ -3,16 +3,16 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  min-height: 220px; /* Altura mínima para o card */
-  background-color: #000;
+  min-height: 220px;
+  background-color: #010409;
   position: relative;
   overflow: hidden;
 }
 
 .hackerText {
   font-family: 'Courier New', Courier, monospace;
-  font-size: 4rem; /* LETRA ENORME */
-  font-weight: 700;
+  font-size: 5rem; /* LETRA ENORME */
+  font-weight: 900;
   color: var(--mantine-color-cyan-4);
   text-shadow: 0 0 10px var(--mantine-color-cyan-5), 0 0 20px var(--mantine-color-cyan-5);
   z-index: 2;
@@ -20,7 +20,7 @@
 }
 
 @media (max-width: 768px) {
-  .hackerText { font-size: 3rem; }
+  .hackerText { font-size: 3.5rem; }
 }
 
 .rays {
@@ -38,14 +38,12 @@
 .rays::before, .rays::after {
   content: '';
   position: absolute;
-  inset: -400px; /* Tamanho dos raios */
+  inset: -500px; /* Tamanho dos raios */
   background: conic-gradient(from var(--angle), transparent, var(--mantine-color-blue-7), transparent);
   animation: rays-rotate 10s linear infinite;
 }
 
-.rays::after {
-  animation-delay: -5s;
-}
+.rays::after { animation-delay: -5s; }
 
 @keyframes rays-rotate {
   from { --angle: 0deg; }
